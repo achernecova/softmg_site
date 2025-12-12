@@ -6,7 +6,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+page_factory.py
 # Distribution / packaging
 .Python
 build/
