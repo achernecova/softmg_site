@@ -1,4 +1,5 @@
 from selene import browser
+from selenium.webdriver.common.by import By
 
 
 class ScrollElement:
@@ -26,6 +27,7 @@ class ScrollElement:
         browser.with_(timeout=5).wait.until(self.stop_scroll_condition)
 
     def search_element_footer_form(self):
+        browser.element((By.TAG_NAME, "body")).click()
         # Получаем элемент
         # element_website_packages = browser.element(f"(//*[@class='team-card']//a)[{value}]")
         element_website_packages = browser.element("[data-qa='discussion-form']")

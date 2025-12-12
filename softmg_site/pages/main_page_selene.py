@@ -1,6 +1,7 @@
 import allure
 from selene import be, browser, by, command, have
 from selene.support.shared import browser
+from selenium.webdriver.common.by import By
 
 from config import config
 from softmg_site.page_elements.footer_form import FooterForm
@@ -41,6 +42,7 @@ class MainPageSelene:
         """
         :param value: номер элемента меню
         """
+        browser.element((By.TAG_NAME, "body")).click()
         # xPath с учетом нумерации (начинается с 1), прибавляем 1 к индексу
         locator = by.xpath(f"(//*[contains(@class, '_firstLevelItem')])[{value + 1}]")
         # Находим элемент
@@ -61,6 +63,7 @@ class MainPageSelene:
 
     def open_page(self) -> None:
         browser.open(self.base_url)
+        browser.element((By.TAG_NAME, "body")).click()
 
     # TODO - надо посмотреть на метод check_page_url_and_title - скорее всего они одинаковые и
     #  check_page_url_and_title просто слишком заморочен
@@ -93,6 +96,7 @@ class MainPageSelene:
         :param menu_type: Тип верхнего уровня меню ('services', 'about' и т.п.).
         :param index: Индекс пункта второго уровня меню (нумерация начинается с 0).
         """
+        browser.element((By.TAG_NAME, "body")).click()
         first_level_selector = {
             "services": "(//*[contains(@class, '_firstLevelItem')])[1]",  # Первый пункт меню
             "about": "(//*[contains(@class, '_firstLevelItem')])[4]",  # Четвёртый пункт меню
@@ -125,6 +129,7 @@ class MainPageSelene:
         :param menu_type: Тип верхнего уровня меню ('services', 'about' и т.п.).
         :param index: Индекс пункта третьего уровня меню (нумерация начинается с 0).
         """
+        browser.element((By.TAG_NAME, "body")).click()
         # Определяем, какой элемент первого уровня выбираем исходя из типа меню
         first_level_selector = {
             "services": "(//*[contains(@class, '_firstLevelItem')])[1]",  # Первый пункт меню
