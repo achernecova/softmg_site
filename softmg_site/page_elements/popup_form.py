@@ -1,0 +1,166 @@
+import os
+import random
+import time
+
+import allure
+from faker.proxy import Faker
+from selene import be, browser, have
+from selenium.webdriver.common.by import By
+
+from softmg_site.page_elements.modal_popup import PopupModal
+
+
+class PopupFormRequests:
+
+    def __init__(self):
+        '''
+        Добавлена переменная constant для однозначного определения заявки с автотестов в CRM и на почте.
+        '''
+        self.name_data = Faker()
+        self.data = Faker("ru_RU")
+        self.cookie_modal = PopupModal()
+        self.constant = "AutotestsPopup"
+
+    @staticmethod
+    # @allure.step("Выбрать случайное количество топпингов")
+    def click_topping_random():
+        '''
+        Метод для рандомного выбора топпингов
+        :return:
+        '''
+        selected_indexes = random.sample(
+            range(1, 7), random.randint(1, 6)
+        )  # Выбираем индексы топпингов
+
+        for index in selected_indexes:
+            element_locator = (
+                f"//*[contains(@class, 'sendmail-popup')]//*[@for='t1{index}']"
+            )
+            browser.element(element_locator).click()
+            print(f"Выбран топпинг с индексом: {index}")  # Для отладки
+
+    def input_name_in_popup(self):
+        """
+        Простое заполнение поля Имя в модалке.
+        """
+        name_text = self.constant + self.data.name()
+        browser.element("[data-qa='leave-application-form'] [name='name']").type(
+            name_text
+        )
+
+    def input_name_with_excess_in_popup(self):
+        """
+        Заполнение поля Имя в модалке с превышением символов
+        """
+        name_text = self.constant + self.data.text(max_nb_chars=350)
+        browser.element("[data-qa='leave-application-form'] [name='name']").type(
+            name_text
+        )
+
+    def input_email_in_popup(self):
+        """
+        Корректное заполнение поля Email в модалке
+        """
+        email_text = self.constant + self.name_data.email()
+        login_sender, domain_sender = email_text.split("@")
+        login_sender_normalized = login_sender.replace(",", "").replace(" ", "")
+        email_text_normalized = login_sender_normalized + "@" + domain_sender
+        browser.element("[data-qa='leave-application-form'] [name='email']").type(
+            email_text_normalized
+        )
+
+    def input_phone_in_popup(self):
+        """
+        Корректное заполнение поля Email в модалке
+        """
+        phone_number = self.name_data.numerify("###########")
+        browser.element("[data-qa='leave-application-form'] [name='phone']").type(
+            phone_number
+        )
+
+    def input_comment_in_popup(self):
+        """
+        Корректное заполнение поля Комментарий в модалке
+        """
+        comment_text = self.constant + self.name_data.text(max_nb_chars=150)
+        element = browser.element(
+            "[data-qa='leave-application-form'] [placeholder='Напишите кратко о проекте']"
+        )
+        for char in comment_text:
+            element.type(char)
+            time.sleep(0.05)  # задержка в 0,05 с. Не придумала как иначе посимвольно вводить
+
+    @staticmethod
+    @allure.step("Установка чекбокс политики конфиденциальности")
+    def input_checkbox_in_popup():
+        '''
+        Установка чекбокса Я ознакомлен с политикой конфиденциальности
+        '''
+        element = browser.element(
+            '[data-qa="leave-application-form-checkboxes"] input[name="privacy_consent"]'
+        )
+        browser.execute_script("arguments[0].click();", element.locate())
+
+    # TODO - ожидаем решения задачи 1013 для установки data-qa для ошибок под полями
+    @allure.step("Получение ошибки о неустановленном чекбоксе")
+    def get_error_text_in_field_checkbox_in_popup(self):
+        locator_element_error = (
+            By.XPATH,
+            "//*[@data-qa='leave-application-form-checkboxes']//*[contains(@class,'_error')]",
+        )
+        browser.element(locator_element_error).should(
+            have.text("Необходимо ознакомиться с политикой конфиденциальности")
+        )
+
+    @staticmethod
+    def click_button_in_popup():
+        '''
+        Клик по кнопке Отправить в модалке
+        '''
+        browser.element('[data-qa="leave-application-form"] [type="submit"]').click()
+
+    @staticmethod
+    def popup_success_assert():
+        '''
+        Метод для проверки видимости окна успешности отправки заявки если отправка осуществляется из модалки,
+        а не из футера
+        '''
+        element = browser.element("//*[@class='sendmail-popup success']")
+        element.should(be.visible)
+
+    @staticmethod
+    def add_random_number_of_files():
+        """
+        Метод для прикрепления случайного числа файлов из папки add_files_in_form_request/correct_files.
+        Без жесткой привязки к списку файлов (крепим напрямую из папки).
+        Если количество файлов изменится в папке - num_files вычислится и будут выбираться файлы уже из нового списка.
+        """
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        files_directory = os.path.join(current_dir, "add_files_in_form_request/correct_files")
+
+        # Получаем список всех файлов в директории
+        all_files = os.listdir(files_directory)
+
+        # Количество файлов
+        num_files = len(all_files)
+
+        # Случайно выбираем количество файлов для загрузки (от 1 до общего числа файлов)
+        number_of_files_to_attach = random.randint(1, num_files)
+
+        # Выбираем случайные файлы из полученной коллекции
+        selected_files = random.sample(all_files, number_of_files_to_attach)
+
+        # Локатор поля ввода файлов
+        add_file_in_popup_locator = (
+            By.CSS_SELECTOR,
+            "[data-qa='leave-application-form'] input[type='file']",
+        )
+
+        # Делаем видимым стандартное поле прикрепления файла (крепим не в отображаемое поле (не в обертку), а в скрытое)
+        field_file = browser.element(add_file_in_popup_locator).locate()
+        browser.execute_script("arguments[0].style.display = 'block';", field_file)
+
+        # Отправляем каждый выбранный файл
+        for filename in selected_files:
+            full_file_path = os.path.join(files_directory, filename)
+            field_file.send_keys(full_file_path)
