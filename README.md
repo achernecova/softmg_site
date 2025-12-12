@@ -34,6 +34,9 @@
 
 <img title="softana" align="left" src="data_image_from_readme/softana_2.png" height="500" width="300"/> 
 
+----
+
+
 ### <a name="about_project">Особенности проекта</a>
 
 * Оповещения о тестовых прогонах в Telegram
