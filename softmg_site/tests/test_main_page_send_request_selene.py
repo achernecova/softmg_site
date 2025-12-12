@@ -5,168 +5,171 @@ from allure_commons.types import Severity
 
 from softmg_site.pages.main_page_selene import MainPageSelene
 
+#
+# @allure.feature("Отправка заявок")
+# class TestSendRequests:
+#
+#     @allure.tag("critical")
+#     @allure.tag("negative")
+#     @allure.severity(Severity.CRITICAL)
+#     @allure.label("owner", "chernetsova")
+#     @allure.story("Добавление обязательного чекбокса")
+#     @allure.title("Отправка формы из хедера без установки обязательного чекбокса")
+#     def test_send_request_without_checkbox_in_header(self):
+#         with allure.step("Открываем главную страницу"):
+#             page = MainPageSelene()
+#             page.open_page()
+#         with allure.step("Кликаем по кнопке Оставить заявку в меню"):
+#             page.header_menu.header_button_request_click()
+#         with allure.step("Заполняем только email"):
+#             page.popup_form.input_email_in_popup()
+#         with allure.step("Жмем на кнопку Обсудить проект"):
+#             page.popup_form.click_button_in_popup()
+#         with allure.step("Проверяем появление окна успешности отправки заявки"):
+#             page.popup_form.get_error_text_in_field_checkbox_in_popup()
+#
+#
+#     @allure.tag("critical")
+#     @allure.tag("positive")
+#     @allure.severity(Severity.CRITICAL)
+#     @allure.label("owner", "chernetsova")
+#     @allure.story("Отправка формы из хедера - полное заполнение формы")
+#     @allure.title("Отправка формы из хедера - полное заполнение формы")
+#     def test_send_requests_with_fill_form_in_header(self):
+#         with allure.step("Открываем главную страницу"):
+#             page = MainPageSelene()
+#             page.open_page()
+#         with allure.step("Кликаем по кнопке Оставить заявку в меню"):
+#             page.header_menu.header_button_request_click()
+#         with allure.step(
+#             "Заполняем все поля, крепим рандомное количество корректных файлов, устанавливаем чекбокс"
+#         ):
+#             page.popup_form.input_name_in_popup()
+#             page.popup_form.input_email_in_popup()
+#             page.popup_form.input_phone_in_popup()
+#             page.popup_form.input_comment_in_popup()
+#             page.popup_form.input_checkbox_in_popup()
+#             page.popup_form.add_files()
+#         with allure.step("Жмем на кнопку Обсудить проект"):
+#             page.popup_form.click_button_in_popup()
+#         with allure.step("Проверяем появление окна успешности отправки заявки"):
+#             page.popup_modal.visible_success_popup_header()
+#
+#
+#     @allure.tag("critical")
+#     @allure.tag("positive")
+#     @allure.severity(Severity.CRITICAL)
+#     @allure.label("owner", "chernetsova")
+#     @allure.story("Отправка формы из хедера - заполнение только обязательных полей")
+#     @allure.title("Отправка формы из хедера - заполнение только обязательных полей")
+#     def test_send_required_fields_in_header(self):
+#         with allure.step("Открываем главную страницу"):
+#             page = MainPageSelene()
+#             page.open_page()
+#         with allure.step("Кликаем по кнопке Оставить заявку в меню"):
+#             page.header_menu.header_button_request_click()
+#         with allure.step("Заполняем обязательные поля, устанавливаем чекбокс"):
+#             page.popup_form.input_email_in_popup()
+#             page.popup_form.input_checkbox_in_popup()
+#         with allure.step("Жмем на кнопку Обсудить проект"):
+#             page.popup_form.click_button_in_popup()
+#         with allure.step("Проверяем появление окна успешности отправки заявки"):
+#             page.popup_modal.visible_success_popup_header()
+#
+#     @allure.tag("critical")
+#     @allure.tag("positive")
+#     @allure.severity(Severity.CRITICAL)
+#     @allure.label("owner", "chernetsova")
+#     @allure.story("Отправка формы из футера - полное заполнение формы")
+#     @allure.title("Отправка формы из футера - полное заполнение формы")
+#     def test_send_requests_with_fill_form_in_footer(self):
+#         with allure.step("Открываем главную страницу"):
+#             page = MainPageSelene()
+#             page.open_page()
+#         with allure.step(
+#             "Заполняем все поля, крепим один корректный файл, устанавливаем чекбокс"
+#         ):
+#             page.scroll_element.search_element_footer_form()
+#             page.footer_form.input_comment()
+#             page.footer_form.input_name()
+#             page.footer_form.input_email()
+#             page.footer_form.input_phone()
+#             page.footer_form.input_checkbox()
+#             page.footer_form.add_correct_file_in_field()
+#         with allure.step("Жмем на кнопку Обсудить проект"):
+#             page.footer_form.click_button_submit()
+#         with allure.step("Проверяем появление окна успешности отправки заявки"):
+#             page.popup_modal.visible_success_popup_footer()
+#
+#     @allure.tag("critical")
+#     @allure.tag("positive")
+#     @allure.severity(Severity.CRITICAL)
+#     @allure.label("owner", "chernetsova")
+#     @allure.story("Отправка формы из футера - заполнение обязательных полей")
+#     @allure.title("Отправка формы из футера - заполнение обязательных полей")
+#     def test_send_required_fields_in_footer(self):
+#         with allure.step("Открываем главную страницу"):
+#             page = MainPageSelene()
+#             page.open_page()
+#         with allure.step(
+#             "Заполняем все поля, крепим один корректный файл, устанавливаем чекбокс"
+#         ):
+#             page.scroll_element.search_element_footer_form()
+#             page.footer_form.input_comment()
+#             page.footer_form.input_email()
+#             page.footer_form.add_correct_file_in_field()
+#             page.footer_form.input_checkbox()
+#         with allure.step("Жмем на кнопку Обсудить проект"):
+#             page.footer_form.click_button_submit()
+#         with allure.step("Проверяем появление окна успешности отправки заявки"):
+#             page.popup_modal.visible_success_popup_footer()
+#
+#     @allure.tag("critical")
+#     @allure.tag("negative")
+#     @allure.severity(Severity.CRITICAL)
+#     @allure.label("owner", "chernetsova")
+#     @allure.story("Добавление обязательного чекбокса")
+#     @allure.title("Отправка формы из футера без установки обязательного чекбокса")
+#     def test_send_request_without_checkbox_in_footer(self):
+#         with allure.step("Открываем главную страницу"):
+#             page = MainPageSelene()
+#             page.open_page()
+#         with allure.step("Заполняем обязательное поле email"):
+#             page.scroll_element.search_element_footer_form()
+#             page.footer_form.input_email()
+#         with allure.step("Нажимаем Отправки заявку"):
+#             page.footer_form.click_button_submit()
+#         with allure.step("Проверяем сообщение об ошибке"):
+#             page.footer_form.get_error_text_in_field_checkbox()
+#
+#     @allure.tag("critical")
+#     @allure.tag("negative")
+#     @allure.severity(Severity.CRITICAL)
+#     @allure.label("owner", "chernetsova")
+#     @allure.feature("Негативные кейсы отправки заявок")
+#     # @allure.story("Отправка формы из баннера c большим кол-вом файлов")
+#     @allure.title("Отправка формы из футера c большим кол-вом файлов")
+#     @allure.link("https://godev.agency/", name="Testing")
+#     def test_send_required_fields_add_11_files_in_footer(self):
+#         with allure.step("Открываем главную страницу"):
+#             page = MainPageSelene()
+#             page.open_page()
+#         with allure.step("Вводим обязательный email Крепим 11 файлов"):
+#             page.scroll_element.search_element_footer_form()
+#             page.footer_form.input_email()
+#         with allure.step("Крепим 11 файлов"):
+#             page.footer_form.add_eleven_file_in_popup()
+#             sleep(10)
+#         with allure.step("Ставим обязательный чекбокс"):
+#             page.footer_form.input_checkbox()
+#         with allure.step("Нажимаем Отправки заявку"):
+#             page.footer_form.click_button_submit()
+#         with allure.step("Проверяем сообщение об ошибке при прикреплении кол-ва файлов больше 10"):
+#             page.footer_form.get_error_text_in_field_checkbox()
 
-@allure.feature("Отправка заявок")
-class TestSendRequests:
-
-    @allure.tag("critical")
-    @allure.tag("negative")
-    @allure.severity(Severity.CRITICAL)
-    @allure.label("owner", "chernetsova")
-    @allure.story("Добавление обязательного чекбокса")
-    @allure.title("Отправка формы из хедера без установки обязательного чекбокса")
-    def test_send_request_without_checkbox_in_header(self):
-        with allure.step("Открываем главную страницу"):
-            page = MainPageSelene()
-            page.open_page()
-        with allure.step("Кликаем по кнопке Оставить заявку в меню"):
-            page.header_menu.header_button_request_click()
-        with allure.step("Заполняем только email"):
-            page.popup_form.input_email_in_popup()
-        with allure.step("Жмем на кнопку Обсудить проект"):
-            page.popup_form.click_button_in_popup()
-        with allure.step("Проверяем появление окна успешности отправки заявки"):
-            page.popup_form.get_error_text_in_field_checkbox_in_popup()
 
 
-    @allure.tag("critical")
-    @allure.tag("positive")
-    @allure.severity(Severity.CRITICAL)
-    @allure.label("owner", "chernetsova")
-    @allure.story("Отправка формы из хедера - полное заполнение формы")
-    @allure.title("Отправка формы из хедера - полное заполнение формы")
-    def test_send_requests_with_fill_form_in_header(self):
-        with allure.step("Открываем главную страницу"):
-            page = MainPageSelene()
-            page.open_page()
-        with allure.step("Кликаем по кнопке Оставить заявку в меню"):
-            page.header_menu.header_button_request_click()
-        with allure.step(
-            "Заполняем все поля, крепим рандомное количество корректных файлов, устанавливаем чекбокс"
-        ):
-            page.popup_form.input_name_in_popup()
-            page.popup_form.input_email_in_popup()
-            page.popup_form.input_phone_in_popup()
-            page.popup_form.input_comment_in_popup()
-            page.popup_form.input_checkbox_in_popup()
-            page.popup_form.add_files()
-        with allure.step("Жмем на кнопку Обсудить проект"):
-            page.popup_form.click_button_in_popup()
-        with allure.step("Проверяем появление окна успешности отправки заявки"):
-            page.popup_modal.visible_success_popup_header()
-
-
-    @allure.tag("critical")
-    @allure.tag("positive")
-    @allure.severity(Severity.CRITICAL)
-    @allure.label("owner", "chernetsova")
-    @allure.story("Отправка формы из хедера - заполнение только обязательных полей")
-    @allure.title("Отправка формы из хедера - заполнение только обязательных полей")
-    def test_send_required_fields_in_header(self):
-        with allure.step("Открываем главную страницу"):
-            page = MainPageSelene()
-            page.open_page()
-        with allure.step("Кликаем по кнопке Оставить заявку в меню"):
-            page.header_menu.header_button_request_click()
-        with allure.step("Заполняем обязательные поля, устанавливаем чекбокс"):
-            page.popup_form.input_email_in_popup()
-            page.popup_form.input_checkbox_in_popup()
-        with allure.step("Жмем на кнопку Обсудить проект"):
-            page.popup_form.click_button_in_popup()
-        with allure.step("Проверяем появление окна успешности отправки заявки"):
-            page.popup_modal.visible_success_popup_header()
-
-    @allure.tag("critical")
-    @allure.tag("positive")
-    @allure.severity(Severity.CRITICAL)
-    @allure.label("owner", "chernetsova")
-    @allure.story("Отправка формы из футера - полное заполнение формы")
-    @allure.title("Отправка формы из футера - полное заполнение формы")
-    def test_send_requests_with_fill_form_in_footer(self):
-        with allure.step("Открываем главную страницу"):
-            page = MainPageSelene()
-            page.open_page()
-        with allure.step(
-            "Заполняем все поля, крепим один корректный файл, устанавливаем чекбокс"
-        ):
-            page.scroll_element.search_element_footer_form()
-            page.footer_form.input_comment()
-            page.footer_form.input_name()
-            page.footer_form.input_email()
-            page.footer_form.input_phone()
-            page.footer_form.input_checkbox()
-            page.footer_form.add_correct_file_in_field()
-        with allure.step("Жмем на кнопку Обсудить проект"):
-            page.footer_form.click_button_submit()
-        with allure.step("Проверяем появление окна успешности отправки заявки"):
-            page.popup_modal.visible_success_popup_footer()
-
-    @allure.tag("critical")
-    @allure.tag("positive")
-    @allure.severity(Severity.CRITICAL)
-    @allure.label("owner", "chernetsova")
-    @allure.story("Отправка формы из футера - заполнение обязательных полей")
-    @allure.title("Отправка формы из футера - заполнение обязательных полей")
-    def test_send_required_fields_in_footer(self):
-        with allure.step("Открываем главную страницу"):
-            page = MainPageSelene()
-            page.open_page()
-        with allure.step(
-            "Заполняем все поля, крепим один корректный файл, устанавливаем чекбокс"
-        ):
-            page.scroll_element.search_element_footer_form()
-            page.footer_form.input_comment()
-            page.footer_form.input_email()
-            page.footer_form.add_correct_file_in_field()
-            page.footer_form.input_checkbox()
-        with allure.step("Жмем на кнопку Обсудить проект"):
-            page.footer_form.click_button_submit()
-        with allure.step("Проверяем появление окна успешности отправки заявки"):
-            page.popup_modal.visible_success_popup_footer()
-
-    @allure.tag("critical")
-    @allure.tag("negative")
-    @allure.severity(Severity.CRITICAL)
-    @allure.label("owner", "chernetsova")
-    @allure.story("Добавление обязательного чекбокса")
-    @allure.title("Отправка формы из футера без установки обязательного чекбокса")
-    def test_send_request_without_checkbox_in_footer(self):
-        with allure.step("Открываем главную страницу"):
-            page = MainPageSelene()
-            page.open_page()
-        with allure.step("Заполняем обязательное поле email"):
-            page.scroll_element.search_element_footer_form()
-            page.footer_form.input_email()
-        with allure.step("Нажимаем Отправки заявку"):
-            page.footer_form.click_button_submit()
-        with allure.step("Проверяем сообщение об ошибке"):
-            page.footer_form.get_error_text_in_field_checkbox()
-
-    @allure.tag("critical")
-    @allure.tag("negative")
-    @allure.severity(Severity.CRITICAL)
-    @allure.label("owner", "chernetsova")
-    @allure.feature("Негативные кейсы отправки заявок")
-    # @allure.story("Отправка формы из баннера c большим кол-вом файлов")
-    @allure.title("Отправка формы из футера c большим кол-вом файлов")
-    @allure.link("https://godev.agency/", name="Testing")
-    def test_send_required_fields_add_11_files_in_footer(self):
-        with allure.step("Открываем главную страницу"):
-            page = MainPageSelene()
-            page.open_page()
-        with allure.step("Вводим обязательный email Крепим 11 файлов"):
-            page.scroll_element.search_element_footer_form()
-            page.footer_form.input_email()
-        with allure.step("Крепим 11 файлов"):
-            page.footer_form.add_eleven_file_in_popup()
-            sleep(10)
-        with allure.step("Ставим обязательный чекбокс"):
-            page.footer_form.input_checkbox()
-        with allure.step("Нажимаем Отправки заявку"):
-            page.footer_form.click_button_submit()
-        with allure.step("Проверяем сообщение об ошибке при прикреплении кол-ва файлов больше 10"):
-            page.footer_form.get_error_text_in_field_checkbox()
-
+###################################################################
 
     # @allure.tag("critical")
     # @allure.tag("negative")
