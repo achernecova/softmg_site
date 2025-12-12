@@ -1,0 +1,53 @@
+$dangerousPatterns = [
+                // PHP
+                '/<\?php/i',
+                '/eval\s*\(/i',
+                '/exec\s*\(/i',
+                '/system\s*\(/i',
+                '/passthru\s*\(/i',
+                '/shell_exec\s*\(/i',
+                '/base64_decode\s*\(/i',
+                '/assert\s*\(/i',
+                '/create_function\s*\(/i',
+                '/preg_replace\s*\(.*\/e.*\)/i',
+                '/include\s*(\(|_once\s*\()/i',
+                '/require\s*(\(|_once\s*\()/i',
+
+                // JavaScript
+                '/<script\b/i',
+                '/Function\s*\(/i',
+                '/new\s+Function\s*\(/i',
+                '/setTimeout\s*\(\s*["\'].*["\']\s*,/i',
+                '/setInterval\s*\(\s*["\'].*["\']\s*,/i',
+
+                // Python
+                '/os\.system\s*\(/i',
+                '/subprocess\.run\s*\(/i',
+                '/subprocess\.call\s*\(/i',
+                '/exec\s*\(/i',
+                '/__import__\s*\(/i',
+
+                // Java
+                '/Runtime\.getRuntime\s*\(\s*\)\.exec\s*\(/i',
+                '/ProcessBuilder\s*\(/i',
+
+                // Node.js
+                '/require\s*\(\s*[\'"]child_process[\'"]\s*\)/i',
+                '/child_process\.exec\s*\(/i',
+                '/child_process\.spawn\s*\(/i',
+
+                // Shell
+                '/#!\/bin\/bash/i',
+                '/#!\/bin\/sh/i',
+                '/\$\((.*?)\)/i',
+                '/curl\s+/i',
+                '/wget\s+/i',
+
+                // Reverse shells (optional, advanced detection)
+                '/nc\s+-e/i',
+                '/bash\s+-i\s+>&\s+/i',
+                '/python\s+-c\s+["\']import\s+socket/i',
+                '/perl\s+-e\s+["\'].*socket/i',
+                '/ruby\s+-rsocket/i',
+                '/php\s+-r\s+["\'].*shell/i',
+            ];
