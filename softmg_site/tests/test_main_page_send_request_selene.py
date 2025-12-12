@@ -49,7 +49,7 @@ class TestSendRequests:
             page.popup_form.input_phone_in_popup()
             page.popup_form.input_comment_in_popup()
             page.popup_form.input_checkbox_in_popup()
-            page.popup_form.add_random_number_of_files()
+            page.popup_form.add_files()
         with allure.step("Жмем на кнопку Обсудить проект"):
             page.popup_form.click_button_in_popup()
         with allure.step("Проверяем появление окна успешности отправки заявки"):
@@ -99,7 +99,7 @@ class TestSendRequests:
         with allure.step("Жмем на кнопку Обсудить проект"):
             page.footer_form.click_button_submit()
         with allure.step("Проверяем появление окна успешности отправки заявки"):
-            page.popup_modal.visible_success_popup()
+            page.popup_modal.visible_success_popup_footer()
 
     @allure.tag("critical")
     @allure.tag("positive")
@@ -122,7 +122,7 @@ class TestSendRequests:
         with allure.step("Жмем на кнопку Обсудить проект"):
             page.footer_form.click_button_submit()
         with allure.step("Проверяем появление окна успешности отправки заявки"):
-            page.popup_modal.visible_success_popup()
+            page.popup_modal.visible_success_popup_footer()
 
     @allure.tag("critical")
     @allure.tag("negative")

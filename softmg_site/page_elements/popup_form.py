@@ -129,26 +129,9 @@ class PopupFormRequests:
         element.should(be.visible)
 
     @staticmethod
-    def add_random_number_of_files():
-        """
-        Метод для прикрепления случайного числа файлов из папки add_files_in_form_request/correct_files.
-        Без жесткой привязки к списку файлов (крепим напрямую из папки).
-        Если количество файлов изменится в папке - num_files вычислится и будут выбираться файлы уже из нового списка.
-        """
+    def add_files():
         current_dir = os.path.dirname(os.path.abspath(__file__))
         files_directory = os.path.join(current_dir, "add_files_in_form_request/correct_files")
-
-        # Получаем список всех файлов в директории
-        all_files = os.listdir(files_directory)
-
-        # Количество файлов
-        num_files = len(all_files)
-
-        # Случайно выбираем количество файлов для загрузки (от 1 до общего числа файлов)
-        number_of_files_to_attach = random.randint(1, num_files)
-
-        # Выбираем случайные файлы из полученной коллекции
-        selected_files = random.sample(all_files, number_of_files_to_attach)
 
         # Локатор поля ввода файлов
         add_file_in_popup_locator = (
@@ -160,7 +143,7 @@ class PopupFormRequests:
         field_file = browser.element(add_file_in_popup_locator).locate()
         browser.execute_script("arguments[0].style.display = 'block';", field_file)
 
-        # Отправляем каждый выбранный файл
-        for filename in selected_files:
-            full_file_path = os.path.join(files_directory, filename)
-            field_file.send_keys(full_file_path)
+        full_file_path = os.path.join(files_directory, 'correct_file.docx')
+        field_file.send_keys(full_file_path)
+
+

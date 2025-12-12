@@ -2,8 +2,10 @@ import os
 import time
 
 import allure
+import pytest
 from faker import Faker
-from selene import be, browser, have
+from selene import be, browser, have, query
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
@@ -22,7 +24,7 @@ class FooterForm:
         )
         for char in comment_text:
             element.type(char)
-            time.sleep(0.1)
+            time.sleep(0.05)
 
     def input_name(self):
         name_text = self.special_text + self.data.name()
@@ -62,14 +64,23 @@ class FooterForm:
     def click_button_submit():
         browser.element("[data-qa='discussion-form'] button[type='submit']").click()
 
-    # TODO - ожидаем добавление обработки ошибок - добавление data-qa
+    # Ожидаем добавление обработки ошибок - добавление data-qa - добавлено. Задача 1013
     @allure.step("Получение ошибки о неустановленном чекбоксе")
     def get_error_text_in_field_checkbox(self):
-        locator_element_error = (
-            By.XPATH, "//*[@data-qa='error-message']")
-        browser.element(locator_element_error).should(
-            have.text("Необходимо ознакомиться с политикой конфиденциальности")
-        )
+        '''
+        Используем перехватчик ошибок, чтобы вывод ошибки был более читаем.
+        '''
+        try:
+            locator_element_error = (By.XPATH, "//*[@data-qa='checkbox-error-message']")
+            error_element = browser.element(locator_element_error)
+            error_text = error_element.get(query.text)  # Берём текст элемента
+
+            if error_text != "Необходимо ознакомиться с политикой конфиденциальности":
+                pytest.fail(f"Ошибка: Текст ошибки отличается от ожидаемого. "
+                            f"Ожидаемый текст: 'Необходимо ознакомиться с политикой конфиденциальности'. "
+                            f"Фактический текст: '{error_text}'")
+        except NoSuchElementException as e:
+            pytest.fail(f"Ошибка: Элемент с ошибкой не найден.\nСообщение: {str(e)}")
 
     @staticmethod
     def add_correct_file_in_field():
