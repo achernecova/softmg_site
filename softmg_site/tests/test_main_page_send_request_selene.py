@@ -28,6 +28,7 @@ class TestSendRequests:
         with allure.step("Проверяем появление окна успешности отправки заявки"):
             page.popup_form.get_error_text_in_field_checkbox_in_popup()
 
+
     @allure.tag("critical")
     @allure.tag("positive")
     @allure.severity(Severity.CRITICAL)
@@ -53,6 +54,7 @@ class TestSendRequests:
             page.popup_form.click_button_in_popup()
         with allure.step("Проверяем появление окна успешности отправки заявки"):
             page.popup_modal.visible_success_popup_header()
+
 
     @allure.tag("critical")
     @allure.tag("positive")
