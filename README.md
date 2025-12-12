@@ -7,7 +7,7 @@
 ----
 
 
-### Table of Contents 🤸
+### Оглавление 🤸
 
 
 - [Особенности проекта ](#about_project)
@@ -34,6 +34,9 @@
 
 <img title="softana" align="left" src="data_image_from_readme/softana_2.png" height="500" width="300"/> 
 
+----
+
+
 ### <a name="about_project">Особенности проекта</a>
 
 * Оповещения о тестовых прогонах в Telegram
@@ -55,18 +58,7 @@
 
 ### <a name="stack">Используемый стэк</a>
 
-<img title="Python" src="data_image_from_readme/icons/python-original.svg" height="40" width="40"/> 
-<img title="Pytest" src="data_image_from_readme/icons/pytest-original.svg" height="40" width="40"/> 
-<img title="Jira" src="data_image_from_readme/icons/jira-original.svg" height="40" width="40"/> 
-<img title="Allure Report" src="data_image_from_readme/icons/Allure_Report.png" height="40" width="40"/> 
-<img title="Allure TestOps" src="data_image_from_readme/icons/AllureTestOps.png" height="40" width="40"/> 
-<img title="GitHub" src="data_image_from_readme/icons/github-original.svg" height="40" width="40"/> 
-<img title="Selenoid" src="data_image_from_readme/icons/selenoid.png" height="40" width="40"/> 
-<img title="Selenium" src="data_image_from_readme/icons/selenium-original.svg" height="40" width="40"/> 
-<img title="Selene" src="data_image_from_readme/icons/selene.png" height="40" width="40"/> 
-<img title="Pycharm" src="data_image_from_readme/icons/pycharm.png" height="40" width="40"/> 
-<img title="Telegram" src="data_image_from_readme/icons/tg.png" height="40" width="40"/> 
-<img title="Jenkins" src="data_image_from_readme/icons/jenkins-original.svg" height="40" width="40"/>
+<img title="Python" src="data_image_from_readme/icons/python-original.svg" height="40" width="40"/> <img title="Pytest" src="data_image_from_readme/icons/pytest-original.svg" height="40" width="40"/> <img title="Jira" src="data_image_from_readme/icons/jira-original.svg" height="40" width="40"/> <img title="Allure Report" src="data_image_from_readme/icons/Allure_Report.png" height="40" width="40"/> <img title="Allure TestOps" src="data_image_from_readme/icons/AllureTestOps.png" height="40" width="40"/> <img title="GitHub" src="data_image_from_readme/icons/github-original.svg" height="40" width="40"/> <img title="Selenoid" src="data_image_from_readme/icons/selenoid.png" height="40" width="40"/> <img title="Selenium" src="data_image_from_readme/icons/selenium-original.svg" height="40" width="40"/> <img title="Selene" src="data_image_from_readme/icons/selene.png" height="40" width="40"/> <img title="Pycharm" src="data_image_from_readme/icons/pycharm.png" height="40" width="40"/> <img title="Telegram" src="data_image_from_readme/icons/tg.png" height="40" width="40"/> <img title="Jenkins" src="data_image_from_readme/icons/jenkins-original.svg" height="40" width="40"/>
 
 
 ----
