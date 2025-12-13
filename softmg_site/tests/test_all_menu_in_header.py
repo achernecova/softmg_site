@@ -132,47 +132,47 @@ class TestThirdLevelMenuOpenPage:
             page = MainPageSelene()
             page.open_page()
         with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
-            page.open_page_third_level_in_menu("services", 2, index)
+            page.open_page_third_level_in_menu("services", 1, index)
         with allure.step("Проверяем заголовок и url у страниц"):
             page.page_assert_open_page(page_name)
 #
-#     @allure.tag("critical")
-#     @allure.severity(Severity.CRITICAL)
-#     @allure.label("owner", "chernetsova")
-#     @allure.link("https://godev.agency/", name="Testing")
-#     @allure.title("Открытие саб-меню")
-#     @allure.story("Открытие саб-меню из саб-меню Разработка приложений")
-#     @pytest.mark.parametrize(
-#         "index, page_name",
-#         [
-#             (7, "application_ios"),
-#             (8, "application_android"),
-#             (9, "development_backbone"),
-#             (10, "application_mongodb"),
-#             (11, "application_java"),
-#             (12, "application_smartphone"),
-#             (13, "javascript_react"),
-#             (14, "react_native"),
-#         ],
-#         ids=[
-#             "ios",
-#             "android",
-#             "backbone",
-#             "mongodb",
-#             "java",
-#             "smartphone",
-#             "javascript_react",
-#             "react_native",
-#         ],
-#     )
-#     def test_page_menu_level_third_application_open(self, index, page_name):
-#         with allure.step("Открываем главную страницу"):
-#             page = MainPageSelene()
-#             page.open_page()
-#         with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
-#             page.open_page_third_level_in_menu("services", 3, index)
-#         with allure.step("Проверяем заголовок и url у страниц"):
-#             page.page_assert_open_page(page_name)
+    @allure.tag("critical")
+    @allure.severity(Severity.CRITICAL)
+    @allure.label("owner", "chernetsova")
+    @allure.link("https://godev.agency/", name="Testing")
+    @allure.title("Открытие саб-меню")
+    @allure.story("Открытие саб-меню из саб-меню Разработка приложений")
+    @pytest.mark.parametrize(
+        "index, page_name",
+        [
+            (7, "application_ios"),
+            (8, "application_android"),
+            (9, "development_backbone"),
+            (10, "application_mongodb"),
+            (11, "application_java"),
+            (12, "application_smartphone"),
+            (13, "javascript_react"),
+            (14, "react_native"),
+        ],
+        ids=[
+            "ios",
+            "android",
+            "backbone",
+            "mongodb",
+            "java",
+            "smartphone",
+            "javascript_react",
+            "react_native",
+        ],
+    )
+    def test_page_menu_level_third_application_open(self, index, page_name):
+        with allure.step("Открываем главную страницу"):
+            page = MainPageSelene()
+            page.open_page()
+        with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
+            page.open_page_third_level_in_menu("services", 2, index)
+        with allure.step("Проверяем заголовок и url у страниц"):
+            page.page_assert_open_page(page_name)
 #
 #     @allure.tag("critical")
 #     @allure.severity(Severity.CRITICAL)
