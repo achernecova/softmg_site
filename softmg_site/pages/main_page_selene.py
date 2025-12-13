@@ -116,9 +116,17 @@ class MainPageSelene:
         # Формулируем путь ко второму уровню меню (индексация с 1)
         second_level_xpath = f"(//*[contains(@class, '_secondLevelItem_')])[{index + 1}]"
 
+        if browser.element(second_level_xpath).should(be.visible):
+            second_level_item = browser.element(second_level_xpath)
+            second_level_item.should(be.clickable).click()
+        else:
+            first_level_menu_item.hover()
+            second_level_item = browser.element(second_level_xpath)
+            second_level_item.should(be.clickable).click()
+
         # Находим и кликаем на пункт второго уровня
-        second_level_item = browser.element(second_level_xpath)
-        second_level_item.should(be.clickable).click()
+        # second_level_item = browser.element(second_level_xpath)
+        # second_level_item.should(be.clickable).click()
 
     @staticmethod
     def open_page_third_level_in_menu(menu_type: str, index_submenu: int, index: int):

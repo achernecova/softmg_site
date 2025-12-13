@@ -35,7 +35,7 @@ from softmg_site.pages.main_page_selene import MainPageSelene
 
 
 @allure.feature("Проверка меню второго уровня")
-class TestFirstLevelMenuOpenPage:
+class TestSecondLevelMenuOpenPage:
     @allure.tag("critical")
     @allure.severity(Severity.CRITICAL)
     @allure.label("owner", "chernetsova")
