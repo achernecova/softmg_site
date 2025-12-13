@@ -78,7 +78,6 @@ class MainPageSelene:
         # title_page_h2 = browser.element('h1').get(query.text)
         # print(title_page_h2)
 
-
     @staticmethod
     def open_page_first_level_in_menu(value: int):
         """
@@ -148,4 +147,3 @@ class MainPageSelene:
 
         # Кликаем по пункту третьего уровня
         third_level_item.click()
-

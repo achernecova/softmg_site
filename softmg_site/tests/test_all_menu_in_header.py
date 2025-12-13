@@ -97,9 +97,9 @@ class TestSecondLevelMenuOpenPage:
 #             page.page_assert_open_page(page_name)
 #
 #
+
 @allure.feature("Проверка меню третьего уровня")
 class TestThirdLevelMenuOpenPage:
-
     @allure.tag("critical")
     @allure.severity(Severity.CRITICAL)
     @allure.label("owner", "chernetsova")
@@ -135,7 +135,7 @@ class TestThirdLevelMenuOpenPage:
             page.open_page_third_level_in_menu("services", 1, index)
         with allure.step("Проверяем заголовок и url у страниц"):
             page.page_assert_open_page(page_name)
-#
+
     @allure.tag("critical")
     @allure.severity(Severity.CRITICAL)
     @allure.label("owner", "chernetsova")
