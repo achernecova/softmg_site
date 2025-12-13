@@ -1,6 +1,7 @@
 import allure
 from selene import be, browser, by, command, have
 from selene.support.shared import browser
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 from config import config
@@ -93,22 +94,23 @@ class MainPageSelene:
     def open_page_second_level_in_menu(menu_type: str, index: int):
         """
         Универсальный метод открытия страницы второго уровня в меню.
-        :param menu_type: Тип верхнего уровня меню ('services', 'about' и т.п.).
-        :param index: Индекс пункта второго уровня меню (нумерация начинается с 0).
+        :param menu_type: Тип верхнего уровня меню ('services', 'about' и т.п.)
+        :param index: Индекс пункта второго уровня меню (нумерация начинается с 0)
         """
-        browser.element((By.TAG_NAME, "body")).click()
+        # Снимаем активный фокус с тела документа
+        browser.element((By.TAG_NAME, "body")).send_keys(Keys.ESCAPE)
+
         first_level_selector = {
-            "services": "(//*[contains(@class, '_firstLevelItem')])[1]",  # Первый пункт меню
-            "about": "(//*[contains(@class, '_firstLevelItem')])[4]",  # Четвёртый пункт меню
+            "services": "(//*[contains(@class, '_firstLevelItem')])[1]",
+            "about": "(//*[contains(@class, '_firstLevelItem')])[4]"
         }.get(menu_type)
 
         if first_level_selector is None:
-            raise ValueError(
-                f"Неизвестный тип меню '{menu_type}'. Доступные типы: services, about."
-            )
+            raise ValueError(f"Неизвестный тип меню '{menu_type}'. Доступные типы: services, about.")
 
-        # Находим элемент первого уровня меню
+        # Получаем элемент первого уровня меню
         first_level_menu_item = browser.element(first_level_selector)
+        first_level_menu_item.with_(timeout=10).wait_until(be.clickable)
 
         # Наводимся на первый уровень меню
         first_level_menu_item.hover()
@@ -116,18 +118,12 @@ class MainPageSelene:
         # Формулируем путь ко второму уровню меню (индексация с 1)
         second_level_xpath = f"(//*[contains(@class, '_secondLevelItem_')])[{index + 1}]"
 
-        if browser.element(second_level_xpath).should(be.visible):
-            second_level_item = browser.element(second_level_xpath)
-            second_level_item.should(be.clickable).click()
-        else:
-            first_level_menu_item.hover()
-            second_level_item = browser.element(second_level_xpath)
-            second_level_item.should(be.clickable).click()
-            print('наводили второй раз')
+        # Ждём полное появление и готовность второго уровня меню
+        second_level_item = browser.element(second_level_xpath)
+        second_level_item.with_(timeout=10).wait_until(be.clickable)
 
-        # Находим и кликаем на пункт второго уровня
-        # second_level_item = browser.element(second_level_xpath)
-        # second_level_item.should(be.clickable).click()
+        # Кликаем по пункту второго уровня
+        second_level_item.click()
 
     @staticmethod
     def open_page_third_level_in_menu(menu_type: str, index_submenu: int, index: int):
