@@ -123,6 +123,7 @@ class MainPageSelene:
             first_level_menu_item.hover()
             second_level_item = browser.element(second_level_xpath)
             second_level_item.should(be.clickable).click()
+            print('наводили второй раз')
 
         # Находим и кликаем на пункт второго уровня
         # second_level_item = browser.element(second_level_xpath)
