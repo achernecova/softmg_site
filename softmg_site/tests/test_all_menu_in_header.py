@@ -5,33 +5,33 @@ from allure_commons.types import Severity
 from softmg_site.pages.main_page_selene import MainPageSelene
 
 
-# @allure.feature("Проверка верхнеуровневого меню")
-# class TestFirstLevelMenuOpenPage:
-#     @allure.tag("critical")
-#     @allure.severity(Severity.CRITICAL)
-#     @allure.label("owner", "chernetsova")
-#     @allure.link("https://godev.agency/", name="Testing")
-#     @allure.title("Открытие верхнеуровневого меню")
-#     @allure.story("Открытие верхнеуровневого меню")
-#     @pytest.mark.parametrize(
-#         "index, page_name",
-#         [
-#             (0, "uslugi"),
-#             (1, "calculator"),
-#             (2, "examples"),
-#             (3, "about-company"),
-#             (4, "contacts"),
-#         ],
-#         ids=["Services", "Calculator", "Examples", "Company Info", "Contacts"],
-#     )
-#     def test_page_menu_open(self, index, page_name):
-#         with allure.step("Открываем главную страницу"):
-#             page = MainPageSelene()
-#             page.open_page()
-#         with allure.step(f"Открываем страницу '{page_name}' из верхнего меню"):
-#             page.open_page_first_level_in_menu(index)
-#         with allure.step("Проверяем заголовок и url у страниц"):
-#             page.page_assert_open_page(page_name)
+@allure.feature("Проверка верхнеуровневого меню")
+class TestFirstLevelMenuOpenPage:
+    @allure.tag("critical")
+    @allure.severity(Severity.CRITICAL)
+    @allure.label("owner", "chernetsova")
+    @allure.link("https://godev.agency/", name="Testing")
+    @allure.title("Открытие верхнеуровневого меню")
+    @allure.story("Открытие верхнеуровневого меню")
+    @pytest.mark.parametrize(
+        "index, page_name",
+        [
+            (0, "uslugi"),
+            (1, "calculator"),
+            (2, "examples"),
+            (3, "about-company"),
+            (4, "contacts"),
+        ],
+        ids=["Services", "Calculator", "Examples", "Company Info", "Contacts"],
+    )
+    def test_page_menu_open(self, index, page_name):
+        with allure.step("Открываем главную страницу"):
+            page = MainPageSelene()
+            page.open_page()
+        with allure.step(f"Открываем страницу '{page_name}' из верхнего меню"):
+            page.open_page_first_level_in_menu(index)
+        with allure.step("Проверяем заголовок и url у страниц"):
+            page.page_assert_open_page(page_name)
 
 
 @allure.feature("Проверка меню второго уровня")
