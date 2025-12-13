@@ -152,20 +152,23 @@ class MainPageSelene:
 
         # Находим элемент первого и второго уровней меню
         first_level_menu_item = browser.element(first_level_selector)
-        second_level_menu_item = browser.element(second_level_selector)
+        first_level_menu_item.with_(timeout=10).wait_until(be.clickable)
 
         # Наводимся на первый уровень меню (в селениуме через actionMove)
         first_level_menu_item.hover()
 
         # Находим элемент второго уровня меню и ждем его кликабельность
-        second_level_menu_item.should(be.clickable)
+        second_level_menu_item = browser.element(second_level_selector)
+        second_level_menu_item.with_(timeout=10).wait_until(be.clickable)
 
         # Наводимся на второй уровень меню
         second_level_menu_item.hover()
 
         # Формулируем путь к третьему уровню меню (индексация с 1)
-        third_level_xpath = f"(//*[contains(@class, '_thirdLevelItem_')])[{index + 1}]"
+        third_level_selector = f"(//*[contains(@class, '_thirdLevelItem_')])[{index + 1}]"
+        third_level_item = browser.element(third_level_selector)
+        third_level_item.with_(timeout=10).wait_until(be.clickable)
 
-        # находим и кликаем на пункт третьего уровня
-        third_level_item = browser.element(third_level_xpath)
-        third_level_item.should(be.clickable).click()
+        # Кликаем по пункту второго уровня
+        third_level_item.click()
+
