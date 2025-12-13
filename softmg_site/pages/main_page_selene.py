@@ -25,38 +25,12 @@ class MainPageSelene:
         self.header_menu = HeaderMenuSelene()
         self.footer_form = FooterForm()
 
-    # TODO - надо просить разработчиков ставить data-qa - невозможно зацепиться за элемент.
-    # TODO 2 - не забыть переименовать метод после изменения его в API - 989 задача.
-    @allure.step("Открываем страницу из блока 'Создадим сайт любой тематики'")
-    def open_page_from_website_packages_block_by_index(self, value: int):
-        """
-        :param value: порядковый номер ссылки
-        """
-        self.scroll_element.search_element_website_packages(
-            "(//*[@class='team-card']//a)", value
-        )
-        more_buttons = self.block_website_packages_more.button_website_packages_more()
-        more_buttons[value - 1].click()
-
-    @allure.step("Проверяем URL и заголовок страницы")
-    def check_page_url_and_title(self, page_name: str, title_page: str):
-        """
-        :param page_name: имя открываемой страницы
-        :param title_page: заголовок открываемой страницы
-        """
-        current_page_data = config.get_page_data(page_name)
-        browser.should(
-            have.url(current_page_data["url_page"])
-        )  # 'url_page' - ключ в словаре, где хранится URL
-        browser.element("h1").should(have.exact_text(title_page))
-
     def open_page(self) -> None:
         browser.open(self.base_url)
         browser.element((By.TAG_NAME, "body")).click()
 
-    # TODO - надо посмотреть на метод check_page_url_and_title - скорее всего они одинаковые и
-    #  check_page_url_and_title просто слишком заморочен
     @staticmethod
+    @allure.step("Проверяем URL и заголовок страницы")
     def page_assert_open_page(page_name):
         """Проверяет, что открытая страница соответствует данным из PageConfig.
         :param page_name: название страницы"""
@@ -77,7 +51,6 @@ class MainPageSelene:
 
         # title_page_h2 = browser.element('h1').get(query.text)
         # print(title_page_h2)
-
 
     @staticmethod
     def open_page_first_level_in_menu(value: int):
