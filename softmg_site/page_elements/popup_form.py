@@ -1,6 +1,7 @@
 import os
 import random
 import time
+from time import sleep
 
 import allure
 from faker.proxy import Faker
@@ -20,6 +21,13 @@ class PopupFormRequests:
         self.data = Faker("ru_RU")
         self.cookie_modal = PopupModal()
         self.constant = "AutotestsPopup"
+        self.email_element = browser.element("[data-qa='leave-application-form'] [name='email']")
+        self.name_element = browser.element("[data-qa='leave-application-form'] [name='name']")
+        self.phone_element = browser.element("[data-qa='leave-application-form'] [name='phone']")
+
+    @staticmethod
+    def click_button_in_popup():
+        browser.element('[data-qa="leave-application-form"] [type="submit"]').click()
 
     @staticmethod
     # @allure.step("Выбрать случайное количество топпингов")
@@ -44,39 +52,67 @@ class PopupFormRequests:
         Простое заполнение поля Имя в модалке.
         """
         name_text = self.constant + self.data.name()
-        browser.element("[data-qa='leave-application-form'] [name='name']").type(
-            name_text
-        )
+        self.name_element.type(name_text)
 
-    def input_name_with_excess_in_popup(self):
-        """
-        Заполнение поля Имя в модалке с превышением символов
-        """
-        name_text = self.constant + self.data.text(max_nb_chars=350)
-        browser.element("[data-qa='leave-application-form'] [name='name']").type(
-            name_text
-        )
 
     def input_email_in_popup(self):
         """
-        Корректное заполнение поля Email в модалке
+        Корректное заполнение поля Email в модалке.
+        Нормализуем.
         """
         email_text = self.constant + self.name_data.email()
         login_sender, domain_sender = email_text.split("@")
         login_sender_normalized = login_sender.replace(",", "").replace(" ", "")
         email_text_normalized = login_sender_normalized + "@" + domain_sender
-        browser.element("[data-qa='leave-application-form'] [name='email']").type(
-            email_text_normalized
-        )
+        self.email_element.type(email_text_normalized)
+
+
+
+    def input_incorrect_data_in_fields(self, value_field, value_data):
+        '''
+        :param value_field: Название поля которое проверяем.
+        :param value_data: Данные которые вставляем.
+        '''
+        if value_field in ['email', 'email_symbols']:
+            self.email_element.type(value_data)
+            browser.element((By.TAG_NAME, "body")).click()
+        elif value_field == 'name':
+            self.input_email_in_popup()
+            cleaned_value = value_data.strip().replace("\n", "")
+            self.name_element.type(cleaned_value)
+        elif value_field == 'phone':
+            self.input_email_in_popup()
+            self.phone_element.type(value_data)
+        else:
+            raise ValueError(f"Не поддерживаемое поле: {value_field}")
+
+
+    # превращаем в универсальный метод получения ошибки
+    @allure.step("Получение ошибки о некорректно введенных данных")
+    def get_error_text_in_field_in_popup(self, value):
+        browser.element("[data-qa='error-message']").should(have.text(value))
+
+
+    # TODO - параметризовать тест с вводом кириллицы
+    def email_validation_message(self):
+        self.email_element.type('invalid_email')
+        self.click_button_in_popup()
+
+        # Тянем подсказку через JS. Как иначе достать элемент которого нет в дом-дереве - не нашла.
+        text = browser.execute_script('return document.querySelector("[data-qa=\'leave-application-form\'] [name=\'email\']").validationMessage')
+        print(text)
+
+        # Проверка текста подсказки
+        assert text == 'Адрес электронной почты должен содержать символ "@". В адресе "invalid_email" отсутствует символ "@".'
+
 
     def input_phone_in_popup(self):
         """
         Корректное заполнение поля Email в модалке
         """
         phone_number = self.name_data.numerify("###########")
-        browser.element("[data-qa='leave-application-form'] [name='phone']").type(
-            phone_number
-        )
+        self.phone_element.type(phone_number)
+
 
     def input_comment_in_popup(self):
         """
@@ -101,6 +137,7 @@ class PopupFormRequests:
         )
         browser.execute_script("arguments[0].click();", element.locate())
 
+
     # TODO - ожидаем решения задачи 1013 для установки data-qa для ошибок под полями
     @allure.step("Получение ошибки о неустановленном чекбоксе")
     def get_error_text_in_field_checkbox_in_popup(self):
@@ -111,13 +148,6 @@ class PopupFormRequests:
         browser.element(locator_element_error).should(
             have.text("Необходимо ознакомиться с политикой конфиденциальности")
         )
-
-    @staticmethod
-    def click_button_in_popup():
-        '''
-        Клик по кнопке Отправить в модалке
-        '''
-        browser.element('[data-qa="leave-application-form"] [type="submit"]').click()
 
     @staticmethod
     def popup_success_assert():
