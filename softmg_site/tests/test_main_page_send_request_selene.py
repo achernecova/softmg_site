@@ -75,7 +75,11 @@ class TestSendRequests:
     @allure.label("owner", "chernetsova")
     @allure.story("Проверка ошибок под полями ввода данных")
     @allure.title("Отправка формы email без символа @")
+    @pytest.mark.skip()
     def test_send_request_at_sign_email_in_header(self):
+        '''
+        Пока скипаем тест, т.к. в selenoid подсказки такие не отображаются.
+        '''
         with allure.step("Открываем главную страницу"):
             page = MainPageSelene()
             page.open_page()

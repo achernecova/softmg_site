@@ -1,4 +1,4 @@
-from selene import browser
+from selene import browser, be
 from selenium.webdriver.common.by import By
 
 from config import config
@@ -10,9 +10,11 @@ class HeaderMenuSelene:
     def __init__(self):
         self.base_url = config.base_url
         self.popup_form = PopupFormRequests()
+        self.button_header = browser.element("header button[type=button]")
 
-    @staticmethod
-    def header_button_request_click():
+
+    def header_button_request_click(self):
         browser.element((By.TAG_NAME, "body")).click()
-        browser.element("header button[type=button]").click()
+        self.button_header.with_(timeout=10).wait_until(be.clickable)
+        self.button_header.click()
         return popup_form
