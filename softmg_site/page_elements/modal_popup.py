@@ -1,5 +1,3 @@
-from time import sleep
-
 from selene import be, browser, have
 from selenium.webdriver.common.by import By
 
@@ -8,9 +6,9 @@ class PopupModal:
 
     @staticmethod
     def close_envybox_modal():
-        '''
+        """
         Метод для закрытия энвибокса
-        '''
+        """
         browser.element((By.TAG_NAME, "body")).click()
         browser.element(".cbk-close-window").should(be.visible).click()
 
@@ -26,8 +24,9 @@ class PopupModal:
         Почему-то разные модалки успешности. По макетам окно - одно. НАдо перепроверить через разработчиков.
         Заведена для анализа задача 1020."""
         browser.element("//*[contains(@class, '_success__header')]").should(be.visible)
-        browser.element("//*[contains(@class, '_success__header')]//span").should(have.text("Заявка оформлена!"))
-
+        browser.element("//*[contains(@class, '_success__header')]//span").should(
+            have.text("Заявка оформлена!")
+        )
 
     @staticmethod
     def visible_success_popup_footer():
@@ -36,4 +35,6 @@ class PopupModal:
         Почему-то разные модалки успешности. По макетам окно - одно. НАдо перепроверить через разработчиков.
         Заведена для анализа задача 1020."""
         browser.element("[data-qa='success-submit-form']").should(be.visible)
-        browser.element("[data-qa='success-submit-form'] span").should(have.text("Заявка оформлена!"))
+        browser.element("[data-qa='success-submit-form'] span").should(
+            have.text("Заявка оформлена!")
+        )

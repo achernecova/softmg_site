@@ -67,18 +67,20 @@ class FooterForm:
     # Ожидаем добавление обработки ошибок - добавление data-qa - добавлено. Задача 1013
     @allure.step("Получение ошибки о неустановленном чекбоксе")
     def get_error_text_in_field_checkbox(self):
-        '''
+        """
         Используем перехватчик ошибок, чтобы вывод ошибки был более читаем.
-        '''
+        """
         try:
             locator_element_error = (By.XPATH, "//*[@data-qa='checkbox-error-message']")
             error_element = browser.element(locator_element_error)
             error_text = error_element.get(query.text)  # Берём текст элемента
 
             if error_text != "Необходимо ознакомиться с политикой конфиденциальности":
-                pytest.fail(f"Ошибка: Текст ошибки отличается от ожидаемого. "
-                            f"Ожидаемый текст: 'Необходимо ознакомиться с политикой конфиденциальности'. "
-                            f"Фактический текст: '{error_text}'")
+                pytest.fail(
+                    f"Ошибка: Текст ошибки отличается от ожидаемого. "
+                    f"Ожидаемый текст: 'Необходимо ознакомиться с политикой конфиденциальности'. "
+                    f"Фактический текст: '{error_text}'"
+                )
         except NoSuchElementException as e:
             pytest.fail(f"Ошибка: Элемент с ошибкой не найден.\nСообщение: {str(e)}")
 
@@ -111,7 +113,9 @@ class FooterForm:
         browser.execute_script("arguments[0].style.display = 'block';", field_file)
 
         # Пути к файлам
-        files_directory = os.path.join(current_dir, "add_files_in_form_request/correct_files")
+        files_directory = os.path.join(
+            current_dir, "add_files_in_form_request/correct_files"
+        )
         file_names = [f"{i}.docx" for i in range(1, 12)]  # 1.docx ... 11.docx
         file_paths = [os.path.join(files_directory, name) for name in file_names]
 

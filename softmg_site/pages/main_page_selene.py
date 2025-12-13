@@ -1,5 +1,5 @@
 import allure
-from selene import be, browser, by, command, have, Element
+from selene import Element, be, browser, by, command, have
 from selene.support.shared import browser
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
@@ -11,7 +11,9 @@ from softmg_site.page_elements.modal_popup import PopupModal
 from softmg_site.page_elements.popup_form import PopupFormRequests
 from softmg_site.page_elements.scroll_element_selene import ScrollElement
 from softmg_site.page_elements.service_item_block_selene import ServiceItemBlockSelene
-from softmg_site.page_elements.website_packages_block_selene import WebSitePackagesBlockSelene
+from softmg_site.page_elements.website_packages_block_selene import (
+    WebSitePackagesBlockSelene,
+)
 
 
 class MainPageSelene:
@@ -25,7 +27,7 @@ class MainPageSelene:
         self.header_menu = HeaderMenuSelene()
         self.footer_form = FooterForm()
 
-    def open_page(self) -> None:
+    def open_page(self):
         browser.open(self.base_url)
         browser.element((By.TAG_NAME, "body")).click()
 
@@ -71,11 +73,13 @@ class MainPageSelene:
 
         first_level_selector = {
             "services": "(//*[contains(@class, '_firstLevelItem')])[1]",
-            "about": "(//*[contains(@class, '_firstLevelItem')])[4]"
+            "about": "(//*[contains(@class, '_firstLevelItem')])[4]",
         }.get(menu_type)
 
         if first_level_selector is None:
-            raise ValueError(f"Неизвестный тип меню '{menu_type}'. Доступные типы: services, about.")
+            raise ValueError(
+                f"Неизвестный тип меню '{menu_type}'. Доступные типы: services, about."
+            )
 
         # Получаем элемент первого уровня меню
         first_level_menu_item = browser.element(first_level_selector)
@@ -98,11 +102,11 @@ class MainPageSelene:
         :param index: Индекс пункта второго уровня меню (нумерация начинается с 0)
         """
         second_menu = self.menu_definition(menu_type, index)
-
-        # Кликаем по пункту второго уровня
         second_menu.click()
 
-    def open_page_third_level_in_menu(self, menu_type: str, index_submenu: int, index: int):
+    def open_page_third_level_in_menu(
+        self, menu_type: str, index_submenu: int, index: int
+    ):
         """
         Универсальный метод открытия страницы третьего уровня в меню.
 
@@ -121,4 +125,3 @@ class MainPageSelene:
 
         # Кликаем по пункту третьего уровня
         third_level_item.click()
-
