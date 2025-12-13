@@ -31,7 +31,7 @@ def driver(request):
     options = Options()
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", _browserVersion)
-    options.set_capability("pageLoadStrategy", "eager")
+    options.set_capability("pageLoadStrategy", "normal")
     # options.add_argument("--window-size=1280,900")
     options.add_argument("--start-maximized")
     options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
