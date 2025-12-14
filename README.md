@@ -48,10 +48,11 @@
 
 ### <a name="list_test">Список проверок, реализованных в web/UI автотестах</a>
 
-- [x] Проверки линков на всех страницах
+- [x] Проверки линков на всех страницах - в процессе
 - [x] Проверка успешной отправки заявки
 - [x] Проверка негативных кейсов отправки заявок
 - [x] Проверка работоспособности меню (включая вложенность)
+- [x] Запуск тестов на разных окружениях
 
 
 ----
@@ -60,6 +61,16 @@
 
 <img title="Python" src="data_image_from_readme/icons/python-original.svg" height="40" width="40"/> <img title="Pytest" src="data_image_from_readme/icons/pytest-original.svg" height="40" width="40"/> <img title="Jira" src="data_image_from_readme/icons/jira-original.svg" height="40" width="40"/> <img title="Allure Report" src="data_image_from_readme/icons/Allure_Report.png" height="40" width="40"/> <img title="Allure TestOps" src="data_image_from_readme/icons/AllureTestOps.png" height="40" width="40"/> <img title="GitHub" src="data_image_from_readme/icons/github-original.svg" height="40" width="40"/> <img title="Selenoid" src="data_image_from_readme/icons/selenoid.png" height="40" width="40"/> <img title="Selenium" src="data_image_from_readme/icons/selenium-original.svg" height="40" width="40"/> <img title="Selene" src="data_image_from_readme/icons/selene.png" height="40" width="40"/> <img title="Pycharm" src="data_image_from_readme/icons/pycharm.png" height="40" width="40"/> <img title="Telegram" src="data_image_from_readme/icons/tg.png" height="40" width="40"/> <img title="Jenkins" src="data_image_from_readme/icons/jenkins-original.svg" height="40" width="40"/>
 
+- **Python** — язык программирования, на котором написаны UI-автотесты
+- **Pytest** — фреймворк для организации и запуска тестовых сценариев
+- **Selene** — фреймворк для UI-автотестирования на базе Selenium WebDriver
+- **Selenoid** — инструмент для удалённого запуска браузеров в контейнерах
+- **Jenkins** — CI-система для параметризованного запуска автотестов
+- **Allure Report** — система формирования подробных отчётов о результатах тестирования
+- **Allure TestOps** — платформа для управления тест-кейсами и аналитики прогонов
+- **PyCharm** — среда разработки для написания и отладки автотестов
+- **Jira** — система управления задачами и дефектами
+- **Telegram** — канал для уведомлений о результатах выполнения тестов
 
 ----
 
@@ -82,7 +93,7 @@ allure allure serve
 ----
 
 ### <a name="project_in_jenkins">Проект в Jenkins</a>
-> <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/">Ссылка</a>
+> <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/">Ссылка</a>
 
 
 #### <a name="param_in_jenk">Параметры сборки</a>
@@ -91,7 +102,7 @@ ENVIRONMENT = ['development', 'PROD_PAGE'] # Окружение
 BROWSER_VERSION = '127.0' # Версия браузера хром. Можно запускать на 128.0
 ```
 #### <a name="start_test_jenk">Запуск автотестов в Jenkins</a>
-1. Открыть <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/">проект</a>
+1. Открыть <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/">проект</a>
 
 ![jenkins project main page](/data_image_from_readme/jenkins_project_main_page.png)
 
@@ -106,24 +117,55 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 
 ### <a name="allure_report">Allure отчет</a>
 
-#### <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/">Открытие отчета после сборки</a>
+#### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/">Открытие отчета после сборки</a>
 ![allure_report_after_work_job](/data_image_from_readme/allure_report_after_work_job.png)
 
-#### <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/24/allure/">Общие результаты</a>
+#### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/27/allure/#">Общие результаты</a>
 ![allure_report_overview](/data_image_from_readme/allure_report_overview.png)
 
-#### <a target="_blank" href="https://jenkins.autotests.cloud/job/Ivi-mobile-and-UI-Auto-Tests/15/allure/#suites">Результаты прохождения теста</a>
-
+#### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/27/allure/#suites">Результаты прохождения теста</a>
 ![allure_reports_behaviors](/data_image_from_readme/allure_reports_behaviors.png)
 
-#### <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/24/allure/#graph">Графики</a>
+#### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/27/allure/#suites">Результаты прохождения теста с параметрами</a>
 
-
-![allure_reports_graphs](/data_image_from_readme/allure_reports_graphs_1.png)
-![allure_reports_graphs](/data_image_from_readme/allure_reports_graphs_2.png)
+![allure_reports_with_param.png](data_image_from_readme/allure_reports_with_param.png)
 
 
 ----
+
+### <img title="Jira" src="data_image_from_readme/icons/jira-original.svg" height="40" width="40"/> Интеграция с Jira
+
+#### <a target="_blank" href="https://jira.autotests.cloud/browse/HOMEWORK-1561">Задача в Jira</a>
+
+![jira_task.png](data_image_from_readme/jira_task.png)
+
+---
+
+### <img title="Allure TestOps" src="data_image_from_readme/icons/AllureTestOps.png" height="40" width="40"/> Интеграция с Allure TestOps
+
+### [AllureTestOps_dashboard](https://allure.autotests.cloud/project/5048/dashboards)
+
+Дашборд с результатами о прохождении тестов.
+![AllureTestOps_dashboard_results_tests.png](/data_image_from_readme/AllureTestOps_dashboard_results_tests.png)
+
+#### Общий список всех кейсов, имеющихся в системе
+
+![all_tests_allure_testOps.png](data_image_from_readme/all_tests_allure_testOps.png)
+
+#### Пример отчёта выполнения одного из автотестов
+
+![one_test_results.png](data_image_from_readme/one_test_results.png)
+
+#### История запуска одного теста
+
+![history_start_test.png](data_image_from_readme/history_start_test.png)
+
+#### История запуска тестовых наборов
+
+![launches.png](data_image_from_readme/launches.png)
+
+---
+
 
 ### <a name="notification_tg">Оповещения в Telegram</a>
 ![telegram_allert](/data_image_from_readme/telegram_allert.png)
