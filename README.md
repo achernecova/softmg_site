@@ -177,6 +177,3 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 ### <a name="video">Видео прохождения web/UI автотеста</a>
 ![autotest_gif](/data_image_from_readme/autotest.gif)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-----
