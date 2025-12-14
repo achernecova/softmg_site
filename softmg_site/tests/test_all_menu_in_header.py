@@ -34,42 +34,42 @@ class TestFirstLevelMenuOpenPage:
             page.page_assert_open_page(page_name)
 
 
-# @allure.feature("Проверка меню второго уровня")
-# class TestSecondLevelMenuOpenPage:
-#     @allure.tag("critical")
-#     @allure.severity(Severity.CRITICAL)
-#     @allure.label("owner", "chernetsova")
-#     @allure.link("https://softmg.ru/", name="Testing")
-#     @allure.title("Открытие саб-меню")
-#     @allure.story("Открытие саб-меню из меню Услуги")
-#     @pytest.mark.parametrize(
-#         "index, page_name",
-#         [
-#             (1, "development"),
-#             (2, "application-development"),
-#             (3, "razrabotka-ai/"),
-#             (4, "razrabotka-po"),
-#             (5, "support"),
-#             (6, "promotion"),
-#         ],
-#         ids=[
-#             "Development",
-#             "Application Development",
-#             "AI Development",
-#             "Software Development",
-#             "Support",
-#             "Promotion",
-#         ],
-#     )
-#     @pytest.mark.skip()
-#     def test_page_menu_level_second_services_open(self, index, page_name):
-#         with allure.step("Открываем главную страницу"):
-#             page = MainPageSelene()
-#             page.open_page()
-#         with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
-#             page.open_page_second_level_in_menu("services", index)
-#         with allure.step("Проверяем заголовок и url у страниц"):
-#             page.page_assert_open_page(page_name)
+@allure.feature("Проверка меню второго уровня")
+class TestSecondLevelMenuOpenPage:
+    @allure.tag("critical")
+    @allure.severity(Severity.CRITICAL)
+    @allure.label("owner", "chernetsova")
+    @allure.link("https://softmg.ru/", name="Testing")
+    @allure.title("Открытие саб-меню")
+    @allure.story("Открытие саб-меню из меню Услуги")
+    @pytest.mark.parametrize(
+        "index, page_name",
+        [
+            (1, "development"),
+            (2, "application-development"),
+            (3, "razrabotka-ai/"),
+            (4, "razrabotka-po"),
+            (5, "support"),
+            (6, "promotion"),
+        ],
+        ids=[
+            "Development",
+            "Application Development",
+            "AI Development",
+            "Software Development",
+            "Support",
+            "Promotion",
+        ],
+    )
+    @pytest.mark.skip()
+    def test_page_menu_level_second_services_open(self, index, page_name):
+        with allure.step("Открываем главную страницу"):
+            page = MainPageSelene()
+            page.open_page()
+        with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
+            page.open_page_second_level_in_menu("services", index)
+        with allure.step("Проверяем заголовок и url у страниц"):
+            page.page_assert_open_page(page_name)
 #
 #
 # @allure.feature("Проверка меню третьего уровня")
