@@ -46,7 +46,7 @@ class MainPageSelene:
         browser.should(have.url(expected_url))
 
         # кликаем в баннер с куками, чтобы скрыть меню
-        browser.element("//*[contains(@class, '_banner_')]").click()
+        #browser.element("//*[contains(@class, '_banner_')]").click()
 
         title_page_h1 = browser.element("h1")
         title_page_h1.should(have.exact_text(expected_title))
@@ -70,6 +70,8 @@ class MainPageSelene:
     def menu_definition(menu_type: str, index: int) -> Element:
         # Снимаем активный фокус с тела документа
         browser.element((By.TAG_NAME, "body")).send_keys(Keys.ESCAPE)
+        # кликаем Принять куки
+        browser.element("//*[contains(@class, '_banner_')]//button[contains(@class, '_button')]").click()
 
         first_level_selector = {
             "services": "(//*[contains(@class, '_firstLevelItem')])[1]",

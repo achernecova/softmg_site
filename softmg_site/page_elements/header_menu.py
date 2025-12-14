@@ -14,6 +14,8 @@ class HeaderMenuSelene:
 
     def header_button_request_click(self):
         browser.element((By.TAG_NAME, "body")).click()
+        # кликаем Принять куки
+        browser.element("//*[contains(@class, '_banner_')]//button[contains(@class, '_button')]").click()
         self.button_header.with_(timeout=10).wait_until(be.clickable)
         self.button_header.click()
         return popup_form
