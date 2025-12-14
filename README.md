@@ -138,16 +138,12 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 ----
 ### <a name="jira_integration">Интеграция с Jira</a>
 
-### <img title="Jira" src="data_image_from_readme/icons/jira-original.svg" height="40" width="40"/> Интеграция с Jira
-
 #### <a target="_blank" href="https://jira.autotests.cloud/browse/HOMEWORK-1561">Задача в Jira</a>
 
 ![jira_task.png](data_image_from_readme/jira_task.png)
 
 ---
 ### <a name="allure_testOps_integration">Интеграция с AllureTestOps</a>
-
-### <img title="Allure TestOps" src="data_image_from_readme/icons/AllureTestOps.png" height="40" width="40"/> Интеграция с Allure TestOps
 
 ### [AllureTestOps_dashboard](https://allure.autotests.cloud/project/5048/dashboards)
 
@@ -182,4 +178,5 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 ![autotest_gif](/data_image_from_readme/autotest.gif)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ----
