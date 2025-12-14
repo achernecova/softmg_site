@@ -61,7 +61,6 @@ class TestSecondLevelMenuOpenPage:
             "Promotion",
         ],
     )
-    @pytest.mark.skip()
     def test_page_menu_level_second_services_open(self, index, page_name):
         with allure.step("Открываем главную страницу"):
             page = MainPageSelene()
