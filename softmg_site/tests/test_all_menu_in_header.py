@@ -10,7 +10,7 @@ class TestFirstLevelMenuOpenPage:
     @allure.tag("critical")
     @allure.severity(Severity.CRITICAL)
     @allure.label("owner", "chernetsova")
-    @allure.link("https://godev.agency/", name="Testing")
+    @allure.link("https://softmg.ru/", name="Testing")
     @allure.title("Открытие верхнеуровневого меню")
     @allure.story("Открытие верхнеуровневого меню")
     @pytest.mark.parametrize(
@@ -39,7 +39,7 @@ class TestFirstLevelMenuOpenPage:
 #     @allure.tag("critical")
 #     @allure.severity(Severity.CRITICAL)
 #     @allure.label("owner", "chernetsova")
-#     @allure.link("https://godev.agency/", name="Testing")
+#     @allure.link("https://softmg.ru/", name="Testing")
 #     @allure.title("Открытие саб-меню")
 #     @allure.story("Открытие саб-меню из меню Услуги")
 #     @pytest.mark.parametrize(
@@ -78,7 +78,7 @@ class TestFirstLevelMenuOpenPage:
 #     @allure.tag("critical")
 #     @allure.severity(Severity.CRITICAL)
 #     @allure.label("owner", "chernetsova")
-#     @allure.link("https://godev.agency/", name="Testing")
+#     @allure.link("https://softmg.ru/", name="Testing")
 #     @allure.title("Открытие саб-меню")
 #     @allure.story("Открытие саб-меню из саб-меню Разработка сайтов")
 #     @pytest.mark.parametrize(
@@ -115,7 +115,7 @@ class TestFirstLevelMenuOpenPage:
 #     @allure.tag("critical")
 #     @allure.severity(Severity.CRITICAL)
 #     @allure.label("owner", "chernetsova")
-#     @allure.link("https://godev.agency/", name="Testing")
+#     @allure.link("https://softmg.ru/", name="Testing")
 #     @allure.title("Открытие саб-меню")
 #     @allure.story("Открытие саб-меню из саб-меню Разработка приложений")
 #     @pytest.mark.parametrize(
