@@ -1,5 +1,6 @@
 import allure
 from selene import Element, be, browser, by, command, have
+from selene.core.exceptions import TimeoutException
 from selene.support.shared import browser
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
@@ -89,13 +90,25 @@ class MainPageSelene:
         # Получаем элемент второго уровня меню
         second_level_xpath = f"(//*[contains(@class, '_secondLevelItem_')])[{index + 1}]"
 
-        # Наводимся на первый уровень меню
-        first_level_menu_item.hover()
+        for attempt in range(3):  # Повторяем попытку трижды
+            try:
+                # Выполняем onHover на первом уровне меню
+                first_level_menu_item.hover()
 
-        # Ждём полное появление и готовность второго уровня
-        second_level_item = browser.element(second_level_xpath)
-        second_level_item.with_(timeout=15).wait_until(be.clickable)
-        return second_level_item
+                # Ждем появления второго уровня меню
+                second_level_item = browser.element(second_level_xpath)
+                second_level_item.with_(timeout=15).wait_until(be.visible)
+
+                # Возвращаем элемент второго уровня, если он успешно показался
+                return second_level_item
+
+            except TimeoutException:
+                print(f'Попытка {attempt + 1}: Меню не открылось, сбрасываем фокус.')
+                # Удаляем фокус через JavaScript
+                browser.execute_script('document.activeElement.blur();')
+
+            # Если после трех попыток меню всё ещё не появляется, поднимаем исключение
+        raise Exception(f"Меню второго уровня не открылось после многократных попыток.")
 
     def open_page_second_level_in_menu(self, menu_type: str, index: int):
         """
