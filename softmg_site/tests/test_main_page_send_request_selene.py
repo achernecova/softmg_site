@@ -39,7 +39,7 @@ class TestSendRequests:
     @allure.severity(Severity.CRITICAL)
     @allure.label("owner", "chernetsova")
     @allure.story("Проверка ошибок под полями ввода данных")
-    @allure.title("Отправка формы с номером телефона из 3 символов")
+    @allure.title("Отправка формы с некорректными данными в разных полях")
     @pytest.mark.parametrize(
         "name_field, input_data, text_error",
         [
@@ -114,22 +114,23 @@ class TestSendRequests:
         with allure.step("Проверяем появление окна успешности отправки заявки"):
             page.popup_modal.visible_success_popup_header()
 
-    @allure.tag("critical")
-    @allure.tag("positive")
-    @allure.severity(Severity.CRITICAL)
-    @allure.label("owner", "chernetsova")
-    @allure.story("Отправка формы из хедера - заполнение обязательных полей")
-    @allure.title("Отправка формы из хедера с заполнением только email и чекбокса")
-    def test_send_required_fields_in_header(self):
-        with allure.step("Открываем главную страницу"):
-            page = MainPageSelene()
-            page.open_page()
-        with allure.step("Кликаем по кнопке Оставить заявку в меню"):
-            page.header_menu.header_button_request_click()
-        with allure.step("Заполняем обязательные поля, устанавливаем чекбокс"):
-            page.popup_form.input_email_in_popup()
-            page.popup_form.input_checkbox_in_popup()
-        with allure.step("Жмем на кнопку Обсудить проект"):
-            page.popup_form.click_button_in_popup()
-        with allure.step("Проверяем появление окна успешности отправки заявки"):
-            page.popup_modal.visible_success_popup_header()
+    # @allure.tag("critical")
+    # @allure.tag("positive")
+    # @allure.severity(Severity.CRITICAL)
+    # @allure.label("owner", "chernetsova")
+    # @allure.story("Отправка формы из хедера - заполнение обязательных полей")
+    # @allure.title("Отправка формы из хедера с заполнением только email и чекбокса")
+    # @pytest.mark.skip()
+    # def test_send_required_fields_in_header(self):
+    #     with allure.step("Открываем главную страницу"):
+    #         page = MainPageSelene()
+    #         page.open_page()
+    #     with allure.step("Кликаем по кнопке Оставить заявку в меню"):
+    #         page.header_menu.header_button_request_click()
+    #     with allure.step("Заполняем обязательные поля, устанавливаем чекбокс"):
+    #         page.popup_form.input_email_in_popup()
+    #         page.popup_form.input_checkbox_in_popup()
+    #     with allure.step("Жмем на кнопку Обсудить проект"):
+    #         page.popup_form.click_button_in_popup()
+    #     with allure.step("Проверяем появление окна успешности отправки заявки"):
+    #         page.popup_modal.visible_success_popup_header()

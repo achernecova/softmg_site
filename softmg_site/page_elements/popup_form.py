@@ -4,7 +4,7 @@ import time
 
 import allure
 from faker.proxy import Faker
-from selene import be, browser, have
+from selene import browser, have
 from selenium.webdriver.common.by import By
 
 from softmg_site.page_elements.modal_popup import PopupModal
@@ -127,7 +127,9 @@ class PopupFormRequests:
         )
         for char in comment_text:
             element.type(char)
-            time.sleep(0.05)  # задержка в 0,05 с. Не придумала как иначе посимвольно вводить
+            time.sleep(
+                0.05
+            )  # задержка в 0,05 с. Не придумала как иначе посимвольно вводить
 
     @staticmethod
     @allure.step("Установка чекбокс политики конфиденциальности")

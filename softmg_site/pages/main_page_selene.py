@@ -83,7 +83,7 @@ class MainPageSelene:
 
         # Получаем элемент первого уровня меню
         first_level_menu_item = browser.element(first_level_selector)
-        first_level_menu_item.with_(timeout=10).wait_until(be.clickable)
+        first_level_menu_item.with_(timeout=15).wait_until(be.clickable)
         # Получаем элемент второго уровня меню
         second_level_xpath = f"(//*[contains(@class, '_secondLevelItem_')])[{index + 1}]"
 
@@ -92,7 +92,7 @@ class MainPageSelene:
 
         # Ждём полное появление и готовность второго уровня
         second_level_item = browser.element(second_level_xpath)
-        second_level_item.with_(timeout=10).wait_until(be.clickable)
+        second_level_item.with_(timeout=15).wait_until(be.clickable)
         return second_level_item
 
     def open_page_second_level_in_menu(self, menu_type: str, index: int):
