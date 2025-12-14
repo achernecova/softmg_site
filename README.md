@@ -26,6 +26,10 @@
 
 - [Allure отчет 🪄](#allure_report)
 
+- [Интеграция с Jira 🪄](#jira_integration)
+
+- [Интеграция с AllureTestOps 🪄](#allure_testOps_integration)
+
 - [Оповещения 🪄](#notification_tg)
 
 - [Видео 🪄](#video)
@@ -132,6 +136,7 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 
 
 ----
+### <a name="jira_integration">Интеграция с Jira</a>
 
 ### <img title="Jira" src="data_image_from_readme/icons/jira-original.svg" height="40" width="40"/> Интеграция с Jira
 
@@ -140,6 +145,7 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 ![jira_task.png](data_image_from_readme/jira_task.png)
 
 ---
+### <a name="allure_testOps_integration">Интеграция с AllureTestOps</a>
 
 ### <img title="Allure TestOps" src="data_image_from_readme/icons/AllureTestOps.png" height="40" width="40"/> Интеграция с Allure TestOps
 
