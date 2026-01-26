@@ -1,3 +1,4 @@
+import allure
 from selene import be, browser
 from selenium.webdriver.common.by import By
 
@@ -12,6 +13,7 @@ class HeaderMenuSelene:
         self.popup_form = PopupFormRequests()
         self.button_header = browser.element("header button[type=button]")
 
+    @allure.step("Кликаем по кнопке Оставить заявку в меню")
     def header_button_request_click(self):
         browser.element((By.TAG_NAME, "body")).click()
         # кликаем Принять куки

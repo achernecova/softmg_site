@@ -19,7 +19,7 @@ class PopupFormRequests:
         self.name_data = Faker()
         self.data = Faker("ru_RU")
         self.cookie_modal = PopupModal()
-        self.constant = "AutotestsPopup"
+        self.constant = "c629d896adfa02f3a703c5f799508d157da6740c058c132ecbcde8ba06f27bf58b2de4ef9c1ab515774dcece78202cd31d4d8a6580da5afd40dc0ff6a24e54b1"
         self.email_element = browser.element(
             "[data-qa='leave-application-form'] [name='email']"
         )
@@ -31,6 +31,7 @@ class PopupFormRequests:
         )
 
     @staticmethod
+    @allure.step("Нажать на кнопку Обсудить проект")
     def click_button_in_popup():
         browser.element('[data-qa="leave-application-form"] [type="submit"]').click()
 
@@ -52,6 +53,7 @@ class PopupFormRequests:
             browser.element(element_locator).click()
             print(f"Выбран топпинг с индексом: {index}")  # Для отладки
 
+    @allure.step("Заполняем корректными данными поле Имя")
     def input_name_in_popup(self):
         """
         Простое заполнение поля Имя в модалке.
@@ -59,6 +61,7 @@ class PopupFormRequests:
         name_text = self.constant + self.data.name()
         self.name_element.type(name_text)
 
+    @allure.step("Заполняем корректными данными поле Email")
     def input_email_in_popup(self):
         """
         Корректное заполнение поля Email в модалке.
@@ -75,25 +78,28 @@ class PopupFormRequests:
         :param value_field: Название поля которое проверяем.
         :param value_data: Данные которые вставляем.
         """
-        if value_field in ["email", "email_symbols"]:
-            self.email_element.type(value_data)
-            browser.element((By.TAG_NAME, "body")).click()
-        elif value_field == "name":
-            self.input_email_in_popup()
-            cleaned_value = value_data.strip().replace("\n", "")
-            self.name_element.type(cleaned_value)
-        elif value_field == "phone":
-            self.input_email_in_popup()
-            self.phone_element.type(value_data)
-        else:
-            raise ValueError(f"Не поддерживаемое поле: {value_field}")
+        with allure.step(f"Некорректно заполняем поле {value_field}"):
+            if value_field in ["email", "email_symbols"]:
+                self.email_element.type(value_data)
+                browser.element((By.TAG_NAME, "body")).click()
+            elif value_field == "name":
+                self.input_email_in_popup()
+                cleaned_value = value_data.strip().replace("\n", "")
+                self.name_element.type(cleaned_value)
+            elif value_field == "phone":
+                self.input_email_in_popup()
+                self.phone_element.type(value_data)
+            else:
+                raise ValueError(f"Не поддерживаемое поле: {value_field}")
 
     # превращаем в универсальный метод получения ошибки
-    @allure.step("Получение ошибки о некорректно введенных данных")
-    def get_error_text_in_field_in_popup(self, value):
-        browser.element("[data-qa='error-message']").should(have.text(value))
+    @staticmethod
+    def get_error_text_in_field_in_popup(value):
+        with allure.step(f"Проверяем появление ошибки под полем {value}"):
+            browser.element("[data-qa='error-message']").should(have.text(value))
 
     # TODO - параметризовать тест с вводом кириллицы
+    @allure.step("Заполняем email некорректно - без @")
     def email_validation_message(self):
         self.email_element.type("invalid_email")
         self.click_button_in_popup()
@@ -110,6 +116,7 @@ class PopupFormRequests:
             == 'Адрес электронной почты должен содержать символ "@". В адресе "invalid_email" отсутствует символ "@".'
         )
 
+    @allure.step("Заполняем корректными данными поле Телефон")
     def input_phone_in_popup(self):
         """
         Корректное заполнение поля Email в модалке
@@ -117,6 +124,7 @@ class PopupFormRequests:
         phone_number = self.name_data.numerify("###########")
         self.phone_element.type(phone_number)
 
+    @allure.step("Заполняем корректными данными поле Напишите кратко о проекте")
     def input_comment_in_popup(self):
         """
         Корректное заполнение поля Комментарий в модалке
@@ -143,7 +151,7 @@ class PopupFormRequests:
         browser.execute_script("arguments[0].click();", element.locate())
 
     # TODO - ожидаем решения задачи 1013 для установки data-qa для ошибок под полями
-    @allure.step("Получение ошибки о неустановленном чекбоксе")
+    @allure.step("Проверяем появление ошибки под чекбоксом политики конфиденциальности")
     def get_error_text_in_field_checkbox_in_popup(self):
         locator_element_error = (
             By.XPATH,
@@ -154,6 +162,7 @@ class PopupFormRequests:
         )
 
     @staticmethod
+    @allure.step("Прикрепить корректный файл")
     def add_files():
         current_dir = os.path.dirname(os.path.abspath(__file__))
         files_directory = os.path.join(

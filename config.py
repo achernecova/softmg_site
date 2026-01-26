@@ -19,6 +19,7 @@ class PageConfig:
                 "title": "",
                 "description": "",
                 "url_page": self.base_url,
+                "api_page": self.base_url + "api/v2/page/main"
             },
             "restoran": {
                 "name": "restoran",
@@ -97,6 +98,7 @@ class PageConfig:
                 "title": "Кейсы",
                 "description": "",
                 "url_page": self.base_url + "examples/",
+                "api_url": self.base_url + "api/v2/page/examples",
             },
             "about-company": {
                 "name": "about-company",

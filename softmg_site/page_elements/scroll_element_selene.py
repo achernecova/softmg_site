@@ -15,10 +15,10 @@ class ScrollElement:
         position = browser.driver.execute_script("return window.scrollY;")
         return position % 1 == 0
 
-    def search_element_website_packages(self, selector, value):
+    def search_element_website_packages(self, selector, index):
         # Получаем элемент
         # element_website_packages = browser.element(f"(//*[@class='team-card']//a)[{value}]")
-        element_website_packages = browser.element(f"{selector}[{value}]")
+        element_website_packages = browser.element(f"{selector}[{index}]")
         # Прокручиваем элемент в центр экрана
         browser.driver.execute_script(
             "arguments[0].scrollIntoView({behavior:'smooth', block:'center'});",

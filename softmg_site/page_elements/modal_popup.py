@@ -1,3 +1,4 @@
+import allure
 from selene import be, browser, have
 from selenium.webdriver.common.by import By
 
@@ -18,6 +19,7 @@ class PopupModal:
 
     # TODO - надо перепроверить через разработчиков
     @staticmethod
+    @allure.step("Проверить появление окна успешности отправки заявки")
     def visible_success_popup_header():
         """Проверка отображения хэдера в окне подтверждения отправки заявки.
         Отправка заявки - по кнопке из хэдера.
@@ -29,6 +31,7 @@ class PopupModal:
         )
 
     @staticmethod
+    @allure.step("Проверить появление окна успешности отправки заявки")
     def visible_success_popup_footer():
         """Проверка отображения хэдера в окне подтверждения отправки заявки.
         Отправка заявки - по кнопке из хэдера.

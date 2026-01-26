@@ -31,3 +31,14 @@ skip = [
     "allure-report",
     ".pytest_cache",
 ]
+
+[tool.pytest.ini_options]
+addopts = "-l -v --durations 10"
+addopts = [
+    "--alluredir=allure-results",
+    "--clean-alluredir",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"').",
+]
+

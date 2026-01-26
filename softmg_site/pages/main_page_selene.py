@@ -11,23 +11,18 @@ from softmg_site.page_elements.header_menu import HeaderMenuSelene
 from softmg_site.page_elements.modal_popup import PopupModal
 from softmg_site.page_elements.popup_form import PopupFormRequests
 from softmg_site.page_elements.scroll_element_selene import ScrollElement
-from softmg_site.page_elements.service_item_block_selene import ServiceItemBlockSelene
-from softmg_site.page_elements.website_packages_block_selene import (
-    WebSitePackagesBlockSelene,
-)
 
 
 class MainPageSelene:
     def __init__(self):
-        self.base_url = config.base_url  # Сохраняем base_url в атрибут класса
-        self.service_item_block_card_more = ServiceItemBlockSelene()
+        self.base_url = config.base_url
         self.popup_modal = PopupModal()
-        self.block_website_packages_more = WebSitePackagesBlockSelene()
         self.scroll_element = ScrollElement()
         self.popup_form = PopupFormRequests()
         self.header_menu = HeaderMenuSelene()
         self.footer_form = FooterForm()
 
+    @allure.step("Открываем главную страницу")
     def open_page(self):
         browser.open(self.base_url)
         browser.element((By.TAG_NAME, "body")).click()
@@ -36,7 +31,7 @@ class MainPageSelene:
     @allure.step("Проверяем URL и заголовок страницы")
     def page_assert_open_page(page_name):
         """Проверяет, что открытая страница соответствует данным из PageConfig.
-        :param page_name: название страницы"""
+        :param page_name: Название страницы"""
         browser.element("body").perform(command.js.click)
         page_data = config.get_page_data(page_name)
 
@@ -46,18 +41,13 @@ class MainPageSelene:
         # Проверяем URL содержит ожидаемую часть
         browser.should(have.url(expected_url))
 
-        # кликаем в баннер с куками, чтобы скрыть меню
-        #browser.element("//*[contains(@class, '_banner_')]").click()
-
         title_page_h1 = browser.element("h1")
         title_page_h1.should(have.exact_text(expected_title))
 
-        # title_page_h2 = browser.element('h1').get(query.text)
-        # print(title_page_h2)
-
     @staticmethod
-    def open_page_first_level_in_menu(value: int):
+    def open_page_first_level_in_menu(value: int, page_name: str):
         """
+        :param page_name: Наименование страницы
         :param value: номер элемента меню
         """
         browser.element((By.TAG_NAME, "body")).click()
@@ -65,7 +55,8 @@ class MainPageSelene:
         locator = by.xpath(f"(//*[contains(@class, '_firstLevelItem')])[{value + 1}]")
         # Находим элемент
         menu_item = browser.element(locator)
-        menu_item.should(be.clickable).click()
+        with allure.step(f"Открываем страницу '{page_name}' из верхнего меню"):
+            menu_item.should(be.clickable).click()
 
     @staticmethod
     def menu_definition(menu_type: str, index: int) -> Element:
@@ -110,22 +101,23 @@ class MainPageSelene:
             # Если после трех попыток меню всё ещё не появляется, поднимаем исключение
         raise Exception(f"Меню второго уровня не открылось после многократных попыток.")
 
-    def open_page_second_level_in_menu(self, menu_type: str, index: int):
+    def open_page_second_level_in_menu(self, menu_type: str, index: int, page_name: str):
         """
         Универсальный метод открытия страницы второго уровня в меню.
+        :param page_name: Наименование страницы
         :param menu_type: Тип верхнего уровня меню ('services', 'about' и т.п.)
         :param index: Индекс пункта второго уровня меню (нумерация начинается с 0)
         """
         second_menu = self.menu_definition(menu_type, index)
-        second_menu.click()
+        with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
+            second_menu.click()
 
     def open_page_third_level_in_menu(
-        self, menu_type: str, index_submenu: int, index: int
-    ):
+            self, menu_type: str, index_submenu: int, index: int, page_name: str):
         """
         Универсальный метод открытия страницы третьего уровня в меню.
-
-        :param index_submenu: индекс сабменю
+        :param page_name: Название страницы
+        :param index_submenu: Индекс сабменю
         :param menu_type: Тип верхнего уровня меню ('services', 'about' и т.п.).
         :param index: Индекс пункта третьего уровня меню (нумерация начинается с 0).
         Вызываем метод определения второго уровня меню. Наводим на нужное меню через hover()
@@ -139,4 +131,5 @@ class MainPageSelene:
         third_level_item.with_(timeout=10).wait_until(be.clickable)
 
         # Кликаем по пункту третьего уровня
-        third_level_item.click()
+        with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
+            third_level_item.click()
