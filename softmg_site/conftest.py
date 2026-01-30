@@ -17,7 +17,6 @@ from softmg_site.api_helper.api_help import ApiHelper
 from softmg_site.utils import attach
 from softmg_site.utils.logger import setup_logger
 
-
 # DEFAULT_BROWSER_VERSION = "127.0"
 #
 #
@@ -90,9 +89,10 @@ from softmg_site.utils.logger import setup_logger
 #     # attach.add_video(browser)
 #     browser.quit()
 
+
 @pytest.fixture()
 def driver_setup_all():
-    '''Фикстура для запуска локально'''
+    """Фикстура для запуска локально"""
     chrome_options = Options()
     # chrome_options.add_argument("--headless")
     # chrome_options.page_load_strategy = "none"
@@ -117,7 +117,7 @@ def driver_setup_all():
 
 @pytest.fixture(scope="session")
 def driver_setup_session():
-    '''Фикстура для запуска локально'''
+    """Фикстура для запуска локально"""
     chrome_options = Options()
     # chrome_options.add_argument("--headless")
     # chrome_options.page_load_strategy = "none"
@@ -141,13 +141,18 @@ def driver_setup_session():
 
 
 @pytest.fixture(scope="session")
-def api_search():
+def api_help():
     return ApiHelper()
 
 
 @pytest.fixture(scope="session")
-def cookies(api_search):
-    return api_search.search()
+def cookies(api_help):
+    return api_help.search()
+
+
+@pytest.fixture(scope="session")
+def cookies_articles(api_help):
+    return api_help.articles_search()
 
 
 def pytest_configure():
@@ -155,8 +160,6 @@ def pytest_configure():
 
     # TODO не придумала как перенести рандом и faker внутрь метода, без использования фикстур и фабрик.
     #  Но и так чтобы параметризация осталась. Слишком громоздко получается.
-
-
 input_data_in_fields = pytest.mark.parametrize(
     "name_field, input_data, text_error",
     [

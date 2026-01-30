@@ -8,7 +8,7 @@ from config import BASE_URL
 logger = logging.getLogger(__name__)
 
 
-class SearchPage:
+class ArticlesPage:
     def __init__(self):
         self.browser = selene_browser
         self.order_summary = ".order-summary-content"
@@ -19,7 +19,7 @@ class SearchPage:
             logger.info("Ставим куки и обновляем браузер")
 
             # Открываем страницу
-            self.browser.open(BASE_URL + "search/")
+            self.browser.open(BASE_URL + "article/")
 
             # Устанавливаем куки
             for cookie_name, cookie_value in cookies.items():
@@ -28,10 +28,10 @@ class SearchPage:
                         "name": cookie_name,
                         "value": cookie_value,
                         "path": "/",
-                        "domain": "",
+                        "domain": "preprod.softmg.ru",  # Явно указали домен
                         "secure": False,
                         "httpOnly": False,
-                        "sameSite": "Lax"
+                        "sameSite": "Strict"
                     })
                 except Exception as e:
                     logger.error(f"Ошибка при установке куки '{cookie_name}': {e}")
@@ -50,4 +50,4 @@ class SearchPage:
     def open(self):
         with allure.step("Открываем страницу с поиском"):
             logger.info("Открываем страницу поиска")
-            self.browser.open(BASE_URL+"search/")
+            self.browser.open(BASE_URL + "search/")

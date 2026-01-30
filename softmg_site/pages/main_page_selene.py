@@ -99,7 +99,7 @@ class MainPageSelene:
                 browser.execute_script('document.activeElement.blur();')
 
             # Если после трех попыток меню всё ещё не появляется, поднимаем исключение
-        raise Exception(f"Меню второго уровня не открылось после многократных попыток.")
+        raise Exception("Меню второго уровня не открылось после многократных попыток.")
 
     def open_page_second_level_in_menu(self, menu_type: str, index: int, page_name: str):
         """

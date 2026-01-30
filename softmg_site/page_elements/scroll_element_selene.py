@@ -9,7 +9,7 @@ class ScrollElement:
     def stop_scroll_condition():
         """
         Метод для ожидания завершения прокрутки.
-        Нужнео было из-за динамической загрузки. Не удалять!!!
+        Нужно было из-за динамической загрузки. Не удалять!!!
         Целочисленность position свидетельствует о завершении прокрутки
         """
         position = browser.driver.execute_script("return window.scrollY;")

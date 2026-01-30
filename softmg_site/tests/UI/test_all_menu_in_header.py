@@ -1,8 +1,9 @@
 import allure
 from allure_commons.types import Severity
 
+from softmg_site.conftest import (first_level_menu, menu_level_second_services,
+                                  menu_level_third_development)
 from softmg_site.pages.main_page_selene import MainPageSelene
-from softmg_site.conftest import menu_level_second_services, menu_level_third_development, first_level_menu
 
 
 @allure.link("https://softmg.ru/", name="Testing")

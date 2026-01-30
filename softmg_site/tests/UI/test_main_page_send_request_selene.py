@@ -2,8 +2,8 @@ import allure
 import pytest
 from allure_commons.types import Severity
 
-from softmg_site.pages.main_page_selene import MainPageSelene
 from softmg_site.conftest import input_data_in_fields
+from softmg_site.pages.main_page_selene import MainPageSelene
 
 
 @allure.tag("critical")
@@ -23,7 +23,6 @@ class TestSendRequests:
         page.popup_form.click_button_in_popup()
 
         page.popup_form.get_error_text_in_field_checkbox_in_popup()
-
 
     @allure.tag("negative")
     @allure.severity(Severity.CRITICAL)
@@ -101,7 +100,7 @@ class TestSendRequests:
     @allure.story("Заявка, отправленная со страницы вакансии не должна попадать в битрикс")
     @pytest.mark.skip(reason="Тест не реализован. Т.к. не понятно как реализовывать проверку с подключением к почте.")
     def test_requests_vacancy_is_not_add_in_bitrix(self, driver_setup_all):
-        raise NotImplemented
+        raise NotImplementedError
 
     @allure.tag("critical")
     @allure.tag("positive")
