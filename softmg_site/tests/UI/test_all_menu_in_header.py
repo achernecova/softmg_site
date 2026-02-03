@@ -50,7 +50,7 @@ class TestThirdLevelMenuOpenPage:
     def test_page_menu_level_third_development_open(self, driver_setup_all, index, page_name):
         page = MainPageSelene()
         page.open_page()
-        page.open_page_third_level_in_menu("services", 1, index, page_name)
+        page.open_page_third_level_in_menu("services", 2, index, page_name)
         page.page_assert_open_page(page_name)
 #
 
