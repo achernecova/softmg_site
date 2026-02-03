@@ -61,7 +61,7 @@ def test_api_add_requests_with_not_correct_phone(api_help, name_form):
                     "но с превышением символов в descr")
 @name_of_feedback_forms
 def test_api_add_requests_with_exceeding_characters_in_descr(api_help, name_form):
-    status_code = api_help.add_request_with_exceeding_characters_in_descr(name_form)
+    status_code = api_help.add_request_in_form_with_with_exceeding_characters_in_descr(name_form)
 
     try:
         assert status_code == 422
@@ -74,12 +74,12 @@ def test_api_add_requests_with_exceeding_characters_in_descr(api_help, name_form
                     "Бизнес не добавляет ограничения на кол-во символов в логине.")
 @name_of_feedback_forms
 def test_api_add_requests_with_one_char_in_email(api_help, name_form):
-    status_code = api_help.add_request_in_form_with_one_char_in_email(name_form)
+    status_code = api_help.add_request_in_request_with_one_char_in_email(name_form)
 
     assert status_code == 201
 
 
-# TODO - устанавливаются куки, но страница не отображает нужных данных даже после рефреша
-def test_api_search_with_data(cookies):
-    search = SearchPage()
-    search.set_cookies_and_refresh_browser(cookies)
+# # TODO - устанавливаются куки, но страница не отображает нужных данных даже после рефреша
+# def test_api_search_with_data(cookies):
+#     search = SearchPage()
+#     search.set_cookies_and_refresh_browser(cookies)

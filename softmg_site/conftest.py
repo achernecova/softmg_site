@@ -179,20 +179,26 @@ input_data_in_fields = pytest.mark.parametrize(
 menu_level_second_services = pytest.mark.parametrize(
     "index, page_name",
     [
-        (1, "development"),
-        (2, "application-development"),
-        (3, "razrabotka-ai/"),
-        (4, "razrabotka-po"),
-        (5, "support"),
-        (6, "promotion"),
+        (0, "it-autstaffing"),
+        (1, "outsource"),
+        (2, "development"),
+        (3, "application-development"),
+        (4, "razrabotka-ai"),
+        (5, "razrabotka-po"),
+        (6, "support"),
+        (7, "devops"),
+        (8, "promotion"),
 
     ],
     ids=[
+        "Autstaffing",
+        "Outsource",
         "Development",
         "Application Development",
         "AI Development",
         "Software Development",
         "Support",
+        "Devops",
         "Promotion",
     ],
 )

@@ -19,7 +19,7 @@ class PopupFormRequests:
         self.name_data = Faker()
         self.data = Faker("ru_RU")
         self.cookie_modal = PopupModal()
-        self.constant = "c629d896adfa02f3a703c5f799508d157da6740c058c132ecbcde8ba06f27bf58b2de4ef9c1ab515774dcece78202cd31d4d8a6580da5afd40dc0ff6a24e54b1"
+        # self.constant = "c629d896adfa02f3a703c5f799508d157da6740c058c132ecbcde8ba06f27bf58b2de4ef9c1ab515774dcece78202cd31d4d8a6580da5afd40dc0ff6a24e54b1"
         self.email_element = browser.element(
             "[data-qa='leave-application-form'] [name='email']"
         )
@@ -58,8 +58,8 @@ class PopupFormRequests:
         """
         Простое заполнение поля Имя в модалке.
         """
-        name_text = self.constant + self.data.name()
-        self.name_element.type(name_text)
+        # name_text = self.constant + self.data.name()
+        self.name_element.type(self.data.name())
 
     @allure.step("Заполняем корректными данными поле Email")
     def input_email_in_popup(self):
@@ -67,7 +67,8 @@ class PopupFormRequests:
         Корректное заполнение поля Email в модалке.
         Нормализуем.
         """
-        email_text = self.constant + self.name_data.email()
+       # email_text = self.constant + self.name_data.email()
+        email_text = self.name_data.email()
         login_sender, domain_sender = email_text.split("@")
         login_sender_normalized = login_sender.replace(",", "").replace(" ", "")
         email_text_normalized = login_sender_normalized + "@" + domain_sender
@@ -124,14 +125,15 @@ class PopupFormRequests:
         phone_number = self.name_data.numerify("###########")
         self.phone_element.type(phone_number)
 
-    @allure.step("Заполняем корректными данными поле Напишите кратко о проекте")
+    @allure.step("Заполняем корректными данными поле Комментарий")
     def input_comment_in_popup(self):
         """
         Корректное заполнение поля Комментарий в модалке
         """
-        comment_text = self.constant + self.name_data.text(max_nb_chars=150)
+        # comment_text = self.constant + self.name_data.text(max_nb_chars=150)
+        comment_text = self.name_data.text(max_nb_chars=150)
         element = browser.element(
-            "[data-qa='leave-application-form'] [placeholder='Напишите кратко о проекте']"
+            "[data-qa='leave-application-form'] [placeholder='Комментарий']"
         )
         for char in comment_text:
             element.type(char)

@@ -43,6 +43,7 @@ class TestSendRequests:
 
         page.popup_form.get_error_text_in_field_in_popup(text_error)
 
+
     @allure.tag("negative")
     @allure.severity(Severity.CRITICAL)
     @allure.story("Проверка ошибок под полями ввода данных")
@@ -58,6 +59,7 @@ class TestSendRequests:
             page.popup_form.email_validation_message()
         except AssertionError:
             pytest.xfail("В Selene (или в более старом браузере...) не отображаются подсказки JS. Временно отключен.")
+
 
     @allure.tag("positive")
     @allure.severity(Severity.CRITICAL)

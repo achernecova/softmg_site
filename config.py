@@ -112,11 +112,24 @@ class PageConfig:
                 "description": "",
                 "url_page": self.base_url + "contacts/",
             },
+
             "development": {
                 "name": "development",
                 "title": "Разработка сайтов",
                 "description": "",
                 "url_page": self.base_url + "development/",
+            },
+            "it-autstaffing": {
+                "name": "it-autstaffing",
+                "title": "Аутстаффинг IT-специалистов",
+                "description": "",
+                "url_page": self.base_url + "it-autstaffing/",
+            },
+            "outsource": {
+                "name": "outsource",
+                "title": "Аутсорс IT",
+                "description": "",
+                "url_page": self.base_url + "outsource/",
             },
             "application-development": {
                 "name": "application-development",
@@ -124,17 +137,23 @@ class PageConfig:
                 "description": "",
                 "url_page": self.base_url + "application-development/",
             },
-            "razrabotka-ai/": {
-                "name": "razrabotka-ai/",
+            "razrabotka-ai": {
+                "name": "razrabotka-ai",
                 "title": "Искусственный интеллект для бизнеса – решения, которые работают",
                 "description": "",
                 "url_page": self.base_url + "razrabotka-ai/",
             },
             "razrabotka-po": {
-                "name": "razrabotka-po/",
+                "name": "razrabotka-po",
                 "title": "Разработка ПО",
                 "description": "",
                 "url_page": self.base_url + "razrabotka-po/",
+            },
+            "devops": {
+                "name": "devops",
+                "title": "DevOps: стабильная работа и быстрое развитие ваших IT-систем",
+                "description": "",
+                "url_page": self.base_url + "uslugi/devops/",
             },
             "support": {
                 "name": "support",

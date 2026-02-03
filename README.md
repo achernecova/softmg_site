@@ -86,7 +86,8 @@
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-pytest tests
+pytest --alluredir=allure-results
+
 ```
 Для получения отчета выполнить в cli:
 #### <a name="allure_serve">Получение отчёта:</a>
