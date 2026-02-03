@@ -15,7 +15,7 @@ class TestFirstLevelMenuOpenPage:
     @allure.story("Открытие верхнеуровневого меню")
     @allure.title("Открытие верхнеуровневого меню")
     @first_level_menu
-    def test_page_menu_open(self, driver_setup_session, index, page_name):
+    def test_page_menu_open(self, driver_setup_all, index, page_name):
         page = MainPageSelene()
         page.open_page()
         page.open_page_first_level_in_menu(index, page_name)
