@@ -2,7 +2,6 @@ import allure
 import pytest
 
 from softmg_site.conftest import name_of_feedback_forms
-from softmg_site.pages.search_page import SearchPage
 
 
 @allure.tag("positive")
@@ -16,6 +15,7 @@ def test_api_success_request_with_all_fields(api_help, name_form):
 @allure.tag("negative")
 @allure.description("Отправка запроса с заявкой с кривым email - тут надо проверять поле title")
 @name_of_feedback_forms
+@pytest.mark.prod
 def test_api_add_fail_requests_with_not_correct_email(api_help, name_form):
     status_code, error_title, email_data = api_help.add_request_with_not_correct_email(name_form)
 
@@ -26,6 +26,7 @@ def test_api_add_fail_requests_with_not_correct_email(api_help, name_form):
 @allure.tag("negative")
 @allure.description("Отправка запроса с заявкой с пустыми полями")
 @name_of_feedback_forms
+@pytest.mark.prod
 def test_api_add_requests_with_all_fields_empty(api_help, name_form):
     status_code, error_title = api_help.add_request_with_all_fields_empty(name_form)
 
@@ -60,6 +61,7 @@ def test_api_add_requests_with_not_correct_phone(api_help, name_form):
 @allure.description("Успешная отправка заявки с корректным email (заполняется только поле email), "
                     "но с превышением символов в descr")
 @name_of_feedback_forms
+@pytest.mark.prod
 def test_api_add_requests_with_exceeding_characters_in_descr(api_help, name_form):
     status_code = api_help.add_request_in_form_with_with_exceeding_characters_in_descr(name_form)
 

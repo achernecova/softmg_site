@@ -1,7 +1,10 @@
-def test_test(api_help):
-    api_help.get_links_in_main_page("page/main")
+import allure
+import pytest
 
 
+@allure.tag("positive")
+@allure.description("Проверяем все линки на странице main")
+@pytest.mark.prod
 def test_fetch_and_test_links(api_help):
     # Шаг 1: Получаем результаты
     results = api_help.fetch_and_test_links('page/main')
