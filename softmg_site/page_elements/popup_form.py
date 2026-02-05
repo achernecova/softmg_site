@@ -67,7 +67,7 @@ class PopupFormRequests:
         Корректное заполнение поля Email в модалке.
         Нормализуем.
         """
-       # email_text = self.constant + self.name_data.email()
+        # email_text = self.constant + self.name_data.email()
         email_text = self.name_data.email()
         login_sender, domain_sender = email_text.split("@")
         login_sender_normalized = login_sender.replace(",", "").replace(" ", "")

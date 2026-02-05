@@ -39,6 +39,7 @@ addopts = [
     "--clean-alluredir",
 ]
 markers = [
-    "prod: marks tests - prod tests (deselect with '-m \"not slow\"').",
+    "prod: marks tests - prod tests (deselect with '-m \"not prod\"').",
+    "regression: marks tests - regression tests (deselect with '-m \"not regression\"').",
 ]
 

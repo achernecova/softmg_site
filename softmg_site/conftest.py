@@ -1,6 +1,6 @@
 import random
-import pytest
 
+import pytest
 from faker import Faker
 from selene import browser
 from selenium import webdriver
@@ -54,9 +54,10 @@ def cookies_articles(api_help):
 def pytest_configure():
     setup_logger()
 
-
     # TODO не придумала как перенести рандом и faker внутрь метода, без использования фикстур и фабрик.
     #  Но и так чтобы параметризация осталась. Слишком громоздко получается.
+
+
 input_data_in_fields = pytest.mark.parametrize(
     "name_field, input_data, text_error",
     [
@@ -158,5 +159,8 @@ menu_level_third_application = pytest.mark.parametrize(
 
 name_of_feedback_forms = pytest.mark.parametrize("name_form",
                                                  ["Оставить заявку", "Обсудить проект", "Мы готовы помочь с выбором",
-                                                  "Остались вопросы", "Задать вопрос"]
+                                                  "Остались вопросы", "Задать вопрос"],
+                                                 ids=["Submit a request", "Discuss a project",
+                                                      "We're ready to help you choose", "Still have questions",
+                                                      "Ask a question"]
                                                  )

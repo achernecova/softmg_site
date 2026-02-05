@@ -1,24 +1,27 @@
-def test_api_services_page(api_help):
-    api_help.get_links_in_main_page('page/offers')
+import allure
+import pytest
 
 
-def test_fetch_and_test_links(api_help):
-    # Шаг 1: Получаем результаты
-    results = api_help.fetch_and_test_links('page/offers')
+@allure.label("owner", "chernetsova")
+@allure.tag("critical")
+@allure.tag("positive")
+@allure.feature("API. Проверка линковки на странице услуг")
+@pytest.mark.prod
+class TestAPILinkServicePage:
 
-    # Шаг 2: Проверяем количество ссылок
-    total_links = len(results)
-    assert total_links > 0, "Ссылки не найдены"
-    print(f"\nКоличество ссылок: {total_links}\n")
+    @allure.description("Проверяем все линки на странице услуг")
+    @allure.title("Проверка линков на странице услуг")
+    def test_fetch_and_test_links_in_services_page(self, api_help):
+        results = api_help.fetch_and_test_links('page/offers')
 
-    # Шаг 3: Отделяем доступные и недоступные ссылки
-    available_links = [url for url, status in results.items() if status == 200]
-    unavailable_links = [url for url, status in results.items() if status != 200]
+        total_links = len(results)
+        assert total_links > 0, "Ссылки не найдены"
+        print(f"\nКоличество ссылок: {total_links}\n")
 
-    # Шаг 4: Выводим информацию о доступе к ссылкам
-    print("Доступные ссылки:\n", available_links)
-    print("\nНедоступные ссылки:\n", unavailable_links)
+        available_links = [url for url, status in results.items() if status == 200]
+        unavailable_links = [url for url, status in results.items() if status != 200]
+        print("Доступные ссылки:\n", available_links)
+        print("\nНедоступные ссылки:\n", unavailable_links)
 
-    # Шаг 5: Проводим утверждение о доступности всех ссылок
-    for url, status in results.items():
-        assert status == 200, f"Ссылка {url} недоступна (код {status})"
+        for url, status in results.items():
+            assert status == 200, f"Ссылка {url} недоступна (код {status})"
