@@ -1,5 +1,10 @@
 import allure
 import pytest
+import requests
+from openpyxl import Workbook
+
+from config import PageConfig
+from softmg_site.conftest import api_help
 
 
 @allure.label("owner", "chernetsova")
@@ -25,3 +30,23 @@ class TestAPILinkServicePage:
 
         for url, status in results.items():
             assert status == 200, f"Ссылка {url} недоступна (код {status})"
+
+
+    def test_fetch_and_process_pages(self, api_help):
+        block_types_by_url, errors = api_help.fetch_and_process_pages()
+
+        # Сохраняем результаты в Excel
+        api_help.save_to_excel(block_types_by_url)
+
+        # Проверяем результаты
+        assert isinstance(block_types_by_url, dict), "Результатом должно быть словарное представление."
+        for url, types in block_types_by_url.items():
+            print(f"Типы блоков для страницы {url}: {types}\n")
+            assert isinstance(types, list), f"Значения для URL '{url}' должны быть списком."
+            assert len(types) > 0, f"Должны присутствовать типы блоков для URL '{url}'."
+
+        # Проверяем наличие ошибок
+        if errors:
+            error_messages = ["\n".join([f"Ошибка на URL {err[0]}:\n\t{err[1]}\n" for err in errors])]
+            print(error_messages)
+            raise AssertionError("Во время обработки возникли ошибки.")

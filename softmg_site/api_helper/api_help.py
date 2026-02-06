@@ -2,13 +2,13 @@ import json
 import logging
 import re
 from urllib.parse import urljoin
-
+from openpyxl import Workbook
 import allure
 import requests
 from allure_commons.types import AttachmentType
 from faker import Faker
 
-from config import BASE_URL
+from config import BASE_URL, PageConfig
 
 logger = logging.getLogger(__name__)
 
@@ -367,3 +367,69 @@ class ApiHelper:
                 results[url] = sub_response.status_code
 
             return results
+
+    @staticmethod
+    def get_api_urls():
+        """
+        Возвращает список URL API, которые нужны для дальнейших запросов.
+        Пропускает страницы, у которых отсутствует или пустой api_url.
+        """
+        pages_config = PageConfig().pages
+        return [page["api_url"] for page in pages_config.values() if "api_url" in page and page["api_url"] != ""]
+
+    @staticmethod
+    def extract_section_types(response_data):
+        """
+        Извлекает типы блоков ('type') из раздела 'sections'.
+        """
+        try:
+            return [section['type'] for section in response_data['sections']]
+        except KeyError:
+            return []
+
+    def fetch_and_process_pages(self):
+        """
+        Выполняет запросы ко всем API URL и собирает типы блоков.
+        Возвращает словарное представление с результатами и список ошибок.
+        """
+        api_urls = self.get_api_urls()
+        results = {}
+        errors = []
+
+        for url in api_urls:
+            try:
+                response = requests.get(url)
+                if response.status_code == 200:
+                    data = response.json()
+                    types = self.extract_section_types(data)
+                    results[url] = types
+                elif response.status_code == 404:
+                    errors.append((url, f"Страница не найдена (404)"))
+                else:
+                    errors.append((url, f"Ошибка при обработке URL {url}, статус-код: {response.status_code}"))
+            except Exception as e:
+                errors.append((url, f"Ошибка при обработке URL {url}: {e}"))
+
+        return results, errors
+
+    @staticmethod
+    def save_to_excel(results):
+        """
+        Преобразует словарь с результатами в Excel и сохраняет.
+        """
+        workbook = Workbook()
+        sheet = workbook.active
+
+        # Записываем данные
+        for idx, (url, types) in enumerate(results.items(), start=1):
+            sheet.cell(row=idx, column=1, value=url)
+            for col_idx, block_type in enumerate(types, start=2):
+                sheet.cell(row=idx, column=col_idx, value=block_type)
+
+        # Сохраняем файл
+        excel_file = 'block_types.xlsx'
+        try:
+            workbook.save(excel_file)
+            print(f"Данные успешно сохранены в файл {excel_file}.")
+        except Exception as e:
+            print(f"Ошибка при сохранении файла: {e}")
