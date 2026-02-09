@@ -5,8 +5,7 @@ from softmg_site.conftest import api_help
 
 
 @allure.label("owner", "chernetsova")
-@allure.tag("critical")
-@allure.tag("positive")
+@allure.tag("critical", "positive")
 @allure.feature("API. Проверка линковки на странице услуг")
 @pytest.mark.prod
 class TestAPILinkServicePage:
@@ -29,7 +28,13 @@ class TestAPILinkServicePage:
             assert status == 200, f"Ссылка {url} недоступна (код {status})"
 
 
-    @allure.description("Для каждой страницы из конфига собираются блоки с записью в эксель")
+@allure.label("owner", "chernetsova")
+@allure.tag("critical", "positive")
+@allure.feature("API. Скрипт для определения блоков на страницах")
+@pytest.mark.prod
+@allure.description("Для страниц из конфига собираются блоки с записью в эксель")
+class TestAPIBlocksInPage:
+
     @allure.title("Сбор блоков для каждой страницы из конфига")
     def test_fetch_and_process_pages(self, api_help):
         block_types_by_url, errors = api_help.fetch_and_process_pages()
