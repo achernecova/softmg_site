@@ -1,9 +1,6 @@
 import allure
 import pytest
-import requests
-from openpyxl import Workbook
 
-from config import PageConfig
 from softmg_site.conftest import api_help
 
 
@@ -32,7 +29,9 @@ class TestAPILinkServicePage:
             assert status == 200, f"Ссылка {url} недоступна (код {status})"
 
 
-    def test_fetch_and_process_pages(self, api_help):
+    @allure.description("Для каждой страницы из конфига собираются блоки с записью в эксель")
+    @allure.title("Сбор блоков для каждой страницы из конфига")
+    def test_fetch_and_blocks_in_pages(self, api_help):
         block_types_by_url, errors = api_help.fetch_and_process_pages()
 
         # Сохраняем результаты в Excel

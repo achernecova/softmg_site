@@ -422,7 +422,11 @@ class ApiHelper:
 
         # Записываем данные
         for idx, (url, types) in enumerate(results.items(), start=1):
-            sheet.cell(row=idx, column=1, value=url)
+            # Добавляем гиперссылку для URL
+            sheet.cell(row=idx, column=1).value = url
+            sheet.cell(row=idx, column=1).hyperlink = url
+            sheet.cell(row=idx, column=1).style = "Hyperlink"  # Применяем стиль гиперссылки
+
             for col_idx, block_type in enumerate(types, start=2):
                 sheet.cell(row=idx, column=col_idx, value=block_type)
 
