@@ -19,81 +19,81 @@ class PageConfig:
                 "title": "",
                 "description": "",
                 "url_page": self.base_url,
-                "api_page": self.base_url + "api/v2/page/main"
+                "api_url": self.base_url + "api/v2/page/main"
             },
-            "restoran": {
-                "name": "restoran",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/restoran/",
-            },
-            "auto": {
-                "name": "auto",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/auto/",
-            },
-            "nedviga": {
-                "name": "nedviga",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/nedvigimost/",
-            },
-            "premium": {
-                "name": "premium",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/premium/",
-            },
-            "adaptiv": {
-                "name": "adaptiv",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/adaptiv/",
-            },
-            "bizness": {
-                "name": "bizness",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/bizness/",
-            },
-            "stroy-comp": {
-                "name": "stroy-comp",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/stroitelnie-kompanyy/",
-            },
-            "remont": {
-                "name": "remont",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/remont-otdelka/",
-            },
-            "health": {
-                "name": "health",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/?tag=health",
-            },
-            "med-klinika": {
-                "name": "med-klinika",
-                "title": "",
-                "description": "",
-                "url_page": self.base_url + "examples/med-klinika/",
-            },
+            # "restoran": {
+            #     "name": "restoran",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/restoran/",
+            # },
+            # "auto": {
+            #     "name": "auto",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/auto/",
+            # },
+            # "nedviga": {
+            #     "name": "nedviga",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/nedvigimost/",
+            # },
+            # "premium": {
+            #     "name": "premium",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/premium/",
+            # },
+            # "adaptiv": {
+            #     "name": "adaptiv",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/adaptiv/",
+            # },
+            # "bizness": {
+            #     "name": "bizness",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/bizness/",
+            # },
+            # "stroy-comp": {
+            #     "name": "stroy-comp",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/stroitelnie-kompanyy/",
+            # },
+            # "remont": {
+            #     "name": "remont",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/remont-otdelka/",
+            # },
+            # "health": {
+            #     "name": "health",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/?tag=health",
+            # },
+            # "med-klinika": {
+            #     "name": "med-klinika",
+            #     "title": "",
+            #     "description": "",
+            #     "url_page": self.base_url + "examples/med-klinika/",
+            # },
             "uslugi": {
                 "name": "uslugi",
                 "title": "Услуги",
                 "description": "",
                 "url_page": self.base_url + "uslugi/",
-                "api_page": self.base_url + "api/v2/page/offers"
+                "api_url": self.base_url + "api/v2/page/offers"
             },
             "calculator": {
                 "name": "calculator",
                 "title": "Калькулятор услуг",
                 "description": "",
                 "url_page": self.base_url + "calculator/",
-                "api_page": self.base_url + "api/v2/page/calculator"
+                "api_url": self.base_url + "api/v2/page/calculator"
             },
             "examples": {
                 "name": "examples",

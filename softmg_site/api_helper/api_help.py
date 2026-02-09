@@ -371,11 +371,12 @@ class ApiHelper:
     @staticmethod
     def get_api_urls():
         """
-        Возвращает список URL API, которые нужны для дальнейших запросов.
+        Возвращает список кортежей (api_url, url), которые нужны для дальнейших запросов.
         Пропускает страницы, у которых отсутствует или пустой api_url.
         """
         pages_config = PageConfig().pages
-        return [page["api_url"] for page in pages_config.values() if "api_url" in page and page["api_url"] != ""]
+        return [(page["api_url"], page["url_page"]) for page in pages_config.values() if
+                "api_url" in page and page["api_url"] != ""]
 
     @staticmethod
     def extract_section_types(response_data):
@@ -396,13 +397,13 @@ class ApiHelper:
         results = {}
         errors = []
 
-        for url in api_urls:
+        for api_url, url in api_urls:
             try:
-                response = requests.get(url)
+                response = requests.get(api_url)
                 if response.status_code == 200:
                     data = response.json()
                     types = self.extract_section_types(data)
-                    results[url] = types
+                    results[url] = (api_url, types)
                 elif response.status_code == 404:
                     errors.append((url, f"Страница не найдена (404)"))
                 else:
@@ -418,17 +419,43 @@ class ApiHelper:
         Преобразует словарь с результатами в Excel и сохраняет.
         """
         workbook = Workbook()
-        sheet = workbook.active
+        sheet1 = workbook.active
+        sheet1.title = "URL and API URL"
 
-        # Записываем данные
-        for idx, (url, types) in enumerate(results.items(), start=1):
-            # Добавляем гиперссылку для URL
-            sheet.cell(row=idx, column=1).value = url
-            sheet.cell(row=idx, column=1).hyperlink = url
-            sheet.cell(row=idx, column=1).style = "Hyperlink"  # Применяем стиль гиперссылки
+        # Записываем данные на первую страницу
+        for idx, (url, (api_url, types)) in enumerate(results.items(), start=1):
+            # Добавляем гиперссылку для url
+            sheet1.cell(row=idx, column=1).value = url
+            sheet1.cell(row=idx, column=1).hyperlink = url
+            sheet1.cell(row=idx, column=1).style = "Hyperlink"  # Применяем стиль гиперссылки
 
-            for col_idx, block_type in enumerate(types, start=2):
-                sheet.cell(row=idx, column=col_idx, value=block_type)
+            # Добавляем гиперссылку api_url
+            sheet1.cell(row=idx, column=2).value = api_url
+            sheet1.cell(row=idx, column=2).hyperlink = url
+            sheet1.cell(row=idx, column=2).style = "Hyperlink"  # Применяем стиль гиперссылки
+
+            for col_idx, block_type in enumerate(types, start=3):
+                sheet1.cell(row=idx, column=col_idx, value=block_type)
+
+        # Создаем вторую страницу
+        sheet2 = workbook.create_sheet(title="Blocks and URLs")
+
+        # Собираем данные о блоках и URL
+        block_urls = {}
+        for url, (api_url, types) in results.items():
+            for block_type in types:
+                if block_type not in block_urls:
+                    block_urls[block_type] = []
+                block_urls[block_type].append(url)
+
+        # Записываем данные на вторую страницу
+        for idx, (block_type, urls) in enumerate(block_urls.items(), start=1):
+            sheet2.cell(row=idx, column=1).value = block_type
+            for col_idx, url in enumerate(urls, start=2):
+                # sheet2.cell(row=idx, column=col_idx, value=url)
+                sheet2.cell(row=idx, column=col_idx).value = url
+                sheet2.cell(row=idx, column=col_idx).hyperlink = url
+                sheet2.cell(row=idx, column=col_idx).style = "Hyperlink"
 
         # Сохраняем файл
         excel_file = 'block_types.xlsx'

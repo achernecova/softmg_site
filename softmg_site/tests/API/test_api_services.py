@@ -31,7 +31,7 @@ class TestAPILinkServicePage:
 
     @allure.description("Для каждой страницы из конфига собираются блоки с записью в эксель")
     @allure.title("Сбор блоков для каждой страницы из конфига")
-    def test_fetch_and_blocks_in_pages(self, api_help):
+    def test_fetch_and_process_pages(self, api_help):
         block_types_by_url, errors = api_help.fetch_and_process_pages()
 
         # Сохраняем результаты в Excel
@@ -39,7 +39,7 @@ class TestAPILinkServicePage:
 
         # Проверяем результаты
         assert isinstance(block_types_by_url, dict), "Результатом должно быть словарное представление."
-        for url, types in block_types_by_url.items():
+        for url, (api_url, types) in block_types_by_url.items():
             print(f"Типы блоков для страницы {url}: {types}\n")
             assert isinstance(types, list), f"Значения для URL '{url}' должны быть списком."
             assert len(types) > 0, f"Должны присутствовать типы блоков для URL '{url}'."
