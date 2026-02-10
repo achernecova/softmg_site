@@ -25,7 +25,7 @@ def pytest_addoption(parser):
 def load_env():
     load_dotenv()
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="function")
 def driver(request):
     _browserVersion = request.config.getoption("--browserVersion")
     _browserVersion = (
