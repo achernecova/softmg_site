@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from softmg_site.conftest import name_of_feedback_forms
+from softmg_site.tests.API.conftest import name_of_feedback_forms
 
 
 @allure.label("owner", "chernetsova")

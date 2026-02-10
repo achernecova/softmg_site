@@ -1,7 +1,6 @@
 import allure
 import pytest
 
-from softmg_site.conftest import api_help
 
 
 @allure.label("owner", "chernetsova")
