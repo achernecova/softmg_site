@@ -431,7 +431,7 @@ class ApiHelper:
 
             # Добавляем гиперссылку api_url
             sheet1.cell(row=idx, column=2).value = api_url
-            sheet1.cell(row=idx, column=2).hyperlink = url
+            sheet1.cell(row=idx, column=2).hyperlink = api_url
             sheet1.cell(row=idx, column=2).style = "Hyperlink"  # Применяем стиль гиперссылки
 
             for col_idx, block_type in enumerate(types, start=3):
