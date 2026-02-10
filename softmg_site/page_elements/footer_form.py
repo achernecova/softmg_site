@@ -62,6 +62,8 @@ class FooterForm:
     @staticmethod
     @allure.step("Клик по кнопке отправки заявки")
     def click_button_submit():
+        if browser.element(".cbk-close-window").should(be.visible):
+            browser.element(".cbk-close-window").click()
         browser.element("[data-qa='discussion-form'] button[type='submit']").click()
 
     # Ожидаем добавление обработки ошибок - добавление data-qa - добавлено. Задача 1013
