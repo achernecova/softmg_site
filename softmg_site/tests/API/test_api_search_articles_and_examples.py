@@ -14,6 +14,7 @@ from softmg_site.tests.API.schemas import data_examples
 class TestAPISearchArticlesAndExamples:
 
     @allure.description("Проверка результата запроса кейсов по тегу медицина")
+    @allure.title("Проверка результата запроса кейсов по тегу медицина")
     def test_api_search_examples_with_tag_meditsina(self, api_help):
         status_code, count_data, response_body, count_meta, names_data = api_help.search_data_examples_with_tag_meditsina()
         assert status_code == 200
@@ -31,6 +32,7 @@ class TestAPISearchArticlesAndExamples:
 
     @pytest.mark.skip(reason="SOFTMG-1142: Ожидаем сброса препрода до прода для выравнивания данных, бд и тегов")
     @allure.description("Проверка результата запроса статей по тегу testing")
+    @allure.title("Проверка результата запроса статей по тегу testing")
     def test_api_search_article_with_tag_testing(self, api_help):
         raise NotImplementedError
 
