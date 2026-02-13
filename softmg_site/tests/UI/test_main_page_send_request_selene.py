@@ -2,8 +2,8 @@ import allure
 import pytest
 from allure_commons.types import Severity
 
-from softmg_site.tests.UI.conftest import input_data_in_fields
 from softmg_site.pages.main_page_selene import MainPageSelene
+from softmg_site.tests.UI.conftest import input_data_in_fields
 
 
 @allure.tag("critical")

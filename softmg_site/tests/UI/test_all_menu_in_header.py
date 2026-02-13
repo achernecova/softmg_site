@@ -2,10 +2,11 @@ import allure
 import pytest
 from allure_commons.types import Severity
 
-from softmg_site.tests.UI.conftest import (first_level_menu, menu_level_second_services,
+from softmg_site.pages.main_page_selene import MainPageSelene
+from softmg_site.tests.UI.conftest import (first_level_menu,
+                                           menu_level_second_services,
                                            menu_level_third_application,
                                            menu_level_third_development)
-from softmg_site.pages.main_page_selene import MainPageSelene
 
 
 @allure.link("https://softmg.ru/", name="Testing")

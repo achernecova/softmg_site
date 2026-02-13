@@ -1,17 +1,14 @@
-import os
 import random
 
 import pytest
 from dotenv import load_dotenv
 from faker import Faker
-from selene import browser
-from selenium.webdriver.chrome.options import Options
 
-from softmg_site.api_helper.api_help import ApiHelper
 from softmg_site.utils import attach
 from softmg_site.utils.logger import setup_logger
 
 DEFAULT_BROWSER_VERSION = 127.0
+
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -25,47 +22,71 @@ def pytest_addoption(parser):
 def load_env():
     load_dotenv()
 
-@pytest.fixture(scope="function")
-def driver(request):
-    _browserVersion = request.config.getoption("--browserVersion")
-    _browserVersion = (
-        _browserVersion if _browserVersion != "" else DEFAULT_BROWSER_VERSION
-    )
-    options = Options()
-    options.set_capability("browserName", "chrome")
-    options.set_capability("browserVersion", _browserVersion)
-    options.set_capability("pageLoadStrategy", "eager")
-    # options.add_argument("--window-size=1280,900")
-    options.add_argument("--start-maximized")
-    options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
+# @pytest.fixture(scope="function")
+# def driver(request):
+#     _browserVersion = request.config.getoption("--browserVersion")
+#     _browserVersion = (
+#         _browserVersion if _browserVersion != "" else DEFAULT_BROWSER_VERSION
+#     )
+#     options = Options()
+#     options.set_capability("browserName", "chrome")
+#     options.set_capability("browserVersion", _browserVersion)
+#     options.set_capability("pageLoadStrategy", "eager")
+#     # options.add_argument("--window-size=1280,900")
+#     options.add_argument("--start-maximized")
+#     options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
+#
+#     login = os.getenv("LOGIN")
+#     password = os.getenv("PASSWORD")
+#     host_selenoid = os.getenv("HOST")
+#
+#     browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
+#     browser.config.driver_options = options
+#     browser.config.timeout = 6
+#
+#     yield
+#
+#     # browser.driver.maximize_window()
+#     attach.add_screenshot(browser)
+#     attach.add_logs(browser)
+#     attach.add_html(browser)
+#     attach.add_video(browser)
+#
+#     browser.quit()
 
-    login = os.getenv("LOGIN")
-    password = os.getenv("PASSWORD")
-    host_selenoid = os.getenv("HOST")
+from selene import browser
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
-    browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
-    browser.config.driver_options = options
-    browser.config.timeout = 6
 
-    yield
+@pytest.fixture(scope="function", autouse=True)
+def driver():
+    chrome_options = Options()
+    # chrome_options.add_argument("--headless")
+    # chrome_options.page_load_strategy = "none"
+    chrome_options.add_argument("--start-maximized")
 
-    # browser.driver.maximize_window()
+    # Todo - для firefox другие переменные передаются в расширение:
+    # chrome_options.add_argument("--width=1920")
+    # chrome_options.add_argument("--height=1080")
+    driver = webdriver.Chrome(options=chrome_options)
+
+    # Передаем драйвер в Selene
+    browser.config.driver = driver
+
+    yield driver
+    browser.driver.maximize_window()
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
-    attach.add_video(browser)
-
+    # attach.add_video(browser)
     browser.quit()
-
-
-
 
 def pytest_configure():
     setup_logger()
 
     # TODO не придумала как перенести рандом и faker внутрь метода, без использования фикстур и фабрик.
     #  Но и так чтобы параметризация осталась. Слишком громоздко получается.
-
 
 input_data_in_fields = pytest.mark.parametrize(
     "name_field, input_data, text_error",

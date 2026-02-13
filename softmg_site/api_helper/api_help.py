@@ -2,11 +2,12 @@ import json
 import logging
 import re
 from urllib.parse import urljoin
-from openpyxl import Workbook
+
 import allure
 import requests
 from allure_commons.types import AttachmentType
 from faker import Faker
+from openpyxl import Workbook
 
 from config import BASE_URL, PageConfig
 
@@ -405,7 +406,7 @@ class ApiHelper:
                     types = self.extract_section_types(data)
                     results[url] = (api_url, types)
                 elif response.status_code == 404:
-                    errors.append((url, f"Страница не найдена (404)"))
+                    errors.append((url, "Страница не найдена (404)"))
                 else:
                     errors.append((url, f"Ошибка при обработке URL {url}, статус-код: {response.status_code}"))
             except Exception as e:

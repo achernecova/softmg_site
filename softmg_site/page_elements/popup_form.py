@@ -1,6 +1,5 @@
 import os
 import random
-import time
 
 import allure
 from faker.proxy import Faker
@@ -130,16 +129,10 @@ class PopupFormRequests:
         """
         Корректное заполнение поля Комментарий в модалке
         """
-        # comment_text = self.constant + self.name_data.text(max_nb_chars=150)
         comment_text = self.name_data.text(max_nb_chars=150)
-        element = browser.element(
+        browser.element(
             "[data-qa='leave-application-form'] [placeholder='Комментарий']"
         ).type(comment_text)
-        # for char in comment_text:
-        #     element.type(char)
-        #     time.sleep(
-        #         0.05
-        #     )  # задержка в 0,05 с. Не придумала как иначе посимвольно вводить
 
     @staticmethod
     @allure.step("Установка чекбокс политики конфиденциальности")
