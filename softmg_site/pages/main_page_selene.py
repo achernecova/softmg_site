@@ -28,7 +28,6 @@ class MainPageSelene:
     def open_page(self):
         browser.open(self.base_url)
         browser.element((By.TAG_NAME, "body")).click()
-        sleep(15)
 
     @staticmethod
     @allure.step("Проверяем URL и заголовок страницы")
