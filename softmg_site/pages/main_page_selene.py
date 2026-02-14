@@ -18,6 +18,7 @@ from softmg_site.page_elements.scroll_element_selene import ScrollElement
 class MainPageSelene:
     def __init__(self):
         self.base_url = config.base_url
+        self.url_page = config.pages["base_page"]["url_page"]
         self.popup_modal = PopupModal()
         self.scroll_element = ScrollElement()
         self.popup_form = PopupFormRequests()
@@ -26,7 +27,7 @@ class MainPageSelene:
 
     @allure.step("Открываем главную страницу")
     def open_page(self):
-        browser.open(self.base_url)
+        browser.open(self.url_page)
         browser.element((By.TAG_NAME, "body")).click()
         logo_element = by.xpath("//*[contains(@class, '_logoAndLeftSide_')]")
         if browser.element(logo_element).should(be.not_.visible):
