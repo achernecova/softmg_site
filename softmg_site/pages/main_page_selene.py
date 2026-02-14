@@ -29,10 +29,6 @@ class MainPageSelene:
     def open_page(self):
         browser.open(self.url_page)
         browser.element((By.TAG_NAME, "body")).click()
-        logo_element = by.xpath("//*[contains(@class, '_logoAndLeftSide_')]")
-        if browser.element(logo_element).should(be.not_.visible):
-            browser.refresh()
-        sleep(15)
 
     @staticmethod
     @allure.step("Проверяем URL и заголовок страницы")
