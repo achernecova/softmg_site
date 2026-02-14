@@ -41,5 +41,6 @@ addopts = [
 markers = [
     "prod: marks tests - prod tests (deselect with '-m \"not prod\"').",
     "regression: marks tests - regression tests (deselect with '-m \"not regression\"').",
+    "all: marker for all tests"
 ]
 
