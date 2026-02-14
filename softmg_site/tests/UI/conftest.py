@@ -77,6 +77,9 @@ def driver(request):
     # Завершаем сессию
     browser.quit()
 
+def pytest_collection_modifyitems(items):
+    for item in items:
+        item.add_marker(pytest.mark.all)
 
 def pytest_configure():
     setup_logger()
