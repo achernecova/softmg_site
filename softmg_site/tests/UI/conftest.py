@@ -35,9 +35,11 @@ def load_env():
 
 @pytest.fixture(scope="function")
 def driver(request):
+    # Получаем желаемую версию браузера из аргументов командной строки
     _browserVersion = request.config.getoption("--browserVersion")
     _browserVersion = _browserVersion if _browserVersion != "" else DEFAULT_BROWSER_VERSION
 
+    # Настройка опций для браузера
     options = Options()
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", _browserVersion)
@@ -49,7 +51,7 @@ def driver(request):
     selenoid_url = os.getenv("SELENOID_URL")
 
     if selenoid_url is not None:
-        # подключение к селеноиду
+        # Настройка подключения к Selenoid
         login = os.getenv("LOGIN")
         password = os.getenv("PASSWORD")
         host_selenoid = os.getenv("HOST")
@@ -57,31 +59,15 @@ def driver(request):
         browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
         browser.config.driver_options = options
     else:
-        # # Локальный запуск драйвера Chrome с помощью менеджера драйверов
-        # service = Service(ChromeDriverManager().install())
-        # driver = webdriver.Chrome(service=service, options=options)
-        # browser.config.driver = driver
-        # Меняем директорию хранения драйверов
-        os.environ['WDM_LOCAL'] = 'true'
-        os.environ['WDM_SAVE_LAST_SUCCESSFUL_VERSION_NUMBER'] = 'false'
-        os.environ['WDM_LOG_LEVEL'] = '0'
-        os.environ['WDM_PRINT_FIRST_LINE'] = 'false'
-        os.environ['WDM_CACHE_PATH'] = '/tmp/.wdm/'  # Меняем директорию на /tmp/, доступную для записи
-
         # Локальный запуск драйвера Chrome
-        service = Service(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
-        driver = webdriver.Chrome(service=service, options=options)
+        driver = webdriver.Chrome(options=options)
         browser.config.driver = driver
 
     browser.config.timeout = 6
 
     yield browser
 
-    attach.add_screenshot(browser)
-    attach.add_logs(browser)
-    attach.add_html(browser)
-    attach.add_video(browser)
-
+    # Завершаем сессию
     browser.quit()
 
 
