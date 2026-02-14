@@ -47,6 +47,7 @@ class TestSendRequests:
     @allure.severity(Severity.CRITICAL)
     @allure.story("UI. Проверка ошибок под полями ввода данных")
     @allure.title("Отправка формы email без символа @")
+    @allure.description("SOFTMG-1027: задача на ревью. Ожидаем влития в dev")
     def test_send_request_at_sign_email_in_header(self, driver):
         # todo Ждем обновление макетов и приведение фронтами ошибок к единому стилю.
         page = MainPageSelene()
@@ -83,6 +84,13 @@ class TestSendRequests:
     @allure.story("UI. Заявка, отправленная со страницы вакансии не должна попадать в битрикс")
     @pytest.mark.skip(reason="Тест не реализован. Т.к. не понятно как реализовывать проверку с подключением к почте.")
     def test_requests_vacancy_is_not_add_in_bitrix(self, driver):
+        raise NotImplementedError
+
+    @allure.tag("positive")
+    @allure.severity(Severity.CRITICAL)
+    @allure.story("UI. Ввод в поле номера телефона 8 заменяется на +7")
+    @pytest.mark.skip(reason="SOFTMG-997. Тест не реализован. Повторно на обсуждении у бизнеса.")
+    def test_add_number_phone_with_replacement_rule(self, driver):
         raise NotImplementedError
 
     @allure.tag("critical")

@@ -1,16 +1,14 @@
 import os
 import random
+
 import pytest
-
-from selene import browser
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
-
 from dotenv import load_dotenv
 from faker import Faker
 from selene import browser
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 from softmg_site.utils import attach
 from softmg_site.utils.logger import setup_logger
@@ -43,19 +41,17 @@ def driver(request):
     options.add_argument("--start-maximized")
     options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
 
-    # Проверяем наличие переменной SELENOID_URL
     selenoid_url = os.getenv("SELENOID_URL")
+    print(f"SELENOID_URL: {selenoid_url}")
 
     if selenoid_url is not None:
-        # подключение к селеноиду
         login = os.getenv("LOGIN")
         password = os.getenv("PASSWORD")
-        host_selenoid = os.getenv("HOST")
+        host_selenoid = os.getenv("SELENOID_URL")
 
         browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
         browser.config.driver_options = options
     else:
-        # Локальный запуск драйвера Chrome с помощью менеджера драйверов
         service = Service(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=options)
         browser.config.driver = driver
@@ -77,6 +73,7 @@ def pytest_configure():
 
     # TODO не придумала как перенести рандом и faker внутрь метода, без использования фикстур и фабрик.
     #  Но и так чтобы параметризация осталась. Слишком громоздко получается.
+
 
 input_data_in_fields = pytest.mark.parametrize(
     "name_field, input_data, text_error",

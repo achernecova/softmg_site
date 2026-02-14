@@ -50,4 +50,4 @@ class SearchPage:
     def open(self):
         with allure.step("Открываем страницу с поиском"):
             logger.info("Открываем страницу поиска")
-            self.browser.open(BASE_URL+"search/")
+            self.browser.open(BASE_URL + "search/")

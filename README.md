@@ -6,9 +6,7 @@
 
 ----
 
-
 ### Оглавление 🤸
-
 
 - [Особенности проекта ](#about_project)
 
@@ -21,8 +19,8 @@
     - [Получение отчёта 🧑‍💻](#allure_serve)
 
 - [Отчет в Jenkins 🪄](#project_in_jenkins)
-     - [Параметры сборки 🦧](#param_in_jenk)
-     - [Запуск 🧑‍💻](#start_test_jenk)
+    - [Параметры сборки 🦧](#param_in_jenk)
+    - [Запуск 🧑‍💻](#start_test_jenk)
 
 - [Allure отчет 🪄](#allure_report)
 
@@ -39,7 +37,6 @@
 <img title="softana" align="left" src="data_image_from_readme/softana_2.png" height="600" width="400"/> 
 
 ----
-
 
 ### <a name="about_project">Особенности проекта</a>
 
@@ -71,7 +68,6 @@
 
 ----
 
-
 ### <a name="stack">Используемый стэк</a>
 
 <img title="Python" src="data_image_from_readme/icons/python-original.svg" height="40" width="40"/> <img title="Pytest" src="data_image_from_readme/icons/pytest-original.svg" height="40" width="40"/> <img title="Jira" src="data_image_from_readme/icons/jira-original.svg" height="40" width="40"/> <img title="Allure Report" src="data_image_from_readme/icons/Allure_Report.png" height="40" width="40"/> <img title="Allure TestOps" src="data_image_from_readme/icons/AllureTestOps.png" height="40" width="40"/> <img title="GitHub" src="data_image_from_readme/icons/github-original.svg" height="40" width="40"/> <img title="Selenoid" src="data_image_from_readme/icons/selenoid.png" height="40" width="40"/> <img title="Selenium" src="data_image_from_readme/icons/selenium-original.svg" height="40" width="40"/> <img title="Selene" src="data_image_from_readme/icons/selene.png" height="40" width="40"/> <img title="Pycharm" src="data_image_from_readme/icons/pycharm.png" height="40" width="40"/> <img title="Telegram" src="data_image_from_readme/icons/tg.png" height="40" width="40"/> <img title="Jenkins" src="data_image_from_readme/icons/jenkins-original.svg" height="40" width="40"/>
@@ -92,7 +88,9 @@
 ### <a name="local_start_project">Локальный запуск автотестов</a>
 
 #### <a name="start_test">Запуск тестов:</a>
+
 Для запуска web/UI автотестов выполнить в cli:
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
@@ -100,8 +98,11 @@ pip install -r requirements.txt
 pytest --alluredir=allure-results
 
 ```
+
 Для получения отчета выполнить в cli:
+
 #### <a name="allure_serve">Получение отчёта:</a>
+
 ```bash
 allure serve allure-results
 ```
@@ -109,16 +110,20 @@ allure serve allure-results
 ----
 
 ### <a name="project_in_jenkins">Проект в Jenkins</a>
+
 > <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/">Ссылка</a>
 
-
 #### <a name="param_in_jenk">Параметры сборки</a>
+
 ```python
 ENVIRONMENT = ['development', 'PROD_PAGE'] # Окружение
 BROWSER_VERSION = '127.0' # Версия браузера хром. Можно запускать на 128.0
 ```
+
 #### <a name="start_test_jenk">Запуск автотестов в Jenkins</a>
-1. Открыть <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/">проект</a>
+
+1. Открыть <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/">
+   проект</a>
 
 ![jenkins project main page](/data_image_from_readme/jenkins_project_main_page.png)
 
@@ -134,12 +139,15 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 ### <a name="allure_report">Allure отчет</a>
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/">Открытие отчета после сборки</a>
+
 ![allure_report_after_work_job](/data_image_from_readme/allure_report_after_work_job.png)
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/27/allure/#">Общие результаты</a>
+
 ![allure_report_overview](/data_image_from_readme/allure_report_overview.png)
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/27/allure/#suites">Результаты прохождения теста</a>
+
 ![allure_reports_behaviors](/data_image_from_readme/allure_reports_behaviors.png)
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/27/allure/#suites">Результаты прохождения теста с параметрами</a>
@@ -148,6 +156,7 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 
 
 ----
+
 ### <a name="jira_integration">Интеграция с Jira</a>
 
 #### <a target="_blank" href="https://jira.autotests.cloud/browse/HOMEWORK-1561">Задача в Jira</a>
@@ -155,6 +164,7 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 ![jira_task.png](data_image_from_readme/jira_task.png)
 
 ---
+
 ### <a name="allure_testOps_integration">Интеграция с AllureTestOps</a>
 
 ### [AllureTestOps_dashboard](https://allure.autotests.cloud/project/5048/dashboards)
@@ -180,12 +190,13 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 
 ---
 
-
 ### <a name="notification_tg">Оповещения в Telegram</a>
+
 ![telegram_allert](/data_image_from_readme/telegram_allert.png)
 
 ----
 
 ### <a name="video">Видео прохождения web/UI автотеста</a>
+
 ![autotest_gif](/data_image_from_readme/autotest.gif)
 

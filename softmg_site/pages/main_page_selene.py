@@ -1,5 +1,3 @@
-from time import sleep
-
 import allure
 from selene import Element, be, browser, by, command, have
 from selene.core.exceptions import TimeoutException

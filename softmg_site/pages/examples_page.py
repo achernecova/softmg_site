@@ -23,7 +23,8 @@ class ExamplePage:
         self.header_menu = HeaderMenuSelene()
         self.footer_form = FooterForm()
         self.browser = selene_browser
-        self.example_elements = self.browser.all("//a[contains(@class,'_item_')and contains(@href,'/examples/')and not(contains(@class,'_navbar__'))]")
+        self.example_elements = self.browser.all(
+            "//a[contains(@class,'_item_')and contains(@href,'/examples/')and not(contains(@class,'_navbar__'))]")
 
     @allure.step("Открываем главную страницу")
     def open_page(self):
