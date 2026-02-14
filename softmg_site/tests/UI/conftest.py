@@ -49,18 +49,20 @@ def driver(request):
 
     # Проверяем наличие переменной SELENOID_URL
     selenoid_url = os.getenv("SELENOID_URL")
+    print(f"SELENOID_URL: {selenoid_url}")
 
     if selenoid_url is not None:
         # Настройка подключения к Selenoid
         login = os.getenv("LOGIN")
         password = os.getenv("PASSWORD")
-        host_selenoid = os.getenv("HOST")
+        host_selenoid = os.getenv("SELENOID_URL")
 
         browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
         browser.config.driver_options = options
     else:
-        # Локальный запуск драйвера Chrome
-        driver = webdriver.Chrome(options=options)
+        # Локальный запуск драйвера Chrome с помощью менеджера драйверов
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service, options=options)
         browser.config.driver = driver
 
     browser.config.timeout = 6
