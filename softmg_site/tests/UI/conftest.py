@@ -1,10 +1,13 @@
 import os
 import random
+import pytest
 
 from selene import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import pytest
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+
 from dotenv import load_dotenv
 from faker import Faker
 from selene import browser
@@ -27,31 +30,40 @@ def pytest_addoption(parser):
 def load_env():
     load_dotenv()
 
+
 @pytest.fixture(scope="function")
 def driver(request):
     _browserVersion = request.config.getoption("--browserVersion")
-    _browserVersion = (
-        _browserVersion if _browserVersion != "" else DEFAULT_BROWSER_VERSION
-    )
+    _browserVersion = _browserVersion if _browserVersion != "" else DEFAULT_BROWSER_VERSION
+
     options = Options()
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", _browserVersion)
     options.set_capability("pageLoadStrategy", "eager")
-    # options.add_argument("--window-size=1280,900")
     options.add_argument("--start-maximized")
     options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
 
-    login = os.getenv("LOGIN")
-    password = os.getenv("PASSWORD")
-    host_selenoid = os.getenv("HOST")
+    # Проверяем наличие переменной SELENOID_URL
+    selenoid_url = os.getenv("SELENOID_URL")
 
-    browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
-    browser.config.driver_options = options
+    if selenoid_url is not None:
+        # подключение к селеноиду
+        login = os.getenv("LOGIN")
+        password = os.getenv("PASSWORD")
+        host_selenoid = os.getenv("HOST")
+
+        browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
+        browser.config.driver_options = options
+    else:
+        # Локальный запуск драйвера Chrome с помощью менеджера драйверов
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service, options=options)
+        browser.config.driver = driver
+
     browser.config.timeout = 6
 
-    yield
+    yield browser
 
-    # browser.driver.maximize_window()
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
@@ -59,29 +71,6 @@ def driver(request):
 
     browser.quit()
 
-#
-#
-# @pytest.fixture(scope="function", autouse=True)
-# def driver():
-#     chrome_options = Options()
-#     # chrome_options.add_argument("--headless")
-#     # chrome_options.page_load_strategy = "none"
-#     chrome_options.add_argument("--start-maximized")
-#
-#     # chrome_options.add_argument("--width=1920")
-#     # chrome_options.add_argument("--height=1080")
-#     driver = webdriver.Chrome(options=chrome_options)
-#
-#     # Передаем драйвер в Selene
-#     browser.config.driver = driver
-#
-#     yield driver
-#     browser.driver.maximize_window()
-#     attach.add_screenshot(browser)
-#     attach.add_logs(browser)
-#     attach.add_html(browser)
-#     # attach.add_video(browser)
-#     browser.quit()
 
 def pytest_configure():
     setup_logger()
