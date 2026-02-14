@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 from faker import Faker
 from selene import browser
 
+from webdriver_manager.core.os_manager import ChromeType
+
 from softmg_site.utils import attach
 from softmg_site.utils.logger import setup_logger
 
@@ -55,8 +57,19 @@ def driver(request):
         browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
         browser.config.driver_options = options
     else:
-        # Локальный запуск драйвера Chrome с помощью менеджера драйверов
-        service = Service(ChromeDriverManager().install())
+        # # Локальный запуск драйвера Chrome с помощью менеджера драйверов
+        # service = Service(ChromeDriverManager().install())
+        # driver = webdriver.Chrome(service=service, options=options)
+        # browser.config.driver = driver
+        # Меняем директорию хранения драйверов
+        os.environ['WDM_LOCAL'] = 'true'
+        os.environ['WDM_SAVE_LAST_SUCCESSFUL_VERSION_NUMBER'] = 'false'
+        os.environ['WDM_LOG_LEVEL'] = '0'
+        os.environ['WDM_PRINT_FIRST_LINE'] = 'false'
+        os.environ['WDM_CACHE_PATH'] = '/tmp/.wdm/'  # Меняем директорию на /tmp/, доступную для записи
+
+        # Локальный запуск драйвера Chrome
+        service = Service(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
         driver = webdriver.Chrome(service=service, options=options)
         browser.config.driver = driver
 
