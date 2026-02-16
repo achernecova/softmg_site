@@ -92,7 +92,6 @@ class PopupFormRequests:
             else:
                 raise ValueError(f"Не поддерживаемое поле: {value_field}")
 
-    # превращаем в универсальный метод получения ошибки
     @staticmethod
     def get_error_text_in_field_in_popup(value):
         with allure.step(f"Проверяем появление ошибки под полем {value}"):

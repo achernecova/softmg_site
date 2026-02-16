@@ -8,14 +8,15 @@ from softmg_site.tests.UI.conftest import (first_level_menu,
                                            menu_level_third_application,
                                            menu_level_third_development)
 
-
-@allure.link("https://softmg.ru/", name="Testing")
-@allure.tag("critical")
-@allure.label("owner", "chernetsova")
 @allure.feature("Проверка верхнеуровневого меню")
+@allure.severity(Severity.CRITICAL)
+@allure.label("owner", "chernetsova")
+@allure.label("layer", "WEB")
+@allure.link("https://jira.softmg.ru/browse/SOFTMG-486", name="SOFTMG-486")
+@allure.tag("critical")
 @pytest.mark.prod
+@pytest.mark.regression
 class TestFirstLevelMenuOpenPage:
-    @allure.severity(Severity.CRITICAL)
     @allure.story("UI. Открытие верхнеуровневого меню")
     @allure.title("Открытие верхнеуровневого меню")
     @first_level_menu
@@ -27,12 +28,13 @@ class TestFirstLevelMenuOpenPage:
 
 
 @allure.feature("Проверка меню второго уровня")
-@allure.link("https://softmg.ru/", name="Testing")
-@allure.tag("critical")
+@allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
+@allure.link("https://jira.softmg.ru/browse/SOFTMG-486", name="SOFTMG-486")
+@allure.tag("critical")
 @pytest.mark.prod
+@pytest.mark.regression
 class TestSecondLevelMenuOpenPage:
-    @allure.severity(Severity.CRITICAL)
     @allure.story("UI. Открытие саб-меню из меню Услуги")
     @allure.title("Открытие второго саб-меню из меню Услуги")
     @menu_level_second_services
@@ -43,15 +45,16 @@ class TestSecondLevelMenuOpenPage:
         page.page_assert_open_page(page_name)
 
 
-@allure.label("owner", "chernetsova")
-@allure.tag("critical")
 @allure.feature("Проверка меню третьего уровня")
-@allure.link("https://softmg.ru/", name="Testing")
+@allure.severity(Severity.NORMAL)
+@allure.label("owner", "chernetsova")
+@allure.link("https://jira.softmg.ru/browse/SOFTMG-486", name="SOFTMG-486")
+@allure.tag("critical")
 @pytest.mark.prod
+@pytest.mark.regression
 class TestThirdLevelMenuOpenPage:
-    @allure.severity(Severity.CRITICAL)
-    @allure.title("Открытие саб-меню третьего уровня")
     @allure.story("UI. Открытие саб-меню из саб-меню Разработка сайтов")
+    @allure.title("Открытие саб-меню третьего уровня")
     @menu_level_third_development
     def test_page_menu_level_third_development_open(self, driver, index, page_name):
         page = MainPageSelene()
@@ -59,9 +62,8 @@ class TestThirdLevelMenuOpenPage:
         page.open_page_third_level_in_menu("services", 2, index, page_name)
         page.page_assert_open_page(page_name)
 
-    @allure.severity(Severity.CRITICAL)
-    @allure.title("Открытие саб-меню третьего уровня")
     @allure.story("UI. Открытие саб-меню из саб-меню Разработка приложений")
+    @allure.title("Открытие саб-меню третьего уровня")
     @menu_level_third_application
     def test_page_menu_level_third_application_open(self, driver, index, page_name):
         page = MainPageSelene()

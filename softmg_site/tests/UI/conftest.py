@@ -43,7 +43,7 @@ def driver(request):
 
     selenoid_url = os.getenv("SELENOID_URL")
     print(f"SELENOID_URL: {selenoid_url}")
-
+    # Определяем - есть подключение к SELENOID или нет
     if selenoid_url is not None:
         login = os.getenv("LOGIN")
         password = os.getenv("PASSWORD")
@@ -67,9 +67,11 @@ def driver(request):
 
     browser.quit()
 
+
 def pytest_collection_modifyitems(items):
     for item in items:
         item.add_marker(pytest.mark.all)
+
 
 def pytest_configure():
     setup_logger()

@@ -1,12 +1,16 @@
 import allure
 import pytest
+from allure_commons.types import Severity
 
 
-@allure.label("owner", "chernetsova")
-@allure.tag("critical")
-@allure.tag("positive")
 @allure.feature("API. Проверка линковки на главной странице")
+@allure.severity(Severity.CRITICAL)
+@allure.label("owner", "chernetsova")
+@allure.label("layer", "API")
+@allure.link("https://jira.softmg.ru/browse/SOFTMG-486", name="SOFTMG-486")
+@allure.tag("critical", "positive")
 @pytest.mark.prod
+@pytest.mark.regression
 class TestAPILinkMainPage:
 
     @allure.description("Проверяем все линки на странице main")

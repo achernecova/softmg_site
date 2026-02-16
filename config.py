@@ -109,7 +109,7 @@ class PageConfig:
                 "url_page": self.base_url + "about-company/",
                 "api_url": self.base_url + "api/v2/page/about-company/",
             },
-            "contacts": {
+            "contacts": {  # страница без API
                 "name": "contacts",
                 "title": "Контакты",
                 "description": "",

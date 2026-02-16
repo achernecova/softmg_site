@@ -417,7 +417,7 @@ class ApiHelper:
     @staticmethod
     def save_to_excel(results):
         """
-        Преобразует словарь с результатами в Excel и сохраняет.
+        Преобразуем словарь с результатами в Excel и сохраняет.
         """
         workbook = Workbook()
         sheet1 = workbook.active
