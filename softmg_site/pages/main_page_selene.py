@@ -73,6 +73,9 @@ class MainPageSelene:
         :param page_name: Наименование страницы
         :param value: номер элемента меню
         """
+        element = browser.element('.cbk-close-window')
+        if element.with_(timeout=0.5).matching(be.visible):
+            element.click()
         browser.element((By.TAG_NAME, "body")).click()
         # xPath с учетом нумерации (начинается с 1), прибавляем 1 к индексу
         locator = by.xpath(f"(//*[contains(@class, '_firstLevelItem')])[{value + 1}]")
