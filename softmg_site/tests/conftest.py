@@ -72,10 +72,6 @@ def pytest_collection_modifyitems(items):
         item.add_marker(pytest.mark.all)
 
 
-    # TODO не придумала как перенести рандом и faker внутрь метода, без использования фикстур и фабрик.
-    #  Но и так чтобы параметризация осталась. Слишком громоздко получается.
-
-
 input_data_in_fields = pytest.mark.parametrize(
     "name_field, input_data, text_error",
     [

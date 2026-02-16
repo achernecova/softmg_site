@@ -6,7 +6,6 @@ from softmg_site.pages.main_page_selene import MainPageSelene
 
 
 @allure.feature("Проверка верхнеуровневого меню")
-@pytest.mark.open_menu
 class TestFirstLevelMenuOpenPage:
     @allure.tag("critical")
     @allure.severity(Severity.CRITICAL)
@@ -14,6 +13,7 @@ class TestFirstLevelMenuOpenPage:
     @allure.link("https://godev.agency/", name="Testing")
     @allure.title("Открытие верхнеуровневого меню")
     @allure.story("Открытие верхнеуровневого меню")
+    @pytest.mark.open_menu
     @pytest.mark.parametrize(
         "index, page_name",
         [
@@ -36,7 +36,6 @@ class TestFirstLevelMenuOpenPage:
 
 
 @allure.feature("Проверка меню второго уровня")
-@pytest.mark.open_menu
 class TestSecondLevelMenuOpenPage:
     @allure.tag("critical")
     @allure.severity(Severity.CRITICAL)
@@ -44,6 +43,7 @@ class TestSecondLevelMenuOpenPage:
     @allure.link("https://godev.agency/", name="Testing")
     @allure.title("Открытие саб-меню")
     @allure.story("Открытие саб-меню из меню Услуги")
+    @pytest.mark.open_menu
     @pytest.mark.parametrize(
         "index, page_name",
         [
