@@ -1,3 +1,5 @@
+from time import sleep
+
 import allure
 from selene import Element, be, browser, by, command, have
 from selene.core.exceptions import TimeoutException
@@ -25,6 +27,8 @@ class MainPageSelene:
     @allure.step("Открываем главную страницу")
     def open_page(self):
         browser.open(self.base_url)
+        sleep(5)
+        browser.refresh()
         browser.element((By.TAG_NAME, "body")).click()
 
     @staticmethod
