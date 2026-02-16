@@ -31,3 +31,20 @@ skip = [
     "allure-report",
     ".pytest_cache",
 ]
+
+[tool.pytest.ini_options]
+addopts = [ "-l -v --durations 10",
+    "--alluredir=allure-results",
+    "--clean-alluredir"
+]
+markers = [
+    "production: marks tests - all prod tests (deselect with '-m \"not prod\"').",
+    "regression: marks tests - regression tests (deselect with '-m \"not regression\"').",
+    "all: marker for all tests",
+    "requests_positive_UI: marks tests - successful sending of orders UI",
+    "requests_positive_API: marks tests - successful sending of orders API",
+    "requests_negative_UI: marks tests - unsuccessful sending of orders UI",
+    "requests_negative_API: marks tests - unsuccessful sending of orders API",
+    "open_menu: marks tests - click and open page menu",
+    "links_on_page: marks tests - checking links on pages"
+]
