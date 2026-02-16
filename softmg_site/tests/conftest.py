@@ -36,8 +36,10 @@ def driver(request):
     options = Options()
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", _browserVersion)
-    options.set_capability("pageLoadStrategy", "eager")
     options.add_argument("--start-maximized")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
     options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
 
     selenoid_url = os.getenv("SELENOID_URL")
