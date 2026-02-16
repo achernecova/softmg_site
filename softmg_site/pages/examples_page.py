@@ -15,13 +15,12 @@ class ExamplePage:
         self.example_elements = self.browser.all(
             "//a[contains(@class,'_item_')and contains(@href,'/examples/')and not(contains(@class,'_navbar__'))]")
 
-    @allure.step("Открываем главную страницу")
     def open_page(self):
-        with allure.step("Открываем страницу с поиском"):
-            logger.info("Открываем страницу поиска")
-            self.browser.open(self.url_page)
+        logger.info("Открываем страницу Кейсов")
+        self.browser.open(self.url_page)
 
     def count_example_elements(self):
-        with allure.step("Считаем кол-во карточек"):
-            logger.info("Считаем количество отображаемых карточек")
-            return len(self.example_elements)
+        logger.info("Считаем количество отображаемых карточек")
+        return len(self.example_elements)
+
+page = ExamplePage()

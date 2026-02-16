@@ -11,7 +11,7 @@ from softmg_site.tests.API.schemas import data_examples
 @allure.label("owner", "chernetsova")
 @allure.label("layer", "API")
 @allure.tag("normal", "positive")
-@pytest.mark.prod
+@pytest.mark.production
 @pytest.mark.regression
 class TestAPISearchArticlesAndExamples:
 

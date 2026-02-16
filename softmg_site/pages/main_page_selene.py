@@ -133,3 +133,5 @@ class MainPageSelene:
         # Кликаем по пункту третьего уровня
         with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
             third_level_item.click()
+
+main_page = MainPageSelene()

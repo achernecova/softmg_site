@@ -8,7 +8,7 @@ from allure_commons.types import Severity
 @allure.label("layer", "WEB")
 @allure.link("https://jira.softmg.ru/browse/SOFTMG-1142", name="SOFTMG-1142")
 @allure.tag("positive")
-@pytest.mark.prod
+@pytest.mark.production
 @pytest.mark.regression
 class TestSearchInPages:
 

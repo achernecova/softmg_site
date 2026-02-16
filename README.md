@@ -129,10 +129,18 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 
 1. Нажать "Build with Parameters"
 2. Из списка "ENVIRONMENT" выбрать окружение
-3. В поле "BROWSER_VERSION" ввести версию браузера (запуск возможен в 128.0 и 127.0 версиях)
-4. Нажать "Build"
+3. Необходимо выбрать TAGS в зависимости от контура
+![start_job_in_jenkins](/data_image_from_readme/start_job_in_jenkins.png)
 
-![jenkins_build](/data_image_from_readme/start_job_in_jenkins.png)
+4. В поле "BROWSER_VERSION" ввести версию браузера (запуск возможен в 128.0 и 127.0 версиях)
+5. Нажать "Build"
+![jenkins_build](/data_image_from_readme/start_job_in_jenkins_2.png)
+
+   > Если выбран контур development - необходимо выбрать TAGS. 
+   > Если необходимо запустить все тесты - нужно выбрать тэг all.
+   > Если выбран контур PROD_PAGE - можно выбрать теги regression и prod.
+   > Т.к. на проде запускаются не все тесты, которые могут быть запущены на проде.
+
 
 ----
 

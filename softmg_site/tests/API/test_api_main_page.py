@@ -9,8 +9,9 @@ from allure_commons.types import Severity
 @allure.label("layer", "API")
 @allure.link("https://jira.softmg.ru/browse/SOFTMG-486", name="SOFTMG-486")
 @allure.tag("critical", "positive")
-@pytest.mark.prod
+@pytest.mark.production
 @pytest.mark.regression
+@pytest.mark.links_on_page
 class TestAPILinkMainPage:
 
     @allure.description("Проверяем все линки на странице main")

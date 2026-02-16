@@ -12,6 +12,7 @@ from softmg_site.tests.API.conftest import name_of_feedback_forms
 @allure.link("https://jira.softmg.ru/browse/SOFTMG-486", name="SOFTMG-486")
 @allure.tag("critical", "positive")
 @pytest.mark.regression
+@pytest.mark.requests_positive_API
 class TestAPIRequestsSuccess:
 
     @allure.description("Успешная отправка заявки с корректно заполненными полями (телефон, почта, имя, описание")
@@ -46,7 +47,8 @@ class TestAPIRequestsSuccess:
 @allure.label("layer", "API")
 @allure.tag("critical", "negative")
 @pytest.mark.regression
-@pytest.mark.prod
+@pytest.mark.production
+@pytest.mark.requests_negative_API
 class TestAPIRequestsNegative:
 
     @allure.description("Отправка запроса с заявкой с кривым email - тут надо проверять поле title")
