@@ -38,9 +38,13 @@ def driver(request):
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", _browserVersion)
     options.add_argument("--start-maximized")
-    options.add_argument("--disable-extensions")
-    options.add_argument("--disable-component-update")
-    options.add_argument("--dns-prefetch-disable")
+    options.add_argument("--disable-dev-shm-usage")  # Критично для памяти
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--proxy-server='direct://'")  # Игнорируем системные прокси
+    options.add_argument("--proxy-bypass-list=*")
+    options.add_argument(
+        "--disable-features=NetworkService,NetworkServiceInProcess")  # Старый, но рабочий метод фикса сетевых зависаний
 
     options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
 

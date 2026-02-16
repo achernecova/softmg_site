@@ -1,9 +1,11 @@
+import time
 from time import sleep
 
 import allure
 from selene import Element, be, browser, by, command, have
 from selene.core.exceptions import TimeoutException
 from selene.support.shared import browser
+from selenium.common import WebDriverException
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
@@ -33,19 +35,20 @@ class MainPageSelene:
 
     @allure.step("Открываем главную страницу")
     def open_page(self):
-        try:
-            # Устанавливаем таймаут именно для этого действия чуть выше
-            browser.open(self.base_url)
-        except Exception:
-            # Если сайт не открылся (Timeout, Proxy Error и т.д.)
-            browser.driver.refresh()
-
-        # Ждем появления body — это гарантия, что страница отрисовалась
-        # Если в течение browser.config.timeout body не появится, тест упадет с понятной ошибкой
-        browser.element("body").should(be.visible)
-
-        # Клик по body иногда нужен для активации фокуса (например, для тестов с горячими клавишами)
-        browser.element("body").click()
+        max_retries = 2
+        for attempt in range(max_retries):
+            try:
+                browser.open(self.base_url)
+                # Ждем появления body. Если за 10 сек не появилось — идем в блок except
+                browser.element("body").with_(timeout=10).should(be.visible)
+                return  # Если всё ок, выходим из цикла
+            except (TimeoutException, WebDriverException) as e:
+                if attempt < max_retries - 1:
+                    print(f"Попытка {attempt + 1} провалена, пробуем рефреш...")
+                    time.sleep(2)  # Даем паузу на "прогрузку" сети
+                    browser.driver.refresh()
+                else:
+                    raise e  # Если последняя попытка не удалась — падаем
 
     @staticmethod
     @allure.step("Проверяем URL и заголовок страницы")
