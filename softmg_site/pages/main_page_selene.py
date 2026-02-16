@@ -24,12 +24,28 @@ class MainPageSelene:
         self.header_menu = HeaderMenuSelene()
         self.footer_form = FooterForm()
 
+    # @allure.step("Открываем главную страницу")
+    # def open_page(self):
+    #     browser.open(self.base_url)
+    #     sleep(5)
+    #     browser.refresh()
+    #     browser.element((By.TAG_NAME, "body")).click()
+
     @allure.step("Открываем главную страницу")
     def open_page(self):
-        browser.open(self.base_url)
-        sleep(5)
-        browser.refresh()
-        browser.element((By.TAG_NAME, "body")).click()
+        try:
+            # Устанавливаем таймаут именно для этого действия чуть выше
+            browser.open(self.base_url)
+        except Exception:
+            # Если сайт не открылся (Timeout, Proxy Error и т.д.)
+            browser.driver.refresh()
+
+        # Ждем появления body — это гарантия, что страница отрисовалась
+        # Если в течение browser.config.timeout body не появится, тест упадет с понятной ошибкой
+        browser.element("body").should(be.visible)
+
+        # Клик по body иногда нужен для активации фокуса (например, для тестов с горячими клавишами)
+        browser.element("body").click()
 
     @staticmethod
     @allure.step("Проверяем URL и заголовок страницы")
