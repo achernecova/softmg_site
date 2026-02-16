@@ -5,7 +5,7 @@ import allure
 import pytest
 from faker import Faker
 from selene import be, browser, have, query
-from selenium.common import NoSuchElementException
+from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 
 
@@ -60,11 +60,13 @@ class FooterForm:
         browser.execute_script("arguments[0].click();", element.locate())
 
     @staticmethod
-    @allure.step("Клик по кнопке отправки заявки")
+    @allure.step("Клик по кнопке отправки заявку")
     def click_button_submit():
-        if browser.element(".cbk-close-window").should(be.visible):
-            browser.element(".cbk-close-window").click()
-        browser.element("[data-qa='discussion-form'] button[type='submit']").click()
+        # Смотрим - видно ли окно энвибокса. Да - закрываем. Нет - продолжаем тест.
+        element = browser.element('.cbk-close-window')
+        if element.with_(timeout=0.5).matching(be.visible):
+            element.click()
+        browser.element('[data-qa="discussion-form"] button[type="submit"]').click()
 
     # Ожидаем добавление обработки ошибок - добавление data-qa - добавлено. Задача 1013
     @allure.step("Получение ошибки о неустановленном чекбоксе")

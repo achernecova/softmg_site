@@ -33,14 +33,12 @@ skip = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "-l -v --durations 10"
-addopts = [
+addopts = [ "-l -v --durations 10",
     "--alluredir=allure-results",
-    "--clean-alluredir",
+    "--clean-alluredir"
 ]
 markers = [
     "prod: marks tests - prod tests (deselect with '-m \"not prod\"').",
     "regression: marks tests - regression tests (deselect with '-m \"not regression\"').",
     "all: marker for all tests"
 ]
-
