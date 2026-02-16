@@ -38,13 +38,15 @@ def driver(request):
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", _browserVersion)
     options.add_argument("--start-maximized")
-    options.add_argument("--disable-dev-shm-usage")  # Критично для памяти
+    # Эти флаги — "спасательный круг" при нехватке RAM и CPU
+    options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
-    options.add_argument("--proxy-server='direct://'")  # Игнорируем системные прокси
+    # Отключает изоляцию сайтов (сильно экономит оперативную память)
+    options.add_argument("--disable-site-isolation-trials")
+    # Ограничивает количество процессов (один процесс на сайт)
+    options.add_argument("--proxy-server='direct://'")
     options.add_argument("--proxy-bypass-list=*")
-    options.add_argument(
-        "--disable-features=NetworkService,NetworkServiceInProcess")  # Старый, но рабочий метод фикса сетевых зависаний
 
     options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
 
