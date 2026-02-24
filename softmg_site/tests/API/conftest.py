@@ -8,15 +8,6 @@ def api_help():
     return ApiHelper()
 
 
-@pytest.fixture(scope="session")
-def cookies(api_help):
-    return api_help.search()
-
-
-@pytest.fixture(scope="session")
-def cookies_articles(api_help):
-    return api_help.articles_search()
-
 
 name_of_feedback_forms = pytest.mark.parametrize("name_form",
                                                  ["Оставить заявку", "Обсудить проект", "Мы готовы помочь с выбором",

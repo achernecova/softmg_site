@@ -20,37 +20,6 @@ class ApiHelper:
         self.session = requests.Session()
         self.correct_email = self.name_data.email()
 
-    def search(self):
-        with allure.step("Отправляем запрос поиска"):
-            response = self.session.get(
-                url=f"{BASE_URL}/api/v2/search",
-                params={"q": "тестирование", "limit": 5},
-                allow_redirects=False,
-            )
-            logger.info("Отправили запрос на поиск")
-
-            self.log_request_and_response(response.request, response)
-            assert (
-                    "PHPSESSID" in response.cookies
-            ), "Сервер не вернул куки PHPSESSID"
-            print(response.cookies.get_dict())
-            return response.cookies.get_dict()
-
-    def articles_search(self):
-        with allure.step("Отправляем запрос поиска"):
-            response = self.session.get(
-                url=f"{BASE_URL}/api/v2/articles",
-                params={"tag": "разработка", "limit": 5},
-                allow_redirects=False,
-            )
-            logger.info("Отправили запрос на поиск")
-
-            self.log_request_and_response(response.request, response)
-            assert (
-                    "PHPSESSID" in response.cookies
-            ), "Сервер не вернул куки PHPSESSID"
-            print(response.cookies.get_dict())
-            return response.cookies.get_dict()
 
     def search_data_examples_with_tag_meditsina(self):
         with allure.step("Отправляем запрос с тегом meditsina"):

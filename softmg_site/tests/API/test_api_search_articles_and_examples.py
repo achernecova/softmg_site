@@ -39,8 +39,3 @@ class TestAPISearchArticlesAndExamples:
     @pytest.mark.skip(reason="SOFTMG-1142: Ожидаем сброса препрода до прода для выравнивания данных, бд и тегов")
     def test_api_search_article_with_tag_testing(self, api_help):
         raise NotImplementedError
-
-    # # TODO - устанавливаются куки, но страница не отображает нужных данных даже после рефреша
-    # def test_api_articles_with_data(cookies_articles):
-    #     articles = ArticlesPage()
-    #     articles.set_cookies_and_refresh_browser(cookies_articles)

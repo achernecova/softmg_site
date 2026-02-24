@@ -81,8 +81,17 @@ class TestAPIRequestsNegative:
     @allure.title("Отправка формы заявки с превышением кол-ва символов в поле Комментарии")
     @name_of_feedback_forms
     def test_api_add_requests_with_exceeding_characters_in_descr(self, api_help, name_form):
+        # status_code = api_help.add_request_in_form_with_with_exceeding_characters_in_descr(name_form)
+        # try:
+        #     assert status_code == 422
+        # except AssertionError:
+        #     pytest.xfail("SOFTMG-1140: Заявки уходят с некорректным кол-вом символов в поле descr. Временно отключен.")
+
         status_code = api_help.add_request_in_form_with_with_exceeding_characters_in_descr(name_form)
-        try:
-            assert status_code == 422
-        except AssertionError:
-            pytest.xfail("SOFTMG-1140: Заявки уходят с некорректным кол-вом символов в поле descr. Временно отключен.")
+        assert status_code == 422
+
+    @allure.description("SOFTMG-1255: Неуспешная отправка заявки без установки чекбокса Политики конфиденциальности")
+    @allure.title("Неуспешная отправка заявки без установки чекбокса Политики ")
+    @name_of_feedback_forms
+    def test_api_add_requests_without_checkbox_privacy_consent(self, api_help, name_form):
+        raise NotImplementedError
