@@ -1,14 +1,14 @@
 # Фреймворк для автоматизации тестирования сайта "Softmg.ru"
 
   <a target="_blank" href="https://Softmg.ru/">
-    <img title="softmg_logo_2" alt="Logo" src="/data_image_from_readme/softmg_logo_2.png" height="400" width="1920"/>
+    <img title="softmg_logo_2" alt="Logo" src="/image_for_readme/softmg_logo_2.png" height="400" width="1920"/>
   </a>
 
 ----
 
 ### Оглавление 🤸
 
-- [Особенности проекта ](#about_project)
+- [В проекте реализовано ](#in_project)
 
 - [Список проверок](#list_test)
 
@@ -34,11 +34,11 @@
 
 ----
 
-<img title="softana" align="left" src="data_image_from_readme/softana_2.png" height="600" width="400"/> 
+<img title="softana" align="left" src="image_for_readme/softana_2.png" height="600" width="400"/> 
 
 ----
 
-### <a name="about_project">Особенности проекта</a>
+### <a name="in_project">В проекте реализовано:</a>
 
 * Оповещения о тестовых прогонах в Telegram
 * Отчеты с видео, скриншотом, логами, исходной моделью разметки страницы
@@ -58,7 +58,7 @@
 
 ### <a name="list_test">Список проверок, реализованных в API автотестах</a>
 
-- [x] Проверки линков на всех страницах - в процессе
+- [x] Проверки линков на главной странице и странице услуг
 - [x] Проверка успешной отправки заявок со всех форм
 - [x] Проверка негативных кейсов отправки заявок со всех форм
 - [x] Проверка отдачи количества кейсов на главной странице кейсов
@@ -70,7 +70,7 @@
 
 ### <a name="stack">Используемый стэк</a>
 
-<img title="Python" src="data_image_from_readme/icons/python-original.svg" height="40" width="40"/> <img title="Pytest" src="data_image_from_readme/icons/pytest-original.svg" height="40" width="40"/> <img title="Jira" src="data_image_from_readme/icons/jira-original.svg" height="40" width="40"/> <img title="Allure Report" src="data_image_from_readme/icons/Allure_Report.png" height="40" width="40"/> <img title="Allure TestOps" src="data_image_from_readme/icons/AllureTestOps.png" height="40" width="40"/> <img title="GitHub" src="data_image_from_readme/icons/github-original.svg" height="40" width="40"/> <img title="Selenoid" src="data_image_from_readme/icons/selenoid.png" height="40" width="40"/> <img title="Selenium" src="data_image_from_readme/icons/selenium-original.svg" height="40" width="40"/> <img title="Selene" src="data_image_from_readme/icons/selene.png" height="40" width="40"/> <img title="Pycharm" src="data_image_from_readme/icons/pycharm.png" height="40" width="40"/> <img title="Telegram" src="data_image_from_readme/icons/tg.png" height="40" width="40"/> <img title="Jenkins" src="data_image_from_readme/icons/jenkins-original.svg" height="40" width="40"/>
+<img title="Python" src="image_for_readme/icons/python-original.svg" height="40" width="40"/> <img title="Pytest" src="image_for_readme/icons/pytest-original.svg" height="40" width="40"/> <img title="Jira" src="image_for_readme/icons/jira-original.svg" height="40" width="40"/> <img title="Allure Report" src="image_for_readme/icons/Allure_Report.png" height="40" width="40"/> <img title="Allure TestOps" src="image_for_readme/icons/AllureTestOps.png" height="40" width="40"/> <img title="GitHub" src="image_for_readme/icons/github-original.svg" height="40" width="40"/> <img title="Selenoid" src="image_for_readme/icons/selenoid.png" height="40" width="40"/> <img title="Selenium" src="image_for_readme/icons/selenium-original.svg" height="40" width="40"/> <img title="Selene" src="image_for_readme/icons/selene.png" height="40" width="40"/> <img title="Pycharm" src="image_for_readme/icons/pycharm.png" height="40" width="40"/> <img title="Telegram" src="image_for_readme/icons/tg.png" height="40" width="40"/> <img title="Jenkins" src="image_for_readme/icons/jenkins-original.svg" height="40" width="40"/>
 
 - **Python** — язык программирования, на котором написаны UI-автотесты
 - **Pytest** — фреймворк для организации и запуска тестовых сценариев
@@ -125,16 +125,16 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 1. Открыть <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/">
    проект</a>
 
-![jenkins project main page](/data_image_from_readme/jenkins_project_main_page.png)
+![jenkins project main page](/image_for_readme/jenkins_project_main_page.png)
 
 1. Нажать "Build with Parameters"
 2. Из списка "ENVIRONMENT" выбрать окружение
 3. Необходимо выбрать TAGS в зависимости от контура
-![start_job_in_jenkins](/data_image_from_readme/start_job_in_jenkins.png)
+![start_job_in_jenkins](/image_for_readme/start_job_in_jenkins.png)
 
 4. В поле "BROWSER_VERSION" ввести версию браузера (запуск возможен в 128.0 и 127.0 версиях)
 5. Нажать "Build"
-![jenkins_build](/data_image_from_readme/start_job_in_jenkins_2.png)
+![jenkins_build](/image_for_readme/start_job_in_jenkins_2.png)
 
    > Если выбран контур development - необходимо выбрать TAGS. 
    > Если необходимо запустить все тесты - нужно выбрать тэг all.
@@ -148,19 +148,19 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/">Открытие отчета после сборки</a>
 
-![allure_report_after_work_job](/data_image_from_readme/allure_report_after_work_job.png)
+![allure_report_after_work_job](/image_for_readme/allure_report_after_work_job.png)
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/27/allure/#">Общие результаты</a>
 
-![allure_report_overview](/data_image_from_readme/allure_report_overview.png)
+![allure_report_overview](/image_for_readme/allure_report_overview.png)
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/27/allure/#suites">Результаты прохождения теста</a>
 
-![allure_reports_behaviors](/data_image_from_readme/allure_reports_behaviors.png)
+![allure_reports_behaviors](/image_for_readme/allure_reports_behaviors.png)
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/23-AlexandraChernetsova-softmg_test_lesson14/27/allure/#suites">Результаты прохождения теста с параметрами</a>
 
-![allure_reports_with_param.png](data_image_from_readme/allure_reports_with_param.png)
+![allure_reports_with_param.png](image_for_readme/allure_reports_with_param.png)
 
 
 ----
@@ -169,7 +169,7 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 
 #### <a target="_blank" href="https://jira.autotests.cloud/browse/HOMEWORK-1561">Задача в Jira</a>
 
-![jira_task.png](data_image_from_readme/jira_task.png)
+![jira_task.png](image_for_readme/jira_task.png)
 
 ---
 
@@ -178,33 +178,33 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 ### [AllureTestOps_dashboard](https://allure.autotests.cloud/project/5048/dashboards)
 
 Дашборд с результатами о прохождении тестов.
-![AllureTestOps_dashboard_results_tests.png](/data_image_from_readme/AllureTestOps_dashboard_results_tests.png)
+![AllureTestOps_dashboard_results_tests.png](/image_for_readme/AllureTestOps_dashboard_results_tests.png)
 
 #### Общий список всех кейсов, имеющихся в системе
 
-![all_tests_allure_testOps.png](data_image_from_readme/all_tests_allure_testOps.png)
+![all_tests_allure_testOps.png](image_for_readme/all_tests_allure_testOps.png)
 
 #### Пример отчёта выполнения одного из автотестов
 
-![one_test_results.png](data_image_from_readme/one_test_results.png)
+![one_test_results.png](image_for_readme/one_test_results.png)
 
 #### История запуска одного теста
 
-![history_start_test.png](data_image_from_readme/history_start_test.png)
+![history_start_test.png](image_for_readme/history_start_test.png)
 
 #### История запуска тестовых наборов
 
-![launches.png](data_image_from_readme/launches.png)
+![launches.png](image_for_readme/launches.png)
 
 ---
 
 ### <a name="notification_tg">Оповещения в Telegram</a>
 
-![telegram_allert](/data_image_from_readme/telegram_allert.png)
+![telegram_allert](/image_for_readme/telegram_allert.png)
 
 ----
 
 ### <a name="video">Видео прохождения web/UI автотеста</a>
 
-![autotest_gif](/data_image_from_readme/autotest.gif)
+![autotest_gif](/image_for_readme/autotest.gif)
 
