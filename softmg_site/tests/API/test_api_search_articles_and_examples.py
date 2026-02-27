@@ -4,7 +4,7 @@ import pytest
 from allure_commons.types import Severity
 
 from config import config, BASE_URL
-from softmg_site.api_helper.get_title_error import get_data_error
+from softmg_site.api_helper.transform_json_and_get_data import get_data_error
 from softmg_site.tests.API.schemas import data_examples
 
 

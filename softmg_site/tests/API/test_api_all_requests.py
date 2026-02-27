@@ -3,7 +3,7 @@ import pytest
 from allure_commons.types import Severity
 
 from softmg_site.api_helper.data_generation import *
-from softmg_site.api_helper.get_title_error import get_data_error
+from softmg_site.api_helper.transform_json_and_get_data import get_data_error
 from softmg_site.tests.API.conftest import name_of_feedback_forms
 
 

@@ -4,8 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class TransformAndGetError:
-
+class TransformAndGetData:
 
     @staticmethod
     def transformation_json(value):
@@ -38,4 +37,4 @@ class TransformAndGetError:
         return names
 
 
-get_data_error = TransformAndGetError()
+get_data_error = TransformAndGetData()

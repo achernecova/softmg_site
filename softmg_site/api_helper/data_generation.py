@@ -29,6 +29,7 @@ class DataGeneration:
         # Генерируем случайную цифру или букву
         symbol = random.choice([random.choice(string.digits), random.choice(string.ascii_lowercase)])
         return f"{symbol}@test.com"
+
 generation_data = DataGeneration()
 
 
