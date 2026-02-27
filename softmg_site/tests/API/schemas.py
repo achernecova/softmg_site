@@ -43,8 +43,7 @@ data_examples = {
                     },
                     "direction": {"type": "string"}
                 },
-                "required": ["name", "slug", "image", "seo_description", "tags", "og_title", "og_description",
-                             "og_image", "site_type", "technology", "direction"]
+                "required": ["name", "slug", "image", "seo_description", "tags"]
             }
         },
         "meta": {

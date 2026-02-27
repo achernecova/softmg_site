@@ -2,6 +2,8 @@ import allure
 import pytest
 from allure_commons.types import Severity
 
+from softmg_site.api_helper.data_generation import *
+from softmg_site.api_helper.get_title_error import get_data_error
 from softmg_site.tests.API.conftest import name_of_feedback_forms
 
 
@@ -18,9 +20,13 @@ class TestAPIRequestsSuccess:
     @allure.description("Успешная отправка заявки с корректно заполненными полями (телефон, почта, имя, описание")
     @allure.title("Успешная отправка заявки с корректно заполненными полями")
     @name_of_feedback_forms
-    def test_api_success_request_with_all_fields(self, api_help, name_form):
-        status_code = api_help.add_request_with_only_input_all_fields(name_form)
-        assert status_code == 201
+    def test_send_valid_request(self, api_help, name_form):
+        # Устанавливаем значение feedback_name из параметризации
+        correct_data.feedback_name = name_form
+
+        # Отправляем запрос
+        response = api_help.send_post_request(data=correct_data)
+        assert response.status_code == 201
 
     @allure.description("Успешная отправка заявки с заполнением вообще всех полей, которые возможны")
     @allure.title("Успешная отправка заявки с заполнением вообще всех полей")
@@ -29,16 +35,24 @@ class TestAPIRequestsSuccess:
                              "SOFTMG-1144 - дополнительно.")
     @name_of_feedback_forms
     def test_api_add_request_in_form_with_tg_email_wa_phone(self, api_help, name_form):
-        status_code = api_help.add_request_in_form_with_tg_email_wa_phone(name_form)
-        assert status_code == 201
+        # Устанавливаем значение feedback_name из параметризации
+        correct_data_with_all_fields.feedback_name = name_form
+
+        # Отправляем запрос
+        response = api_help.send_post_request(data=correct_data_with_all_fields)
+        assert response.status_code == 201
 
     @allure.description("Отправка запроса с некорректной почтой - один символ в имени почты. "
                         "Бизнес не добавляет ограничения на кол-во символов в логине.")
     @allure.title("Отправка заявки с одним символом в логине почты")
     @name_of_feedback_forms
     def test_api_add_requests_with_one_char_in_email(self, api_help, name_form):
-        status_code = api_help.add_request_in_request_with_one_char_in_email(name_form)
-        assert status_code == 201
+        # Устанавливаем значение feedback_name из параметризации
+        correct_data_with_only_email.feedback_name = name_form
+
+        # Отправляем запрос
+        response = api_help.send_post_request(data=correct_data_with_only_email)
+        assert response.status_code == 201
 
 
 @allure.feature("API. Проверка неуспешной отправки заявок")
@@ -55,40 +69,55 @@ class TestAPIRequestsNegative:
     @allure.title("Отправка формы запроса с некорректным email")
     @name_of_feedback_forms
     def test_api_add_fail_requests_with_not_correct_email(self, api_help, name_form):
-        status_code, error_title, email_data = api_help.add_request_with_not_correct_email(name_form)
-        assert status_code == 422
-        assert error_title == f"The email \"\"{email_data}\"\" is not a valid email address."
+        incorrect_data_email.feedback_name = name_form
+        response = api_help.send_post_request(data=incorrect_data_email)
+
+        error_transform_response = get_data_error.transformation_json(response)
+        error_title = get_data_error.get_error_title(error_transform_response)
+
+        assert response.status_code == 422
+        assert "is not a valid email address" in error_title
 
     @allure.description("Отправка запроса с заявкой с пустыми полями")
     @allure.title("Отправка формы запроса с пустыми полями")
     @name_of_feedback_forms
     def test_api_add_requests_with_all_fields_empty(self, api_help, name_form):
-        status_code, error_title = api_help.add_request_with_all_fields_empty(name_form)
-        assert status_code == 422
-        assert error_title == "One of Email or Phone or Telegram or Whatsapp is required"
+        empty_data.feedback_name = name_form
+        response = api_help.send_post_request(data=empty_data)
+
+        error_transform_response = get_data_error.transformation_json(response)
+        error_title = get_data_error.get_error_title(error_transform_response)
+
+        assert response.status_code == 422
+        assert error_title == 'One of Email or Phone or Telegram or Whatsapp is required'
 
     @allure.description("Отправка запроса с корректной почтой и некорректным номером телефона."
                         "Кол-во символов меньше 10")
     @allure.title("Отправка формы запроса с некорректным номером телефона")
     @name_of_feedback_forms
     def test_api_add_requests_with_not_correct_phone(self, api_help, name_form):
-        status_code, error_text, error_title = api_help.add_request_in_form_with_not_correct_phone(name_form)
-        assert status_code == 422
-        assert error_text is not None, f"Сообщение об ошибке не соответствует ожидаемому формату: {error_title}"
+        incorrect_data_phone.feedback_name = name_form
+        response = api_help.send_post_request(data=incorrect_data_phone)
+
+        error_transform_response = get_data_error.transformation_json(response)
+        error_title = get_data_error.get_error_title(error_transform_response)
+
+        assert response.status_code == 422
+        assert "is not a valid phone number" in error_title
 
     @allure.description("Успешная отправка заявки с корректным email (заполняется только поле email), "
-                        "но с превышением символов в descr")
+                        "но с превышением символов в descr.")
     @allure.title("Отправка формы заявки с превышением кол-ва символов в поле Комментарии")
     @name_of_feedback_forms
     def test_api_add_requests_with_exceeding_characters_in_descr(self, api_help, name_form):
-        # status_code = api_help.add_request_in_form_with_with_exceeding_characters_in_descr(name_form)
-        # try:
-        #     assert status_code == 422
-        # except AssertionError:
-        #     pytest.xfail("SOFTMG-1140: Заявки уходят с некорректным кол-вом символов в поле descr. Временно отключен.")
+        incorrect_data_descr.feedback_name = name_form
+        response = api_help.send_post_request(data=incorrect_data_descr)
 
-        status_code = api_help.add_request_in_form_with_with_exceeding_characters_in_descr(name_form)
-        assert status_code == 422
+        error_transform_response = get_data_error.transformation_json(response)
+        error_title = get_data_error.get_error_title(error_transform_response)
+
+        assert response.status_code == 422
+        assert error_title == "Description cannot be longer than 500 characters"
 
     @allure.description("SOFTMG-1255: Неуспешная отправка заявки без установки чекбокса Политики конфиденциальности")
     @allure.title("Неуспешная отправка заявки без установки чекбокса Политики ")

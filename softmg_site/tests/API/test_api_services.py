@@ -2,6 +2,8 @@ import allure
 import pytest
 from allure_commons.types import Severity
 
+from config import config
+
 
 @allure.feature("API. Проверка линковки на странице услуг")
 @allure.severity(Severity.CRITICAL)
@@ -16,7 +18,7 @@ class TestAPILinkServicePage:
 
     @allure.title("Проверка линков на странице услуг")
     def test_fetch_and_test_links_in_services_page(self, api_help):
-        results = api_help.fetch_and_test_links('page/offers')
+        results = api_help.fetch_and_test_links(config.pages["uslugi"]["api_url"])
 
         total_links = len(results)
         assert total_links > 0, "Ссылки не найдены"
