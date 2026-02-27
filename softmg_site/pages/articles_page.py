@@ -14,6 +14,7 @@ class ArticlesPage:
         self.order_summary = ".order-summary-content"
         self.title_in_cart = "//a[contains(@class, '_title_')]"
 
+
     def set_cookies_and_refresh_browser(self, cookies):
         with allure.step("Ставим куки и обновляем браузер"):
             logger.info("Ставим куки и обновляем браузер")
