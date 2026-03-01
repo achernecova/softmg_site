@@ -26,13 +26,6 @@ class MainPageSelene:
         self.header_menu = HeaderMenuSelene()
         self.footer_form = FooterForm()
 
-    # @allure.step("Открываем главную страницу")
-    # def open_page(self):
-    #     browser.open(self.base_url)
-    #     sleep(5)
-    #     browser.refresh()
-    #     browser.element((By.TAG_NAME, "body")).click()
-
     @allure.step("Открываем главную страницу")
     def open_page(self):
         max_retries = 2

@@ -1,12 +1,14 @@
-import os
 import time
 
 import allure
 import pytest
 from faker import Faker
 from selene import be, browser, have, query
-from selenium.common import NoSuchElementException, TimeoutException
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
+
+from softmg_site.api_helper.data_generation import DataGeneration
+from softmg_site.page_elements.attach_files_in_forms import attach_files
 
 
 class FooterForm:
@@ -15,10 +17,11 @@ class FooterForm:
         self.name_data = Faker()
         self.data = Faker("ru_RU")
         self.special_text = "Autotests"
+        self.generation_data = DataGeneration()
 
     @allure.step("Заполняем поле комментария - 'Напишите кратко о проекте' ")
     def input_comment(self):
-        comment_text = self.special_text + self.data.text(max_nb_chars=150)
+        comment_text = self.generation_data.generate_text(150)
         element = browser.element(
             "[data-qa='discussion-form'] [placeholder='Напишите кратко о проекте']"
         )
@@ -27,33 +30,19 @@ class FooterForm:
             time.sleep(0.05)
 
     def input_name(self):
-        name_text = self.special_text + self.data.name()
+        name_text = self.generation_data.generate_name_rus()
         browser.element("[data-qa='discussion-form'] [name='name']").type(name_text)
 
     def input_email(self):
-        """
-        Нормализуем email т.к. почему-то Faker не всегда отдает корректный email.
-        Уточнить - может быть есть какой-то еще генератор?
-        """
-        email_text = self.special_text + self.name_data.email()
-        login_sender, domain_sender = email_text.split("@")
-        login_sender_normalized = login_sender.replace(",", "").replace(" ", "")
-        email_text_normalized = login_sender_normalized + "@" + domain_sender
-        # print(email_text_normalized)
-        # print(login_sender_normalized)
-        # print(login_sender)
-        # print(domain_sender)
-        browser.element("[data-qa='discussion-form'] [name='email']").type(
-            email_text_normalized
-        )
+        email_text = self.generation_data.generate_correct_email()
+        browser.element("[data-qa='discussion-form'] [name='email']").type(email_text)
 
     def input_phone(self):
-        phone_number = self.name_data.numerify("###########")
-        browser.element("[data-qa='discussion-form'] [name='phone']").type(phone_number)
+        browser.element("[data-qa='discussion-form'] [name='phone']").type(self.generation_data.generate_full_phone())
 
     @staticmethod
     @allure.step("Установка чекбокс политики конфиденциальности")
-    def input_checkbox():
+    def set_a_checkbox_policy():
         element = browser.element(
             '[data-qa="discussion-form-checkboxes"] input[name="privacy_consent"]'
         )
@@ -89,48 +78,14 @@ class FooterForm:
             pytest.fail(f"Ошибка: Элемент с ошибкой не найден.\nСообщение: {str(e)}")
 
     @staticmethod
-    def add_correct_file_in_field():
-        current_dir = os.path.dirname(os.path.abspath(__file__))
+    def attach_file_in_footer_form(folder="correct_files", count=None, specific_files=None):
+        # Локатор поля ввода файла
         add_file_in_popup_locator = (
             By.CSS_SELECTOR,
             "[data-qa='discussion-form'] input[type='file']",
         )
-        field_file = browser.element(add_file_in_popup_locator).locate()
-        browser.execute_script("arguments[0].style.display = 'block';", field_file)
 
-        # путь до файла
-        file_path = os.path.join(
-            current_dir, "add_files_in_form_request", "correct_file.docx"
-        )
-        # крепим файл
-        field_file.send_keys(file_path)
-
-    @staticmethod
-    def add_eleven_file_in_popup():
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        add_file_in_popup_locator = (
-            By.CSS_SELECTOR,
-            "[data-qa='discussion-form'] input[type='file']",
-        )
-        field_file = browser.element(add_file_in_popup_locator).locate()
-        # Показываем элемент через JavaScript
-        browser.execute_script("arguments[0].style.display = 'block';", field_file)
-
-        # Пути к файлам
-        files_directory = os.path.join(
-            current_dir, "add_files_in_form_request/correct_files"
-        )
-        file_names = [f"{i}.docx" for i in range(1, 12)]  # 1.docx ... 11.docx
-        file_paths = [os.path.join(files_directory, name) for name in file_names]
-
-        # Проверяем существование файлов
-        for file_path in file_paths:
-            if not os.path.exists(file_path):
-                raise FileNotFoundError(f"Файл {file_path} не существует")
-        files_to_attach = "\n".join(file_paths)
-
-        # Прикрепляем все файлы за один вызов
-        field_file.send_keys(files_to_attach)
+        attach_files(add_file_in_popup_locator, folder, count, specific_files)
 
     # TODO - ожидаем добавление обработки ошибок - добавление data-qa
     @staticmethod

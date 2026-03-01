@@ -19,9 +19,10 @@ class TestAPISearchArticlesAndExamples:
 
 
     @allure.description("Проверка результата запроса кейсов по тегу медицина")
+    @allure.description("SOFTMG-1142: В планах - параметризация теста по разным тегам, ожидаем сброса препрода до прода")
     @allure.link("https://jira.softmg.ru/browse/SOFTMG-486", name="SOFTMG-486")
     @allure.title("Проверка результата запроса кейсов по тегу медицина")
-    def test_api_search_examples_with_tag_meditsina_new(self, api_help):
+    def test_api_search_examples_with_tag_meditsina(self, api_help):
         examples = api_help.get_links_in_page(f"{BASE_URL}/api/v2/cases", params={"tag": "meditsina", "limit": 5})
         get_data_error.get_count_data(examples)
 

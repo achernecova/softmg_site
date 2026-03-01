@@ -1,3 +1,5 @@
+from time import sleep
+
 import allure
 import pytest
 from allure_commons.types import Severity
@@ -43,7 +45,7 @@ class TestSendRequests:
 
         main_page.header_menu.header_button_request_click()
         main_page.popup_form.input_incorrect_data_in_fields(name_field, input_data)
-        main_page.popup_form.input_checkbox_in_popup()
+        main_page.popup_form.check_the_privacy_policy_checkbox()
         main_page.popup_form.click_button_in_popup()
 
         main_page.popup_form.get_error_text_in_field_in_popup(text_error)
@@ -80,9 +82,10 @@ class TestSendRequests:
         main_page.popup_form.input_name_in_popup()
         main_page.popup_form.input_email_in_popup()
         main_page.popup_form.input_phone_in_popup()
-        main_page.popup_form.input_comment_in_popup()
-        main_page.popup_form.input_checkbox_in_popup()
-        main_page.popup_form.add_files()
+        main_page.popup_form.input_comment_in_popup(150)
+        main_page.popup_form.check_the_privacy_policy_checkbox()
+        main_page.popup_form.click_topping_random()
+        main_page.popup_form.attach_files_in_popup("correct_files", 1)
         main_page.popup_form.click_button_in_popup()
 
         main_page.popup_modal.visible_success_popup_footer()
@@ -122,8 +125,8 @@ class TestSendRequests:
             main_page.footer_form.input_name()
             main_page.footer_form.input_email()
             main_page.footer_form.input_phone()
-            main_page.footer_form.input_checkbox()
-            main_page.footer_form.add_correct_file_in_field()
+            main_page.footer_form.set_a_checkbox_policy()
+            main_page.footer_form.attach_file_in_footer_form("correct_files", 5)
         with allure.step("Жмем на кнопку Обсудить проект"):
             main_page.footer_form.click_button_submit()
         with allure.step("Проверяем появление окна успешности отправки заявки"):

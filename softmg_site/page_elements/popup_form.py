@@ -6,6 +6,8 @@ from faker.proxy import Faker
 from selene import browser, have
 from selenium.webdriver.common.by import By
 
+from softmg_site.api_helper.data_generation import DataGeneration
+from softmg_site.page_elements.attach_files_in_forms import attach_files
 from softmg_site.page_elements.modal_popup import PopupModal
 
 
@@ -18,7 +20,7 @@ class PopupFormRequests:
         self.name_data = Faker()
         self.data = Faker("ru_RU")
         self.cookie_modal = PopupModal()
-        # self.constant = "c629d896adfa02f3a703c5f799508d157da6740c058c132ecbcde8ba06f27bf58b2de4ef9c1ab515774dcece78202cd31d4d8a6580da5afd40dc0ff6a24e54b1"
+        self.generation_data = DataGeneration()
         self.email_element = browser.element(
             "[data-qa='leave-application-form'] [name='email']"
         )
@@ -57,21 +59,12 @@ class PopupFormRequests:
         """
         Простое заполнение поля Имя в модалке.
         """
-        # name_text = self.constant + self.data.name()
-        self.name_element.type(self.data.name())
+        self.name_element.type(self.generation_data.generate_name_rus())
 
     @allure.step("Заполняем корректными данными поле Email")
     def input_email_in_popup(self):
-        """
-        Корректное заполнение поля Email в модалке.
-        Нормализуем.
-        """
-        # email_text = self.constant + self.name_data.email()
-        email_text = self.name_data.email()
-        login_sender, domain_sender = email_text.split("@")
-        login_sender_normalized = login_sender.replace(",", "").replace(" ", "")
-        email_text_normalized = login_sender_normalized + "@" + domain_sender
-        self.email_element.type(email_text_normalized)
+        email_text = self.generation_data.generate_correct_email()
+        self.email_element.type(email_text)
 
     def input_incorrect_data_in_fields(self, value_field, value_data):
         """
@@ -107,8 +100,6 @@ class PopupFormRequests:
         text = browser.execute_script(
             "return document.querySelector(\"[data-qa='leave-application-form'] [name='email']\").validationMessage"
         )
-        print(text)
-
         # Проверка текста подсказки
         assert (
                 text
@@ -120,22 +111,22 @@ class PopupFormRequests:
         """
         Корректное заполнение поля Email в модалке
         """
-        phone_number = self.name_data.numerify("###########")
+        phone_number = self.generation_data.generate_full_phone()
         self.phone_element.type(phone_number)
 
     @allure.step("Заполняем корректными данными поле Комментарий")
-    def input_comment_in_popup(self):
+    def input_comment_in_popup(self, count):
         """
         Корректное заполнение поля Комментарий в модалке
         """
-        comment_text = self.name_data.text(max_nb_chars=150)
+        comment_text = self.generation_data.generate_text(count)
         browser.element(
             "[data-qa='leave-application-form'] [placeholder='Комментарий']"
         ).type(comment_text)
 
     @staticmethod
     @allure.step("Установка чекбокс политики конфиденциальности")
-    def input_checkbox_in_popup():
+    def check_the_privacy_policy_checkbox():
         """
         Установка чекбокса Я ознакомлен с политикой конфиденциальности
         """
@@ -156,22 +147,10 @@ class PopupFormRequests:
         )
 
     @staticmethod
-    @allure.step("Прикрепить корректный файл")
-    def add_files():
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        files_directory = os.path.join(
-            current_dir, "add_files_in_form_request/correct_files"
-        )
-
-        # Локатор поля ввода файлов
+    def attach_files_in_popup(folder="correct_files", count=None, specific_files=None):
+        # Локатор поля ввода файла
         add_file_in_popup_locator = (
             By.CSS_SELECTOR,
             "[data-qa='leave-application-form'] input[type='file']",
         )
-
-        # Делаем видимым стандартное поле прикрепления файла (крепим не в отображаемое поле (не в обертку), а в скрытое)
-        field_file = browser.element(add_file_in_popup_locator).locate()
-        browser.execute_script("arguments[0].style.display = 'block';", field_file)
-
-        full_file_path = os.path.join(files_directory, "correct_file.docx")
-        field_file.send_keys(full_file_path)
+        attach_files(add_file_in_popup_locator, folder, count, specific_files)

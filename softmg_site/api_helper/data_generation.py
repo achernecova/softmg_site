@@ -8,27 +8,37 @@ from faker import Faker
 
 class DataGeneration:
     def __init__(self):
-        self.name_data = Faker()
+        self.generate_data = Faker()
+        self.data = Faker("ru_RU")
+        self.special_text = "Autotests"
 
     def generate_name(self):
-        return self.name_data.name_male()
+        return self.generate_data.name_male()
 
     def generate_correct_email(self):
-        return self.name_data.email()
+        return self.generate_data.email()
 
     def generate_phone(self, min_char, max_char):
-        return str(self.name_data.random_int(min_char, max_char))
+        return str(self.generate_data.random_int(min_char, max_char))
 
     def generate_text(self, count):
-        return self.name_data.text(count)
+        return self.special_text + self.generate_data.text(count)
 
     def generate_tg_name(self):
-        return "@" + self.name_data.name()
+        return "@" + self.generate_data.name()
 
-    def generate_incorrect_email_with_one_character(self):
+    @staticmethod
+    def generate_incorrect_email_with_one_character():
         # Генерируем случайную цифру или букву
         symbol = random.choice([random.choice(string.digits), random.choice(string.ascii_lowercase)])
         return f"{symbol}@test.com"
+
+    def generate_full_phone(self):
+        return self.generate_data.numerify("###########")
+
+    def generate_name_rus(self):
+        return self.special_text + self.data.name()
+
 
 generation_data = DataGeneration()
 
@@ -42,6 +52,7 @@ class GenerateObject:
     telegram: Optional[str] = None
     whatsapp: Optional[str] = None
     description: Optional[str] = None
+
 
 correct_data = GenerateObject(
     email=generation_data.generate_correct_email(),
@@ -77,6 +88,4 @@ incorrect_data_phone = GenerateObject(
     phone=generation_data.generate_phone(100000, 999999)
 )
 
-empty_data = GenerateObject(    )
-
-
+empty_data = GenerateObject()
