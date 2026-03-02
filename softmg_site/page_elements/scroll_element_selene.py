@@ -15,7 +15,7 @@ class ScrollElement:
         position = browser.driver.execute_script("return window.scrollY;")
         return position % 1 == 0
 
-    def search_element_website_packages(self, selector, index):
+    def scroll_to_element_website_packages(self, selector, index):
         # Получаем элемент
         # element_website_packages = browser.element(f"(//*[@class='team-card']//a)[{value}]")
         element_website_packages = browser.element(f"{selector}[{index}]")
@@ -26,7 +26,7 @@ class ScrollElement:
         )
         browser.with_(timeout=5).wait.until(self.stop_scroll_condition)
 
-    def search_element_footer_form(self):
+    def scroll_to_element_footer_form(self):
         browser.element((By.TAG_NAME, "body")).click()
         # Получаем элемент
         # element_website_packages = browser.element(f"(//*[@class='team-card']//a)[{value}]")

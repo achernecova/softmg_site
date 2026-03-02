@@ -32,7 +32,9 @@ def load_env():
 @pytest.fixture(scope="function")
 def driver(request):
     _browserVersion = request.config.getoption("--browserVersion")
-    _browserVersion = _browserVersion if _browserVersion != "" else DEFAULT_BROWSER_VERSION
+    _browserVersion = (
+        _browserVersion if _browserVersion != "" else DEFAULT_BROWSER_VERSION
+    )
 
     options = Options()
     options.set_capability("browserName", "chrome")
@@ -117,7 +119,6 @@ menu_level_second_services = pytest.mark.parametrize(
         (6, "support"),
         (7, "devops"),
         (8, "promotion"),
-
     ],
     ids=[
         "Autstaffing",

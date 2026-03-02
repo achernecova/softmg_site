@@ -1,5 +1,4 @@
 import time
-from time import sleep
 
 import allure
 from selene import Element, be, browser, by, command, have
@@ -18,12 +17,12 @@ from softmg_site.page_elements.scroll_element_selene import ScrollElement
 
 
 class MainPageSelene:
-    def __init__(self):
-        self.base_url = config.base_url
+    def __init__(self, url_page: str):
+        self.url_page = url_page
         self.popup_modal = PopupModal()
         self.scroll_element = ScrollElement()
         self.popup_form = PopupFormRequests()
-        self.header_menu = HeaderMenuSelene()
+        self.header_menu = HeaderMenuSelene(url_page)
         self.footer_form = FooterForm()
 
     @allure.step("Открываем главную страницу")
@@ -31,7 +30,7 @@ class MainPageSelene:
         max_retries = 2
         for attempt in range(max_retries):
             try:
-                browser.open(self.base_url)
+                browser.open(self.url_page)
                 # Ждем появления body. Если за 10 сек не появилось — идем в блок except
                 browser.element("body").with_(timeout=10).should(be.visible)
                 return  # Если всё ок, выходим из цикла
@@ -46,15 +45,14 @@ class MainPageSelene:
     @staticmethod
     @allure.step("Проверяем URL и заголовок страницы")
     def page_assert_open_page(page_name):
-        """Проверяет, что открытая страница соответствует данным из PageConfig.
+        """Проверяет, что открытая страница соответствует данным из new_pages.csv.
         :param page_name: Название страницы"""
         browser.element("body").perform(command.js.click)
-        page_data = config.get_page_data(page_name)
+        page_data = config.get_page_by_name(page_name)
 
         expected_url = page_data["url_page"]
         expected_title = page_data["title"]
 
-        # Проверяем URL содержит ожидаемую часть
         browser.should(have.url(expected_url))
 
         title_page_h1 = browser.element("h1")
@@ -66,7 +64,7 @@ class MainPageSelene:
         :param page_name: Наименование страницы
         :param value: номер элемента меню
         """
-        element = browser.element('.cbk-close-window')
+        element = browser.element(".cbk-close-window")
         if element.with_(timeout=0.5).matching(be.visible):
             element.click()
         browser.element((By.TAG_NAME, "body")).click()
@@ -78,11 +76,13 @@ class MainPageSelene:
             menu_item.should(be.clickable).click()
 
     @staticmethod
-    def menu_definition(menu_type: str, index: int) -> Element:
+    def get_menu_element(menu_type: str, index: int) -> Element:
         # Снимаем активный фокус с тела документа
         browser.element((By.TAG_NAME, "body")).send_keys(Keys.ESCAPE)
         # кликаем Принять куки
-        browser.element("//*[contains(@class, '_banner_')]//button[contains(@class, '_button')]").click()
+        browser.element(
+            "//*[contains(@class, '_banner_')]//button[contains(@class, '_button')]"
+        ).click()
 
         first_level_selector = {
             "services": "(//*[contains(@class, '_firstLevelItem')])[1]",
@@ -113,9 +113,9 @@ class MainPageSelene:
                 return second_level_item
 
             except TimeoutException:
-                print(f'Попытка {attempt + 1}: Меню не открылось, сбрасываем фокус.')
+                print(f"Попытка {attempt + 1}: Меню не открылось, сбрасываем фокус.")
                 # Удаляем фокус через JavaScript
-                browser.execute_script('document.activeElement.blur();')
+                browser.execute_script("document.activeElement.blur();")
 
             # Если после трех попыток меню всё ещё не появляется, поднимаем исключение
         raise Exception("Меню второго уровня не открылось после многократных попыток.")
@@ -127,12 +127,13 @@ class MainPageSelene:
         :param menu_type: Тип верхнего уровня меню ('services', 'about' и т.п.)
         :param index: Индекс пункта второго уровня меню (нумерация начинается с 0)
         """
-        second_menu = self.menu_definition(menu_type, index)
+        second_menu = self.get_menu_element(menu_type, index)
         with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
             second_menu.click()
 
     def open_page_third_level_in_menu(
-            self, menu_type: str, index_submenu: int, index: int, page_name: str):
+        self, menu_type: str, index_submenu: int, index: int, page_name: str
+    ):
         """
         Универсальный метод открытия страницы третьего уровня в меню.
         :param page_name: Название страницы
@@ -141,7 +142,7 @@ class MainPageSelene:
         :param index: Индекс пункта третьего уровня меню (нумерация начинается с 0).
         Вызываем метод определения второго уровня меню. Наводим на нужное меню через hover()
         """
-        second_menu = self.menu_definition(menu_type, index_submenu)
+        second_menu = self.get_menu_element(menu_type, index_submenu)
         second_menu.hover()
 
         # Формулируем путь к третьему уровню меню (индексация с 1)
@@ -152,5 +153,3 @@ class MainPageSelene:
         # Кликаем по пункту третьего уровня
         with allure.step(f"Открываем страницу '{page_name}' из саб-меню"):
             third_level_item.click()
-
-main_page = MainPageSelene()

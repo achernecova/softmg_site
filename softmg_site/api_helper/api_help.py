@@ -17,7 +17,6 @@ class ApiHelper:
     def __init__(self):
         self.name_data = Faker()
         self.session = requests.Session()
-
         self.generate_data = DataGeneration()
 
     def get_links_in_page(self, value, params=None):
@@ -27,7 +26,6 @@ class ApiHelper:
                 params=params,
                 allow_redirects=False,
             )
-            logger.info(f"Отправляем GET-запрос на получение данных с {value} страницы")
             return response
 
     @staticmethod
@@ -90,10 +88,18 @@ class ApiHelper:
         full_url = BASE_URL + "/api/v2/feedback/add"
         with allure.step(f"POST-запрос на {full_url}"):
             data_dict = self.obj_to_dict(data)
-            response = requests.post(full_url, json=data_dict, headers=headers, auth=auth, allow_redirects=False)
-            logger.info(f"Отправлен запрос: {response.status_code}, Body: {response.text}")
+            response = requests.post(
+                full_url,
+                json=data_dict,
+                headers=headers,
+                auth=auth,
+                allow_redirects=False,
+            )
+            logger.info(
+                f"Отправлен запрос: {response.status_code}, Body: {response.text}"
+            )
+            self.log_request_and_response(response.request, response)
             return response
-
 
     # TODO - не придумала как иначе данный метод организовать. Он очень громоздкий.
     def extract_links(self, data, links_set):
@@ -109,7 +115,9 @@ class ApiHelper:
                     link = case.get("link", "")
                     if link:
                         full_path = "/examples/" + link
-                        if not any(full_path in existing_link for existing_link in links_set):
+                        if not any(
+                            full_path in existing_link for existing_link in links_set
+                        ):
                             links_set.add(full_path)
 
             # Если это категория "articles", используем slug для формирования ссылки
@@ -117,8 +125,10 @@ class ApiHelper:
                 for article in data["props"]["articles"]:
                     slug = article.get("slug", "")
                     if slug:
-                        full_path = "/article/" + slug + '/'
-                        if not any(full_path in existing_link for existing_link in links_set):
+                        full_path = "/article/" + slug + "/"
+                        if not any(
+                            full_path in existing_link for existing_link in links_set
+                        ):
                             links_set.add(full_path)
 
             # Прямые ссылки (для прочих случаев)

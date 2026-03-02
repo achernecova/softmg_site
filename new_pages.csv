@@ -1,0 +1,86 @@
+﻿name;title;description;url_page;api_url
+base_page;;;/;/api/v2/page/main
+uslugi;Услуги;;/uslugi/;/api/v2/page/offers
+calculator;Калькулятор услуг;;/calculator/;/api/v2/page/calculator
+examples;Кейсы;;/examples/;/api/v2/cases
+about-company;О компании Soft Media Group;;/about-company/;/api/v2/page/about-company
+contacts;Контакты;;/contacts/;
+development;Разработка сайтов;;/development/;/api/v2/offers/slug?url=/development
+it-autstaffing;Аутстаффинг IT-специалистов;;/it-autstaffing/;/api/v2/offers/slug?url=/it-autstaffing
+outsource;Аутсорс IT;;/outsource/;/api/v2/offers/slug?url=/outsource
+application-development;Разработка приложений;;/application-development/;/api/v2/offers/slug?url=/application-development
+razrabotka-ai;Искусственный интеллект для бизнеса – решения, которые работают;;/razrabotka-ai/;/api/v2/offers/slug?url=/razrabotka-ai
+biznes-agenty;Разработка ИИ агентов для бизнеса;;/razrabotka-ai/biznes-agenty/;/api/v2/offers/slug?url=/razrabotka-ai/biznes-agenty
+chat-boty;Чат-боты для бизнеса;;/razrabotka-ai/chat-boty/;/api/v2/offers/slug?url=/razrabotka-ai/chat-boty
+razrabotka-po;Разработка ПО;;/razrabotka-po/;/api/v2/offers/slug?url=/razrabotka-po
+devops;DevOps: стабильная работа и быстрое развитие ваших IT-систем;;/uslugi/devops/;/api/v2/offers/slug?url=/uslugi/devops
+support;Сопровождение и поддержка сайтов;;/support/;/api/v2/offers/slug?url=/support
+promotion;Поисковое продвижение;Поисковое продвижение;/promotion/;/api/v2/offers/slug?url=/promotion
+other_services;Услуги;;;
+article;Статьи;;/article/;/api/v2/page/articles
+news;Новости компании;;/news/;/api/v2/page/news
+reviews;Отзывы;;/reviews/;/api/v2/page/reviews
+vakansii;Карьера в SMG;;/vakansii/;/api/v2/page/vakansii
+referral;Реферальная программа ГК Soft Media Group;;/referral/;/api/v2/page/referral
+development_framework;Cайты на фреймворке;;/development/framework/;/api/v2/offers/slug?url=/development/framework
+development_corporate;Создание корпоративного сайта;;/development/corporate/;/api/v2/offers/slug?url=/development/corporate
+development_shop;Создание интернет-магазина;;/development/shop/;/api/v2/offers/slug?url=/development/shop
+development_interactive;Создание интерактивных сайтов;;/development/interactive/;/api/v2/offers/slug?url=/development/interactive
+development_design;Разработка дизайна сайта;;/development/design/;
+development_card;Создание сайта-визитки;;/development/card/;/api/v2/offers/slug?url=/development/card
+landing;Разработка сайтов Landing Page;;/development/landing-page/;/api/v2/offers/slug?url=/development/landing-page
+application_ios;Создание приложений для iOS; ;/application-development/ios/;/api/v2/offers/slug?url=/application-development/ios
+application_android;Создание приложений под Android; ;/application-development/android/;/api/v2/offers/slug?url=/application-development/android
+development_backbone;Разработка приложений на Backbone; ;/development/backbone/;/api/v2/offers/slug?url=/development/backbone
+application_mongodb;MongoDB;;/application-development/mongodb/;/api/v2/offers/slug?url=/application-development/mongodb
+application_java;Разработка приложений на Java;;/application-development/java/;/api/v2/offers/slug?url=/application-development/java
+application_smartphone;Приложения для смартфонов;;/application-development/smartphone/;/api/v2/offers/slug?url=/application-development/smartphone
+javascript_react;Фреймворк React.js;;/development/framework/javascript-react/;/api/v2/offers/slug?url=/development/framework/javascript-react
+react_native;Мобильные приложения на фреймворк React Native;;/application-development/react-native/;/api/v2/offers/slug?url=/application-development/react-native
+support_netcat;Техподдержка сайтов на Netcat;;/support/netcat/;/api/v2/offers/slug?url=/support/netcat
+support_wordpress;Техподдержка сайтов на Wordpress;;/support/wordpress/;/api/v2/offers/slug?url=/support/wordpress
+support_bitrix;Техподдержка сайтов на Bitrix;;/support/bitrix/;/api/v2/offers/slug?url=/support/bitrix
+sozdanie-corporate;Разработка и продвижение сайта компании;;/promotion/sozdanie-corporate/;/api/v2/offers/slug?url=/promotion/sozdanie-corporate
+internet-magazin;Создание и продвижение интернет-магазина;;/promotion/internet-magazin/;/api/v2/offers/slug?url=/promotion/internet-magazin
+development-seo;Создание сайтов для СЕО-продвижения;;/development/seo/;/api/v2/offers/slug?url=/development/seo
+promotion-yandex;Продвижение сайтов под Яндекс;;/promotion/yandex/;/api/v2/offers/slug?url=/promotion/yandex
+promotion-google;Продвижение сайтов под Google;;/promotion/google/;/api/v2/offers/slug?url=/promotion/google
+integraciya-1c;Интеграция 1С: полная автоматизация торговли;;/integraciya-1c/;/api/v2/offers/slug?url=/integraciya-1c
+automated-testing;Интеграция 1С: полная автоматизация торговли;;/uslugi/automated-testing/;/api/v2/offers/slug?url=/uslugi/automated-testing
+dorabotka-saytov;Доработка сайтов;;/dorabotka-saytov/;/api/v2/offers/slug?url=/dorabotka-saytov
+testirovanie;Повышаем качество программных продуктов;;/testirovanie/;/api/v2/offers/slug?url=/testirovanie
+development-design;Разработка дизайна сайта;;/development/design/;/api/v2/offers/slug?url=/development/design
+systems-analyst;???;;/systems-analyst/;/api/v2/offers/slug?url=/systems-analyst
+development-symfony;Создание сайтов на Symfony;;/development/symfony/;/api/v2/offers/slug?url=/development/symfony
+development-laravel;Сайты на Laravel;;/development/laravel/;/api/v2/offers/slug?url=/development/laravel
+development-yii;Сайты на Yii;;/development/yii/;/api/v2/offers/slug?url=/development/yii
+development-zend;Сайты на Zend;;/development/zend/;/api/v2/offers/slug?url=/development/zend
+development-codeigniter;Сайты на Codeigniter;;/development/codeigniter/;/api/v2/offers/slug?url=/development/codeigniter
+development-cakephp;Разработка сайтов и приложений на Cakephp;;/development/cakephp/;/api/v2/offers/slug?url=/development/cakephp
+development-javascript;Фреймворки JavaScript;;/development/framework/javascript/;/api/v2/offers/slug?url=/development/framework/javascript
+development-java;Фреймворки Java;;/development/framework/java/;/api/v2/offers/slug?url=/development/framework/java
+corporate-wordpress;Корпоративные сайты на Wordpress;;/development/corporate/wordpress/;/api/v2/offers/slug?url=/development/corporate/wordpress
+corporate-bitrix;Разработка корпоративного сайта на Bitrix;;/development/corporate/bitrix/;/api/v2/offers/slug?url=/development/corporate/bitrix
+shop-1c-bitrix;Интернет-магазин на 1С Битрикс;;/development/shop/1c-bitrix/;/api/v2/offers/slug?url=/development/shop/1c-bitrix
+shop-virtuemart;Интернет-магазин на Virtuemart;;/development/shop/virtuemart/;/api/v2/offers/slug?url=/development/shop/virtuemart
+shop-wordpress;Интернет-магазин на WordPress;;/development/shop/wordpress/;/api/v2/offers/slug?url=/development/shop/wordpress
+shop-opencart;Создание сайтов на OpenCart;;/development/shop/opencart/;/api/v2/offers/slug?url=/development/shop/opencart
+development-umicms;Создание сайта на UMI.CMS;;/development/umicms/;/api/v2/offers/slug?url=/development/umicms
+development-shop-magento;Разработка интернет-магазин на Magento;;/development/shop/magento/;/api/v2/offers/slug?url=/development/shop/magento
+development-shop-ubercart;Создание сайта на Ubercart;;/development/shop/ubercart/;/api/v2/offers/slug?url=/development/shop/ubercart
+development-shop-prestashop;Разработка интернет-магазинов на CMS PrestaShop;;/development/shop/prestashop/;/api/v2/offers/slug?url=/development/shop/prestashop
+development-shop-oscommerce;Интернет-магазин на osCommerce;;/development/shop/oscommerce/;/api/v2/offers/slug?url=/development/shop/oscommerce
+development-netcat;Создание сайта на NetCat;;/development/netcat/;/api/v2/offers/slug?url=/development/netcat
+shop-shopscript;Создание сайтов на Shop Script;;/development/shop/shopscript/;/api/v2/offers/slug?url=/development/shop/shopscript
+shop-pod-kluch;Интернет-магазин под ключ;;/development/shop/pod-kluch/;/api/v2/offers/slug?url=/development/shop/pod-kluch
+card-bitrix;Сайт-визитка на Bitrix;;/development/card/bitrix/;/api/v2/offers/slug?url=/development/card/bitrix
+development-drupal;Разработка сайтов на Drupal;;/development/drupal/;/api/v2/offers/slug?url=/development/drupal
+development-joomla;Разработка сайтов на Joomla;;/development/joomla/;/api/v2/offers/slug?url=/development/joomla
+development-wordpress;Разработка сайтов на Wordpress;;/development/wordpress/;/api/v2/offers/slug?url=/development/wordpress
+software-product-development;Разработка программных продуктов: решения под ключ;;/software-product-development/;/api/v2/offers/slug?url=/software-product-development
+razrabotka-po-django;Разработка на Django;;/razrabotka-po/django/;/api/v2/offers/slug?url=/razrabotka-po/django
+razrabotka-po-python;Разработка на Python;;/razrabotka-po/python/;/api/v2/offers/slug?url=/razrabotka-po/python
+veb-razrabotka-python;Веб разработка на Python;;/razrabotka-po/veb-razrabotka-python/;/api/v2/offers/slug?url=/razrabotka-po/veb-razrabotka-python
+razrabotka-po-golang;Разработка программного обеспечения на Golang;;/razrabotka-po/golang/;/api/v2/offers/slug?url=/razrabotka-po/golang
+razrabotka-po-net;Разработка на .net;;/razrabotka-po/net/;/api/v2/offers/slug?url=/razrabotka-po/net
+unity;Разработка на Unity;;/unity/;/api/v2/offers/slug?url=/unity

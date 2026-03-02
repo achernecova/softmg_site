@@ -24,15 +24,17 @@ class SearchPage:
             # Устанавливаем куки
             for cookie_name, cookie_value in cookies.items():
                 try:
-                    self.browser.config.driver.add_cookie({
-                        "name": cookie_name,
-                        "value": cookie_value,
-                        "path": "/",
-                        "domain": "",
-                        "secure": False,
-                        "httpOnly": False,
-                        "sameSite": "Lax"
-                    })
+                    self.browser.config.driver.add_cookie(
+                        {
+                            "name": cookie_name,
+                            "value": cookie_value,
+                            "path": "/",
+                            "domain": "",
+                            "secure": False,
+                            "httpOnly": False,
+                            "sameSite": "Lax",
+                        }
+                    )
                 except Exception as e:
                     logger.error(f"Ошибка при установке куки '{cookie_name}': {e}")
 

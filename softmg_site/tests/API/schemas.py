@@ -21,10 +21,10 @@ data_examples = {
                                 "slug": {"type": "string"},
                                 "date_create": {"type": "string"},
                                 "title": {"type": "string"},
-                                "link": {"type": "string"}
+                                "link": {"type": "string"},
                             },
-                            "required": ["name", "slug", "date_create", "title", "link"]
-                        }
+                            "required": ["name", "slug", "date_create", "title", "link"],
+                        },
                     },
                     "og_title": {"type": "string"},
                     "og_description": {"type": "string"},
@@ -32,29 +32,29 @@ data_examples = {
                     "site_type": {
                         "oneOf": [
                             {"type": "boolean"},
-                            {"type": "array", "items": {"type": "string"}}
+                            {"type": "array", "items": {"type": "string"}},
                         ]
                     },
                     "technology": {
                         "oneOf": [
                             {"type": "boolean"},
-                            {"type": "array", "items": {"type": "string"}}
+                            {"type": "array", "items": {"type": "string"}},
                         ]
                     },
-                    "direction": {"type": "string"}
+                    "direction": {"type": "string"},
                 },
-                "required": ["name", "slug", "image", "seo_description", "tags"]
-            }
+                "required": ["name", "slug", "image", "seo_description", "tags"],
+            },
         },
         "meta": {
             "type": "object",
             "properties": {
                 "limit": {"type": "integer"},
                 "offset": {"type": "integer"},
-                "count": {"type": "integer"}
+                "count": {"type": "integer"},
             },
-            "required": ["limit", "offset", "count"]
-        }
+            "required": ["limit", "offset", "count"],
+        },
     },
-    "required": ["data", "meta"]
+    "required": ["data", "meta"],
 }
