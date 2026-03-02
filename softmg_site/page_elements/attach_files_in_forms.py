@@ -2,7 +2,7 @@ import os
 import random
 
 from selene import browser
-from selenium.webdriver.common.by import By
+
 
 def attach_files(locator, folder="correct_files", count=None, specific_files=None):
     """
@@ -14,12 +14,15 @@ def attach_files(locator, folder="correct_files", count=None, specific_files=Non
     - specific_files: Список конкретных файлов (игнорируется, если задан count)
     """
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    folder_path = os.path.abspath(os.path.join(current_dir, "..", "add_files_in_form_request", folder))
+    folder_path = os.path.abspath(
+        os.path.join(current_dir, "..", "add_files_in_form_request", folder)
+    )
 
     # Проверка наличия хотя бы одного обязательного параметра
     if count is None and specific_files is None:
         raise ValueError(
-            "Необходимо указать либо количество файлов (count), либо список конкретных файлов (specific_files)")
+            "Необходимо указать либо количество файлов (count), либо список конкретных файлов (specific_files)"
+        )
 
     # Проверка взаимного исключения параметров
     if count is not None and specific_files is not None:

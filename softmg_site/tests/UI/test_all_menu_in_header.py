@@ -2,11 +2,15 @@ import allure
 import pytest
 from allure_commons.types import Severity
 
-from softmg_site.pages.main_page_selene import main_page
-from softmg_site.tests.UI.conftest import (first_level_menu,
-                                           menu_level_second_services,
-                                           menu_level_third_application,
-                                           menu_level_third_development)
+from config import config
+from softmg_site.pages.main_page_selene import MainPageSelene
+from softmg_site.tests.UI.conftest import (
+    first_level_menu,
+    menu_level_second_services,
+    menu_level_third_application,
+    menu_level_third_development,
+)
+
 
 @allure.feature("Проверка верхнеуровневого меню")
 @allure.severity(Severity.CRITICAL)
@@ -22,9 +26,11 @@ class TestFirstLevelMenuOpenPage:
     @allure.title("Открытие верхнеуровневого меню")
     @first_level_menu
     def test_page_menu_open(self, driver, index, page_name):
-        main_page.open_page()
-        main_page.open_page_first_level_in_menu(index, page_name)
-        main_page.page_assert_open_page(page_name)
+        main_page_data = config.get_page_by_name("base_page")
+        page = MainPageSelene(url_page=main_page_data["url_page"])
+        page.open_page()
+        page.open_page_first_level_in_menu(index, page_name)
+        page.page_assert_open_page(page_name)
 
 
 @allure.feature("Проверка меню второго уровня")
@@ -40,9 +46,11 @@ class TestSecondLevelMenuOpenPage:
     @allure.title("Открытие второго саб-меню из меню Услуги")
     @menu_level_second_services
     def test_page_menu_level_second_services_open(self, driver, index, page_name):
-        main_page.open_page()
-        main_page.open_page_second_level_in_menu("services", index, page_name)
-        main_page.page_assert_open_page(page_name)
+        main_page_data = config.get_page_by_name("base_page")
+        page = MainPageSelene(url_page=main_page_data["url_page"])
+        page.open_page()
+        page.open_page_second_level_in_menu("services", index, page_name)
+        page.page_assert_open_page(page_name)
 
 
 @allure.feature("Проверка меню третьего уровня")
@@ -58,14 +66,18 @@ class TestThirdLevelMenuOpenPage:
     @allure.title("Открытие саб-меню третьего уровня")
     @menu_level_third_development
     def test_page_menu_level_third_development_open(self, driver, index, page_name):
-        main_page.open_page()
-        main_page.open_page_third_level_in_menu("services", 2, index, page_name)
-        main_page.page_assert_open_page(page_name)
+        main_page_data = config.get_page_by_name("base_page")
+        page = MainPageSelene(url_page=main_page_data["url_page"])
+        page.open_page()
+        page.open_page_third_level_in_menu("services", 2, index, page_name)
+        page.page_assert_open_page(page_name)
 
     @allure.story("UI. Открытие саб-меню из саб-меню Разработка приложений")
     @allure.title("Открытие саб-меню третьего уровня")
     @menu_level_third_application
     def test_page_menu_level_third_application_open(self, driver, index, page_name):
-        main_page.open_page()
-        main_page.open_page_third_level_in_menu("services", 3, index, page_name)
-        main_page.page_assert_open_page(page_name)
+        main_page_data = config.get_page_by_name("base_page")
+        page = MainPageSelene(url_page=main_page_data["url_page"])
+        page.open_page()
+        page.open_page_third_level_in_menu("services", 3, index, page_name)
+        page.page_assert_open_page(page_name)

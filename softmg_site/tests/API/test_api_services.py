@@ -18,7 +18,11 @@ class TestAPILinkServicePage:
 
     @allure.title("Проверка линков на странице услуг")
     def test_fetch_and_test_links_in_services_page(self, api_help):
-        results = api_help.fetch_and_test_links(config.pages["uslugi"]["api_url"])
+        uslugi_page_data = config.get_page_by_name("uslugi")
+        api_url = uslugi_page_data["api_url"]
+
+        # Отправляем запрос и проверяем ссылки
+        results = api_help.fetch_and_test_links(api_url)
 
         total_links = len(results)
         assert total_links > 0, "Ссылки не найдены"

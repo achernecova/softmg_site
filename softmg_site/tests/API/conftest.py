@@ -8,11 +8,20 @@ def api_help():
     return ApiHelper()
 
 
-
-name_of_feedback_forms = pytest.mark.parametrize("name_form",
-                                                 ["Оставить заявку", "Обсудить проект", "Мы готовы помочь с выбором",
-                                                  "Остались вопросы", "Задать вопрос"],
-                                                 ids=["Submit a request", "Discuss a project",
-                                                      "We're ready to help you choose", "Still have questions",
-                                                      "Ask a question"]
-                                                 )
+name_of_feedback_forms = pytest.mark.parametrize(
+    "name_form",
+    [
+        "Оставить заявку",
+        "Обсудить проект",
+        "Мы готовы помочь с выбором",
+        "Остались вопросы",
+        "Задать вопрос",
+    ],
+    ids=[
+        "Submit a request",
+        "Discuss a project",
+        "We're ready to help you choose",
+        "Still have questions",
+        "Ask a question",
+    ],
+)

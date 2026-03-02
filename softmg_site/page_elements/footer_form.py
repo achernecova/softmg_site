@@ -38,7 +38,9 @@ class FooterForm:
         browser.element("[data-qa='discussion-form'] [name='email']").type(email_text)
 
     def input_phone(self):
-        browser.element("[data-qa='discussion-form'] [name='phone']").type(self.generation_data.generate_full_phone())
+        browser.element("[data-qa='discussion-form'] [name='phone']").type(
+            self.generation_data.generate_full_phone()
+        )
 
     @staticmethod
     @allure.step("Установка чекбокс политики конфиденциальности")
@@ -52,7 +54,7 @@ class FooterForm:
     @allure.step("Клик по кнопке отправки заявку")
     def click_button_submit():
         # Смотрим - видно ли окно энвибокса. Да - закрываем. Нет - продолжаем тест.
-        element = browser.element('.cbk-close-window')
+        element = browser.element(".cbk-close-window")
         if element.with_(timeout=0.5).matching(be.visible):
             element.click()
         browser.element('[data-qa="discussion-form"] button[type="submit"]').click()
@@ -78,7 +80,9 @@ class FooterForm:
             pytest.fail(f"Ошибка: Элемент с ошибкой не найден.\nСообщение: {str(e)}")
 
     @staticmethod
-    def attach_file_in_footer_form(folder="correct_files", count=None, specific_files=None):
+    def attach_file_in_footer_form(
+        folder="correct_files", count=None, specific_files=None
+    ):
         # Локатор поля ввода файла
         add_file_in_popup_locator = (
             By.CSS_SELECTOR,

@@ -30,7 +30,9 @@ class DataGeneration:
     @staticmethod
     def generate_incorrect_email_with_one_character():
         # Генерируем случайную цифру или букву
-        symbol = random.choice([random.choice(string.digits), random.choice(string.ascii_lowercase)])
+        symbol = random.choice(
+            [random.choice(string.digits), random.choice(string.ascii_lowercase)]
+        )
         return f"{symbol}@test.com"
 
     def generate_full_phone(self):
@@ -58,7 +60,7 @@ correct_data = GenerateObject(
     email=generation_data.generate_correct_email(),
     name=generation_data.generate_name(),
     phone=generation_data.generate_phone(10000000000, 99999999999),
-    description=generation_data.generate_text(500)
+    description=generation_data.generate_text(500),
 )
 
 correct_data_with_all_fields = GenerateObject(
@@ -67,25 +69,23 @@ correct_data_with_all_fields = GenerateObject(
     phone=generation_data.generate_phone(10000000000, 99999999999),
     telegram=generation_data.generate_tg_name(),
     whatsapp=generation_data.generate_phone(10000000000, 99999999999),
-    description=generation_data.generate_text(500)
+    description=generation_data.generate_text(500),
 )
 
 correct_data_with_only_email = GenerateObject(
     email=generation_data.generate_correct_email()
 )
 
-incorrect_data_email = GenerateObject(
-    email=generation_data.generate_text(20)
-)
+incorrect_data_email = GenerateObject(email=generation_data.generate_text(20))
 
 incorrect_data_descr = GenerateObject(
     email=generation_data.generate_correct_email(),
-    description=generation_data.generate_text(1000)
+    description=generation_data.generate_text(1000),
 )
 
 incorrect_data_phone = GenerateObject(
     email=generation_data.generate_correct_email(),
-    phone=generation_data.generate_phone(100000, 999999)
+    phone=generation_data.generate_phone(100000, 999999),
 )
 
 empty_data = GenerateObject()

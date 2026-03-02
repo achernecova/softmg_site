@@ -19,7 +19,17 @@ class TestAPILinkMainPage:
     @allure.description("Проверяем все линки на странице main")
     @allure.title("Проверка линков на главной странице")
     def test_fetch_and_test_links_in_main_page(self, api_help):
-        results = api_help.fetch_and_test_links(config.pages["base_page"]["api_url"])
+        # results = api_help.fetch_and_test_links(config.pages["base_page"]["api_url"])
+
+        # Получаем данные страницы 'base_page' из CSV-файла
+        uslugi_page_data = config.get_page_by_name("base_page")
+
+        # Берем api_url из полученных данных
+        api_url = uslugi_page_data["api_url"]
+
+        # Отправляем запрос и проверяем ссылки
+        results = api_help.fetch_and_test_links(api_url)
+
         total_links = len(results)
         assert total_links > 0, "Ссылки не найдены"
         print(f"\nКоличество ссылок: {total_links}\n")
