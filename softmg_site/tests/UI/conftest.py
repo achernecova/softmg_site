@@ -24,6 +24,7 @@ def pytest_addoption(parser):
         default="127.0",
     )
 
+
 @pytest.fixture(scope="session")
 def data_generator():
     """Фикстура для подготовки набора тестовых данных"""
@@ -47,13 +48,10 @@ def driver(request):
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", _browserVersion)
     options.add_argument("--start-maximized")
-    # Эти флаги — "спасательный круг" при нехватке RAM и CPU
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
-    # Отключает изоляцию сайтов (сильно экономит оперативную память)
     options.add_argument("--disable-site-isolation-trials")
-    # Ограничивает количество процессов (один процесс на сайт)
     options.add_argument("--proxy-server='direct://'")
     options.add_argument("--proxy-bypass-list=*")
 

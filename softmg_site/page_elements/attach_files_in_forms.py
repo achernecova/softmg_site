@@ -4,7 +4,9 @@ import random
 from selene import browser
 
 
-def file_list_definition(locator, folder="correct_files", count=None, specific_files=None):
+def file_list_definition(
+    locator, folder="correct_files", count=None, specific_files=None
+):
     """
     Универсальный метод для прикрепления файлов.
 

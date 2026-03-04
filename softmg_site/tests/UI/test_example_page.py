@@ -4,6 +4,7 @@ import pytest
 from config import config
 from softmg_site.pages.examples_page import ExamplePage
 
+
 @allure.feature("Проверка количества отображаемых карточек")
 @allure.title("Проверка отдачи 6 кейсов на странице кейсов")
 @allure.description("SOFTMG-1145: Проверка отдачи 6 кейсов на странице кейсов")

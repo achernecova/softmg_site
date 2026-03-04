@@ -28,15 +28,17 @@ class FooterForm:
             element.type(char)
             time.sleep(0.05)
 
-    def input_name(self, name_text):
-        # name_text = self.generation_data.generate_name_rus()
+    @staticmethod
+    def input_name(name_text):
         browser.element("[data-qa='discussion-form'] [name='name']").type(name_text)
 
-    def input_email(self, email_text):
+    @staticmethod
+    def input_email(email_text):
 
         browser.element("[data-qa='discussion-form'] [name='email']").type(email_text)
 
-    def input_phone(self, phone_number):
+    @staticmethod
+    def input_phone(phone_number):
         browser.element("[data-qa='discussion-form'] [name='phone']").type(phone_number)
 
     @staticmethod

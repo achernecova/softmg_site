@@ -3,7 +3,7 @@ from faker.proxy import Faker
 from selene import browser, have
 from selenium.webdriver.common.by import By
 
-from softmg_site.api_helper.data_generation import DataGeneration, generation_data
+from softmg_site.api_helper.data_generation import DataGeneration
 from softmg_site.page_elements.attach_files_in_forms import file_list_definition
 from softmg_site.page_elements.modal_popup import PopupModal
 
@@ -33,15 +33,12 @@ class PopupFormRequests:
 
     @staticmethod
     # @allure.step("Выбрать случайное количество топпингов")
-    def click_topping_random():
+    def click_topping_random(selected_indexes):
         """
         Метод для рандомного выбора топпингов
         """
-        selected_indexes = generation_data.generate_topping_random()
         for index in selected_indexes:
-            element_locator = (
-                f"//*[@data-qa='theme-tag-{index}']"
-            )
+            element_locator = f"//*[@data-qa='theme-tag-{index}']"
             browser.element(element_locator).click()
 
     @allure.step("Заполняем корректными данными поле Имя")
@@ -57,7 +54,7 @@ class PopupFormRequests:
 
     def input_incorrect_data_in_fields(self, value_field, value_data, email_text):
         """
-        :param email_text:
+        :param email_text: сгенерированная почта
         :param value_field: Название поля которое проверяем.
         :param value_data: Данные которые вставляем.
         """
@@ -105,9 +102,6 @@ class PopupFormRequests:
 
     @allure.step("Заполняем корректными данными поле Комментарий")
     def input_comment_in_popup(self, comment_text):
-        """
-        Корректное заполнение поля Комментарий в модалке
-        """
         browser.element(
             "[data-qa='leave-application-form'] [placeholder='Комментарий']"
         ).type(comment_text)
@@ -115,9 +109,6 @@ class PopupFormRequests:
     @staticmethod
     @allure.step("Установка чекбокс политики конфиденциальности")
     def check_the_privacy_policy_checkbox():
-        """
-        Установка чекбокса Я ознакомлен с политикой конфиденциальности
-        """
         element = browser.element(
             '[data-qa="leave-application-form-checkboxes"] input[name="privacy_consent"]'
         )

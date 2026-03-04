@@ -34,7 +34,6 @@ class DataGeneration:
         )  # Выбираем индексы топпингов
         return selected_indexes
 
-
     @staticmethod
     def generate_incorrect_email_with_one_character():
         # Генерируем случайную цифру или букву

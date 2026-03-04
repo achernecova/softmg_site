@@ -158,14 +158,17 @@ class TestSendRequests:
             name_text = data_generator.generate_name_rus()
             email_text = data_generator.generate_correct_email()
             phone_number = data_generator.generate_full_phone()
+            selected_indexes = data_generator.generate_topping_random()
 
             page.scroll_element.scroll_to_element_footer_form()
+
             page.footer_form.input_comment(comment_text)
             page.footer_form.input_name(name_text)
             page.footer_form.input_email(email_text)
             page.footer_form.input_phone(phone_number)
-            # page.popup_form.click_topping_random()
+            page.popup_form.click_topping_random(selected_indexes)
             page.footer_form.set_a_checkbox_policy()
+
             page.footer_form.attach_file_in_footer_form("correct_files", 2)
         with allure.step("Жмем на кнопку Обсудить проект"):
             page.footer_form.click_button_submit()

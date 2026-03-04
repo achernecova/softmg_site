@@ -18,7 +18,8 @@ class PageConfig:
     def __init__(self, csv_path: Path):
         self.pages = self.load_pages_from_csv(csv_path)
 
-    def load_pages_from_csv(self, csv_path: Path) -> dict:
+    @staticmethod
+    def load_pages_from_csv(csv_path: Path) -> dict:
         """Читает CSV-файл и возвращает словарь страниц"""
         pages = {}
 
