@@ -20,14 +20,16 @@ class TestSendRequests:
     @allure.title("Отправка формы из хедера без установки обязательного чекбокса")
     @pytest.mark.production
     @pytest.mark.requests_negative_UI
-    def test_send_request_without_checkbox_in_header(self, driver):
+    def test_send_request_without_checkbox_in_header(self, driver, data_generator):
 
         main_page_data = config.get_page_by_name("base_page")
         page = MainPageSelene(url_page=main_page_data["url_page"])
         page.open_page()
 
-        page.header_menu.header_button_request_click()
-        page.popup_form.input_email_in_popup()
+        email_text = data_generator.generate_correct_email()
+
+        page.header_menu.click_header_button_request()
+        page.popup_form.input_email_in_popup(email_text)
         page.popup_form.click_button_in_popup()
 
         page.popup_form.get_error_text_in_field_checkbox_in_popup()
@@ -41,7 +43,7 @@ class TestSendRequests:
     @pytest.mark.requests_negative_UI
     @input_data_in_fields
     def test_send_request_three_characters_in_header(
-        self, driver, name_field, input_data, text_error
+        self, driver, data_generator, name_field, input_data, text_error
     ):
 
         main_page_data = config.get_page_by_name("base_page")
@@ -49,8 +51,10 @@ class TestSendRequests:
 
         page.open_page()
 
-        page.header_menu.header_button_request_click()
-        page.popup_form.input_incorrect_data_in_fields(name_field, input_data)
+        email_text = data_generator.generate_correct_email()
+
+        page.header_menu.click_header_button_request()
+        page.popup_form.input_incorrect_data_in_fields(name_field, input_data, email_text)
         page.popup_form.check_the_privacy_policy_checkbox()
         page.popup_form.click_button_in_popup()
 
@@ -71,10 +75,10 @@ class TestSendRequests:
 
         page.open_page()
 
-        page.header_menu.header_button_request_click()
+        page.header_menu.click_header_button_request()
 
         try:
-            page.popup_form.email_validation_message()
+            page.popup_form.assert_validation_email_message()
         except AssertionError:
             pytest.xfail(
                 "В Selene (или в более старом браузере...) не отображаются подсказки JS. Временно отключен."
@@ -86,23 +90,27 @@ class TestSendRequests:
     @allure.story("UI. Отправка формы из хедера - полное заполнение формы")
     @allure.title("Отправка формы из хедера - полное заполнение формы")
     @pytest.mark.requests_positive_UI
-    def test_send_requests_with_fill_form_in_header(self, driver):
+    def test_send_requests_with_fill_form_in_header(self, driver, data_generator):
         main_page_data = config.get_page_by_name("base_page")
         page = MainPageSelene(url_page=main_page_data["url_page"])
 
         page.open_page()
 
-        page.header_menu.header_button_request_click()
-        page.popup_form.input_name_in_popup()
-        page.popup_form.input_email_in_popup()
-        page.popup_form.input_phone_in_popup()
-        page.popup_form.input_comment_in_popup(150)
+        comment_text = data_generator.generate_text(count=150)
+        name_text = data_generator.generate_name_rus()
+        email_text = data_generator.generate_correct_email()
+        phone_number = data_generator.generate_full_phone()
+
+        page.header_menu.click_header_button_request()
+        page.popup_form.input_name_in_popup(name_text)
+        page.popup_form.input_email_in_popup(email_text)
+        page.popup_form.input_phone_in_popup(phone_number)
+        page.popup_form.input_comment_in_popup(comment_text)
         page.popup_form.check_the_privacy_policy_checkbox()
-        page.popup_form.click_topping_random()
         page.popup_form.attach_files_in_popup("correct_files", 1)
         page.popup_form.click_button_in_popup()
 
-        page.popup_modal.visible_success_popup_footer()
+        page.popup_modal.check_visible_success_popup_footer()
 
     @allure.severity(Severity.CRITICAL)
     @allure.link("https://jira.softmg.ru/browse/SOFTMG-1016", name="SOFTMG-1016")
@@ -137,7 +145,7 @@ class TestSendRequests:
     @allure.story("UI. Отправка формы из футера - полное заполнение формы")
     @allure.title("Отправка формы из футера - полное заполнение формы")
     @pytest.mark.requests_positive_UI
-    def test_send_requests_with_fill_form_in_footer(self, driver):
+    def test_send_requests_with_fill_form_in_footer(self, driver, data_generator):
         with allure.step("Открываем главную страницу"):
             main_page_data = config.get_page_by_name("base_page")
             page = MainPageSelene(url_page=main_page_data["url_page"])
@@ -146,14 +154,20 @@ class TestSendRequests:
         with allure.step(
             "Заполняем все поля, крепим один корректный файл, устанавливаем чекбокс"
         ):
+            comment_text = data_generator.generate_text(count=150)
+            name_text = data_generator.generate_name_rus()
+            email_text = data_generator.generate_correct_email()
+            phone_number = data_generator.generate_full_phone()
+
             page.scroll_element.scroll_to_element_footer_form()
-            page.footer_form.input_comment()
-            page.footer_form.input_name()
-            page.footer_form.input_email()
-            page.footer_form.input_phone()
+            page.footer_form.input_comment(comment_text)
+            page.footer_form.input_name(name_text)
+            page.footer_form.input_email(email_text)
+            page.footer_form.input_phone(phone_number)
+            # page.popup_form.click_topping_random()
             page.footer_form.set_a_checkbox_policy()
-            page.footer_form.attach_file_in_footer_form("correct_files", 5)
+            page.footer_form.attach_file_in_footer_form("correct_files", 2)
         with allure.step("Жмем на кнопку Обсудить проект"):
             page.footer_form.click_button_submit()
         with allure.step("Проверяем появление окна успешности отправки заявки"):
-            page.popup_modal.visible_success_popup_footer()
+            page.popup_modal.check_visible_success_popup_footer()

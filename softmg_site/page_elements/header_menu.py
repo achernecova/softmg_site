@@ -13,7 +13,7 @@ class HeaderMenuSelene:
         self.button_header = browser.element("header button[type=button]")
 
     @allure.step("Кликаем по кнопке Оставить заявку в меню")
-    def header_button_request_click(self):
+    def click_header_button_request(self):
         browser.element((By.TAG_NAME, "body")).click()
         # кликаем Принять куки
         browser.element(

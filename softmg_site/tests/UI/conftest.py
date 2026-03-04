@@ -10,6 +10,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+from softmg_site.api_helper.data_generation import DataGeneration
 from softmg_site.utils import attach
 from softmg_site.utils.logger import setup_logger
 
@@ -22,6 +23,12 @@ def pytest_addoption(parser):
         help="Версия браузера в котором будут запущены тесты",
         default="127.0",
     )
+
+@pytest.fixture(scope="session")
+def data_generator():
+    """Фикстура для подготовки набора тестовых данных"""
+    generator = DataGeneration()
+    yield generator
 
 
 @pytest.fixture(scope="session", autouse=True)

@@ -14,13 +14,13 @@ class PopupModal:
         browser.element(".cbk-close-window").should(be.visible).click()
 
     @staticmethod
-    def visible_success_popup():
+    def check_visible_success_popup():
         browser.element("[data-qa='success-submit-form']").should(be.visible)
 
     # TODO - надо перепроверить через разработчиков
     @staticmethod
     @allure.step("Проверить появление окна успешности отправки заявки")
-    def visible_success_popup_header():
+    def check_visible_success_popup_header():
         """Проверка отображения хэдера в окне подтверждения отправки заявки.
         Отправка заявки - по кнопке из хэдера.
         Почему-то разные модалки успешности. По макетам окно - одно. НАдо перепроверить через разработчиков.
@@ -32,7 +32,7 @@ class PopupModal:
 
     @staticmethod
     @allure.step("Проверить появление окна успешности отправки заявки")
-    def visible_success_popup_footer():
+    def check_visible_success_popup_footer():
         """Проверка отображения хэдера в окне подтверждения отправки заявки.
         Отправка заявки - по кнопке из футера.
         Почему-то разные модалки успешности. По макетам окно - одно. НАдо перепроверить через разработчиков.

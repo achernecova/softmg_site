@@ -8,7 +8,7 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from softmg_site.api_helper.data_generation import DataGeneration
-from softmg_site.page_elements.attach_files_in_forms import attach_files
+from softmg_site.page_elements.attach_files_in_forms import file_list_definition
 
 
 class FooterForm:
@@ -20,8 +20,7 @@ class FooterForm:
         self.generation_data = DataGeneration()
 
     @allure.step("Заполняем поле комментария - 'Напишите кратко о проекте' ")
-    def input_comment(self):
-        comment_text = self.generation_data.generate_text(150)
+    def input_comment(self, comment_text):
         element = browser.element(
             "[data-qa='discussion-form'] [placeholder='Напишите кратко о проекте']"
         )
@@ -29,18 +28,16 @@ class FooterForm:
             element.type(char)
             time.sleep(0.05)
 
-    def input_name(self):
-        name_text = self.generation_data.generate_name_rus()
+    def input_name(self, name_text):
+        # name_text = self.generation_data.generate_name_rus()
         browser.element("[data-qa='discussion-form'] [name='name']").type(name_text)
 
-    def input_email(self):
-        email_text = self.generation_data.generate_correct_email()
+    def input_email(self, email_text):
+
         browser.element("[data-qa='discussion-form'] [name='email']").type(email_text)
 
-    def input_phone(self):
-        browser.element("[data-qa='discussion-form'] [name='phone']").type(
-            self.generation_data.generate_full_phone()
-        )
+    def input_phone(self, phone_number):
+        browser.element("[data-qa='discussion-form'] [name='phone']").type(phone_number)
 
     @staticmethod
     @allure.step("Установка чекбокс политики конфиденциальности")
@@ -89,7 +86,7 @@ class FooterForm:
             "[data-qa='discussion-form'] input[type='file']",
         )
 
-        attach_files(add_file_in_popup_locator, folder, count, specific_files)
+        file_list_definition(add_file_in_popup_locator, folder, count, specific_files)
 
     # TODO - ожидаем добавление обработки ошибок - добавление data-qa
     @staticmethod

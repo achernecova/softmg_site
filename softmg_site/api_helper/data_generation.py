@@ -28,6 +28,14 @@ class DataGeneration:
         return "@" + self.generate_data.name()
 
     @staticmethod
+    def generate_topping_random():
+        selected_indexes = random.sample(
+            range(1, 6), random.randint(1, 6)
+        )  # Выбираем индексы топпингов
+        return selected_indexes
+
+
+    @staticmethod
     def generate_incorrect_email_with_one_character():
         # Генерируем случайную цифру или букву
         symbol = random.choice(

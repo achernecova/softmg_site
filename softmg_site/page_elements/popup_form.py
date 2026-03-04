@@ -1,21 +1,17 @@
-import random
-
 import allure
 from faker.proxy import Faker
 from selene import browser, have
 from selenium.webdriver.common.by import By
 
-from softmg_site.api_helper.data_generation import DataGeneration
-from softmg_site.page_elements.attach_files_in_forms import attach_files
+from softmg_site.api_helper.data_generation import DataGeneration, generation_data
+from softmg_site.page_elements.attach_files_in_forms import file_list_definition
 from softmg_site.page_elements.modal_popup import PopupModal
 
 
 class PopupFormRequests:
 
     def __init__(self):
-        """
-        Добавлена переменная constant для однозначного определения заявки с автотестов в CRM и на почте.
-        """
+
         self.name_data = Faker()
         self.data = Faker("ru_RU")
         self.cookie_modal = PopupModal()
@@ -40,33 +36,28 @@ class PopupFormRequests:
     def click_topping_random():
         """
         Метод для рандомного выбора топпингов
-        :return:
         """
-        selected_indexes = random.sample(
-            range(1, 7), random.randint(1, 6)
-        )  # Выбираем индексы топпингов
-
+        selected_indexes = generation_data.generate_topping_random()
         for index in selected_indexes:
             element_locator = (
-                f"//*[contains(@class, 'sendmail-popup')]//*[@for='t1{index}']"
+                f"//*[@data-qa='theme-tag-{index}']"
             )
             browser.element(element_locator).click()
-            print(f"Выбран топпинг с индексом: {index}")  # Для отладки
 
     @allure.step("Заполняем корректными данными поле Имя")
-    def input_name_in_popup(self):
+    def input_name_in_popup(self, name_data):
         """
         Простое заполнение поля Имя в модалке.
         """
-        self.name_element.type(self.generation_data.generate_name_rus())
+        self.name_element.type(name_data)
 
     @allure.step("Заполняем корректными данными поле Email")
-    def input_email_in_popup(self):
-        email_text = self.generation_data.generate_correct_email()
+    def input_email_in_popup(self, email_text):
         self.email_element.type(email_text)
 
-    def input_incorrect_data_in_fields(self, value_field, value_data):
+    def input_incorrect_data_in_fields(self, value_field, value_data, email_text):
         """
+        :param email_text:
         :param value_field: Название поля которое проверяем.
         :param value_data: Данные которые вставляем.
         """
@@ -75,11 +66,11 @@ class PopupFormRequests:
                 self.email_element.type(value_data)
                 browser.element((By.TAG_NAME, "body")).click()
             elif value_field == "name":
-                self.input_email_in_popup()
+                self.input_email_in_popup(email_text)
                 cleaned_value = value_data.strip().replace("\n", "")
                 self.name_element.type(cleaned_value)
             elif value_field == "phone":
-                self.input_email_in_popup()
+                self.input_email_in_popup(email_text)
                 self.phone_element.type(value_data)
             else:
                 raise ValueError(f"Не поддерживаемое поле: {value_field}")
@@ -91,7 +82,7 @@ class PopupFormRequests:
 
     # TODO - параметризовать тест с вводом кириллицы
     @allure.step("Заполняем email некорректно - без @")
-    def email_validation_message(self):
+    def assert_validation_email_message(self):
         self.email_element.type("invalid_email")
         self.click_button_in_popup()
 
@@ -106,19 +97,17 @@ class PopupFormRequests:
         )
 
     @allure.step("Заполняем корректными данными поле Телефон")
-    def input_phone_in_popup(self):
+    def input_phone_in_popup(self, phone_number):
         """
         Корректное заполнение поля Email в модалке
         """
-        phone_number = self.generation_data.generate_full_phone()
         self.phone_element.type(phone_number)
 
     @allure.step("Заполняем корректными данными поле Комментарий")
-    def input_comment_in_popup(self, count):
+    def input_comment_in_popup(self, comment_text):
         """
         Корректное заполнение поля Комментарий в модалке
         """
-        comment_text = self.generation_data.generate_text(count)
         browser.element(
             "[data-qa='leave-application-form'] [placeholder='Комментарий']"
         ).type(comment_text)
@@ -152,4 +141,4 @@ class PopupFormRequests:
             By.CSS_SELECTOR,
             "[data-qa='leave-application-form'] input[type='file']",
         )
-        attach_files(add_file_in_popup_locator, folder, count, specific_files)
+        file_list_definition(add_file_in_popup_locator, folder, count, specific_files)
