@@ -30,7 +30,7 @@ class DataGeneration:
     @staticmethod
     def generate_topping_random():
         selected_indexes = random.sample(
-            range(1, 6), random.randint(1, 6)
+            range(1, 6), random.randint(1, 5)
         )  # Выбираем индексы топпингов
         return selected_indexes
 
@@ -61,13 +61,15 @@ class GenerateObject:
     telegram: Optional[str] = None
     whatsapp: Optional[str] = None
     description: Optional[str] = None
+    privacy_consent:Optional[str] = None
 
 
 correct_data = GenerateObject(
     email=generation_data.generate_correct_email(),
     name=generation_data.generate_name(),
     phone=generation_data.generate_phone(10000000000, 99999999999),
-    description=generation_data.generate_text(500),
+    description=generation_data.generate_text(300),
+    privacy_consent='1'
 )
 
 correct_data_with_all_fields = GenerateObject(
@@ -76,7 +78,8 @@ correct_data_with_all_fields = GenerateObject(
     phone=generation_data.generate_phone(10000000000, 99999999999),
     telegram=generation_data.generate_tg_name(),
     whatsapp=generation_data.generate_phone(10000000000, 99999999999),
-    description=generation_data.generate_text(500),
+    description=generation_data.generate_text(499),
+    privacy_consent='1'
 )
 
 correct_data_with_only_email = GenerateObject(

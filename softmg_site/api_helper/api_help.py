@@ -98,6 +98,7 @@ class ApiHelper:
             logger.info(
                 f"Отправлен запрос: {response.status_code}, Body: {response.text}"
             )
+            print(response.text)
             self.log_request_and_response(response.request, response)
             return response
 

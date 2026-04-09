@@ -1,0 +1,179 @@
+# .gitlab-ci.yml
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: always
+    - when: never
+
+stages:
+  - build
+  - test
+  - reports
+
+variables:
+  RUN_MARKER:
+    value: ""
+    options:
+      - ""
+      - "open_menu_new"
+      - "regression"
+      - "open_menu_new open_menu"
+    description: "Маркер pytest для запуска"
+
+  X_STAGE_NETWORK_TYPE:
+    value: ""
+    options:
+      - ""
+      - "private"
+      - "public"
+    description: "X-stage-network-type"
+
+  BASE_URL:
+    value: ""
+    options:
+      - ""
+      - "https://softmg.ru/"
+      - "https://preprod.softmg.ru/"
+    description: "Контур запуска"
+
+  BROWSER_NAME:
+    value: "chrome"
+    options:
+      - "chrome"
+      - "firefox"
+    description: "Браузер"
+
+  HEADLESS:
+    value: "true"
+    options:
+      - "true"
+      - "false"
+    description: "Headless режим"
+
+  REBUILD_IMAGE:
+    value: "false"
+    options:
+      - "false"
+      - "true"
+    description: "Пересобрать docker-образ перед тестами"
+
+  DOCKER_HOST: "tcp://docker:2375"
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: "overlay2"
+
+image: docker:24.0.9
+
+services:
+  - name: docker:24.0.9-dind
+    alias: docker
+    command: ["--host=tcp://0.0.0.0:2375", "--tls=false"]
+
+before_script:
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  - until docker info >/dev/null 2>&1; do echo "Waiting for Docker daemon..."; sleep 2; done
+
+build_image:
+  stage: build
+  tags:
+    - stage01
+  script:
+    - docker build -t "$CI_REGISTRY_IMAGE:latest" .
+    - docker push "$CI_REGISTRY_IMAGE:latest"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web" && $REBUILD_IMAGE == "true"'
+      when: on_success
+    - when: never
+
+run_tests:
+  stage: test
+  tags:
+    - stage01
+  needs:
+    - job: build_image
+      optional: true
+  script:
+    - mkdir -p "$CI_PROJECT_DIR/allure-results/raw"
+    - rm -rf "$CI_PROJECT_DIR/allure-results/raw"/* || true
+    - chown -R 1000:1000 "$CI_PROJECT_DIR/allure-results" || true
+    - chmod -R u+rwX,g+rwX "$CI_PROJECT_DIR/allure-results" || true
+
+    - docker pull "$CI_REGISTRY_IMAGE:latest"
+
+    - |
+      set -- -v --tb=line
+
+      if [ -n "$BROWSER_NAME" ]; then
+        set -- "$@" "--browser_name=$BROWSER_NAME"
+      fi
+
+      if [ -n "$RUN_MARKER" ]; then
+        for marker in $RUN_MARKER; do
+          set -- "$@" "--run-marker=$marker"
+        done
+      fi
+
+      if [ -n "$X_STAGE_NETWORK_TYPE" ]; then
+        set -- "$@" "--x-stage-network-type=$X_STAGE_NETWORK_TYPE"
+      fi
+
+      if [ -n "$BASE_URL" ]; then
+        set -- "$@" "--base-url=$BASE_URL"
+        echo "ВНИМАНИЕ: Переопределен контур на $BASE_URL"
+      fi
+
+      echo "Запускаю тесты с аргументами: $*"
+
+      docker run --rm \
+        --shm-size=2g \
+        --env-file .env \
+        -e HEADLESS="$HEADLESS" \
+        -e BROWSER_NAME="$BROWSER_NAME" \
+        -e X_STAGE_NETWORK_TYPE="$X_STAGE_NETWORK_TYPE" \
+        -e BASE_URL="$BASE_URL" \
+        -v "$CI_PROJECT_DIR:/app" \
+        -w /app \
+        "$CI_REGISTRY_IMAGE:latest" \
+        pytest --alluredir=/app/allure-results/raw "$@"
+
+  artifacts:
+    when: always
+    paths:
+      - allure-results/
+    expire_in: 1 week
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: on_success
+    - when: never
+
+allure_report:
+  stage: reports
+  tags:
+    - stage01
+  image:
+    name: "$CI_REGISTRY_IMAGE:latest"
+    docker:
+      user: "root"
+  needs:
+    - job: run_tests
+      artifacts: true
+  services: []
+  before_script: []
+  script:
+    - mkdir -p temp_allure_report consolidated_report
+    - allure generate allure-results/raw -o temp_allure_report --clean
+    - python -m pip install --no-cache-dir allure-combine==1.0.11
+    - allure-combine temp_allure_report --dest consolidated_report
+    - ls -lh consolidated_report/
+  artifacts:
+    name: "allure-report-$CI_PIPELINE_ID"
+    when: always
+    paths:
+      - allure-results/
+      - consolidated_report/
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: on_success
+    - when: never

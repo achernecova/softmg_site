@@ -1,25 +1,23 @@
 import csv
+import logging
 import os
 from pathlib import Path
 from urllib.parse import urljoin
 
-# Определяем текущее окружение
-ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+from dotenv import load_dotenv
 
-# Определяем базовый URL в зависимости от окружения
-BASE_URL = (
-    os.getenv("MAIN_PAGE", "https://preprod.softmg.ru")
-    if ENVIRONMENT == "development"
-    else os.getenv("PROD_PAGE", "https://softmg.ru")
-)
+# Загружаем переменные из .env
+load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 class PageConfig:
-    def __init__(self, csv_path: Path):
+    def __init__(self, csv_path: Path, base_url: str = None):
+        self.base_url = base_url or os.getenv("BASE_URL")
         self.pages = self.load_pages_from_csv(csv_path)
 
-    @staticmethod
-    def load_pages_from_csv(csv_path: Path) -> dict:
+    def load_pages_from_csv(self, csv_path: Path) -> dict:
         """Читает CSV-файл и возвращает словарь страниц"""
         pages = {}
 
@@ -28,8 +26,8 @@ class PageConfig:
 
             for row in reader:
                 # Формируем абсолютные URL, добавляя базовый URL
-                absolute_url_page = urljoin(BASE_URL, row["url_page"].lstrip("/"))
-                absolute_api_url = urljoin(BASE_URL, row["api_url"].lstrip("/"))
+                absolute_url_page = urljoin(self.base_url, row["url_page"].lstrip("/"))
+                absolute_api_url = urljoin(self.base_url, row["api_url"].lstrip("/"))
                 pages[row["name"]] = {
                     "name": row["name"],
                     "title": row["title"],

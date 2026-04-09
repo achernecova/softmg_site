@@ -26,7 +26,7 @@ class TestAPIRequestsSuccess:
         # Устанавливаем значение feedback_name из параметризации
         correct_data.feedback_name = name_form
 
-        # Отправляем запрос
+        ## Отправляем запрос
         response = api_help.send_post_request(data=correct_data)
         assert response.status_code == 201
 
@@ -141,6 +141,14 @@ class TestAPIRequestsNegative:
         "SOFTMG-1255: Неуспешная отправка заявки без установки чекбокса Политики конфиденциальности"
     )
     @allure.title("Неуспешная отправка заявки без установки чекбокса Политики ")
+    @allure.link("https://jira.softmg.ru/browse/SOFTMG-1257", name="SOFTMG-1257")
     @name_of_feedback_forms
     def test_api_add_requests_without_checkbox_privacy_consent(self, api_help, name_form):
-        raise NotImplementedError
+        correct_data.feedback_name = name_form
+        response = api_help.send_post_request(data=correct_data)
+
+        error_transform_response = get_data_error.transformation_json(response)
+        error_title = get_data_error.get_error_title(error_transform_response)
+
+        assert response.status_code == 422
+        assert error_title == "Privacy consent must be accepted."

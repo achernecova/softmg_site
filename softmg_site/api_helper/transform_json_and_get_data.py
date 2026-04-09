@@ -12,12 +12,14 @@ class TransformAndGetData:
         logger.info(
             f"Трансформированный json ответ: {json.dumps(value.json(), indent=4, ensure_ascii=False)}"
         )
+        print(f"Трансформированный json ответ: {json.dumps(value.json(), indent=4, ensure_ascii=False)}")
         return body
 
     @staticmethod
     def get_error_title(response):
         error_title = response["errors"][0]["title"]
         logger.info(f"Error: {error_title}")
+        print(f"Error: {error_title}")
         return error_title
 
     @staticmethod

@@ -20,6 +20,7 @@ class ExamplePage:
             logger.info("Открываем страницу поиска")
             self.browser.open(self.url_page)
 
+    @property
     def count_example_elements(self):
         logger.info("Считаем количество отображаемых карточек")
         return self.example_elements
